@@ -2,14 +2,10 @@
 
 import { motion } from "framer-motion";
 
-interface VariantProps {
-  ariaHidden: boolean;
-}
-
-export const CharacterDefs = () => (
+export const CharacterDefs = ({ id }: { id: string }) => (
   <defs>
     <pattern
-      id="palash-hatch"
+      id={id}
       patternUnits="userSpaceOnUse"
       width="3"
       height="3"
@@ -60,7 +56,7 @@ const Face = ({ blink = false }: { blink?: boolean }) => (
   </>
 );
 
-const Body = () => (
+const Body = ({ hatchId }: { hatchId: string }) => (
   <>
     <path
       d="M48 102 Q46 99 52 99 L107 100 Q113 100 113 104 L116 178 Q117 184 110 184 L50 183 Q44 184 45 178 Z"
@@ -71,7 +67,7 @@ const Body = () => (
     />
     <path
       d="M48 102 Q46 99 52 99 L107 100 Q113 100 113 104 L116 178 Q117 184 110 184 L50 183 Q44 184 45 178 Z"
-      fill="url(#palash-hatch)"
+      fill={`url(#${hatchId})`}
     />
     <path
       d="M72 92 L73 105 L87 105 L88 92"
@@ -83,15 +79,15 @@ const Body = () => (
   </>
 );
 
-export function HeroWave({ animate, ariaHidden }: VariantProps & { animate: boolean }) {
+export function HeroWave({ animate, hatchId }: { animate: boolean; hatchId: string }) {
   return (
     <svg
       viewBox="0 0 160 200"
       xmlns="http://www.w3.org/2000/svg"
-      aria-hidden={ariaHidden ? "true" : undefined}
+      aria-hidden="true"
     >
-      <CharacterDefs />
-      <Body />
+      <CharacterDefs id={hatchId} />
+      <Body hatchId={hatchId} />
       <path
         d="M48 108 Q42 130 45 158 Q46 162 51 162 L58 162 Q63 162 60 156 Q57 130 56 112"
         fill="var(--accent)"
@@ -99,7 +95,7 @@ export function HeroWave({ animate, ariaHidden }: VariantProps & { animate: bool
         strokeWidth="1.5"
       />
       <motion.g
-        style={{ originX: "108px", originY: "108px" }}
+        style={{ originX: "108px", originY: "108px", transformBox: "fill-box" }}
         animate={animate ? { rotate: [0, 18, -8, 18, 0] } : { rotate: 0 }}
         transition={animate ? { duration: 2.4, repeat: Infinity, ease: "easeInOut" } : {}}
       >
@@ -119,15 +115,15 @@ export function HeroWave({ animate, ariaHidden }: VariantProps & { animate: bool
   );
 }
 
-export function Thinking({ ariaHidden }: VariantProps) {
+export function Thinking({ hatchId }: { hatchId: string }) {
   return (
     <svg
       viewBox="0 0 160 200"
       xmlns="http://www.w3.org/2000/svg"
-      aria-hidden={ariaHidden ? "true" : undefined}
+      aria-hidden="true"
     >
-      <CharacterDefs />
-      <Body />
+      <CharacterDefs id={hatchId} />
+      <Body hatchId={hatchId} />
       <path
         d="M48 108 Q42 130 45 158 Q46 162 51 162 L58 162 Q63 162 60 156 Q57 130 56 112"
         fill="var(--accent)"
@@ -147,15 +143,15 @@ export function Thinking({ ariaHidden }: VariantProps) {
   );
 }
 
-export function Pointing({ ariaHidden }: VariantProps) {
+export function Pointing({ hatchId }: { hatchId: string }) {
   return (
     <svg
       viewBox="0 0 160 200"
       xmlns="http://www.w3.org/2000/svg"
-      aria-hidden={ariaHidden ? "true" : undefined}
+      aria-hidden="true"
     >
-      <CharacterDefs />
-      <Body />
+      <CharacterDefs id={hatchId} />
+      <Body hatchId={hatchId} />
       <path
         d="M48 108 Q42 130 45 158 Q46 162 51 162 L58 162 Q63 162 60 156 Q57 130 56 112"
         fill="var(--accent)"
@@ -176,29 +172,29 @@ export function Pointing({ ariaHidden }: VariantProps) {
   );
 }
 
-export function Peeking({ ariaHidden }: VariantProps) {
+export function Peeking({ hatchId }: { hatchId: string }) {
   return (
     <svg
       viewBox="0 0 160 120"
       xmlns="http://www.w3.org/2000/svg"
-      aria-hidden={ariaHidden ? "true" : undefined}
+      aria-hidden="true"
     >
-      <CharacterDefs />
+      <CharacterDefs id={hatchId} />
       <Face />
     </svg>
   );
 }
 
-export function Celebrating({ ariaHidden }: VariantProps) {
+export function Celebrating({ hatchId }: { hatchId: string }) {
   return (
     <svg
       viewBox="0 0 200 220"
       xmlns="http://www.w3.org/2000/svg"
-      aria-hidden={ariaHidden ? "true" : undefined}
+      aria-hidden="true"
     >
-      <CharacterDefs />
+      <CharacterDefs id={hatchId} />
       <g transform="translate(20, 0)">
-        <Body />
+        <Body hatchId={hatchId} />
         <path
           d="M48 108 Q35 90 30 70 L26 50 Q22 45 20 50 Q18 56 22 64 L26 84 Q30 96 36 110"
           fill="var(--accent)"

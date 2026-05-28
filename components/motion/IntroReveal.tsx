@@ -29,10 +29,9 @@ export function IntroReveal() {
     };
   }, [reduced]);
 
-  if (!showIntro) return null;
-
   return (
     <AnimatePresence>
+      {showIntro && (
       <motion.div
         key="intro"
         className="fixed inset-0 z-[200] flex items-center justify-center bg-[var(--bg)]"
@@ -69,6 +68,7 @@ export function IntroReveal() {
           ))}
         </div>
       </motion.div>
+      )}
     </AnimatePresence>
   );
 }

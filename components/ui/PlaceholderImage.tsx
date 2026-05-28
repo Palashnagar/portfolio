@@ -1,6 +1,4 @@
 import Image from "next/image";
-import fs from "fs";
-import path from "path";
 
 interface PlaceholderImageProps {
   slot: string;
@@ -9,16 +7,11 @@ interface PlaceholderImageProps {
   label: string;
 }
 
-// Server component — checks filesystem at request time
+// Works in both server and client components — no Node.js fs dependency.
+// Shows the image when src starts with "/" (a real public path), otherwise
+// renders a decorative placeholder.
 export function PlaceholderImage({ slot, path: src, aspect, label }: PlaceholderImageProps) {
-  const publicPath = path.join(process.cwd(), "public", src);
-  let exists = false;
-  try {
-    exists = fs.existsSync(publicPath);
-  } catch {
-    exists = false;
-  }
-
+  const exists = typeof src === "string" && src.startsWith("/") && src.length > 1;
   const [w, h] = aspect.split("/").map(Number);
 
   if (exists) {

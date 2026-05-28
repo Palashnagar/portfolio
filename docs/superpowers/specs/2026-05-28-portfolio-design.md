@@ -148,6 +148,90 @@ Build a custom-coded portfolio that stands out on first impression, keeps case s
 **Behavior:** Horizontal scrolling ticker (CSS keyframes) with status strings the user defines in `data/status.ts`. Pause-on-hover. Tiny (28px height).
 **Initial strings:** `✱ Available May 2026` · `✱ Building thermal wearables at RIT` · `✱ Open to relocation` · `✱ Currently reading: Ruined by Design`
 
+## Character mascot — "Palash" illustration
+
+A custom illustrated character of the user, used **sparingly** as a recurring personality element. Style direction locked: **Warm Hand-Drawn / Editorial illustration** (Mailchimp Freddie · Headspace · Cassie Evans · New Yorker spot lineage).
+
+### Locked design elements
+
+These stay identical across every instance so the character reads as one consistent personality:
+
+- Young designer figure, friendly proportions (head slightly larger than realistic)
+- Short, slightly messy dark hair (`--ink` #2b1d12) with visible individual strokes
+- Round-frame glasses (1.5px outline, no fill)
+- Warm skin tone (base `#d4a373`, shadow `#c8946b`)
+- Casual shirt in ochre/terracotta (`--accent` #b45309 or `#c2410c`)
+- **Line treatment:** 1.5px primary outline, 1.2px detail strokes, slightly imperfect / hand-drawn feel
+- **Shading:** Soft diagonal hatch pattern at 30% opacity in shirt fills, subtle blush ellipses on cheeks
+- All fills reference design system color tokens via CSS variables — fully themeable
+
+### Variants (poses & expressions)
+
+| Variant | Description | Display size | Aria |
+|---|---|---|---|
+| `hero-wave` | Full body, waving with right arm, soft smile | 320–400px wide | Meaningful label |
+| `thinking` | Head + shoulders, finger to chin, contemplating | 64–96px | Decorative (hidden) |
+| `pointing` | Head + arm, finger extended toward next element | 80px | Decorative (hidden) |
+| `peeking` | Just head + glasses appearing from screen edge | 48–64px | Decorative (hidden) |
+| `celebrating` | Both arms up, eyes closed in joy | 96–120px | Decorative (hidden) |
+
+### Placement plan (4 instances total — cap enforced)
+
+1. **`/about` section 02 (Bio)** — `hero-wave` at full size alongside the bio text. Idle wave animation. The "primary introduction" instance — gets the only meaningful aria-label.
+2. **`/work/[slug]` section 02 (Problem)** — `thinking` pose peeking from the left margin near the problem statement. Subtle entrance fade.
+3. **`/` Home, "Let's connect" section** — `pointing` pose oriented toward the magnetic CTA button. Entrance fade on scroll-in.
+4. **`/contact` success state** — `celebrating` after successful form submission. Brief scale-pop entrance.
+
+Hard rule: **no other appearances**. Adding more risks tipping into gimmicky.
+
+### Implementation
+
+**Component:** `/components/character/PalashCharacter.tsx`
+
+```ts
+type CharacterVariant = 'hero-wave' | 'thinking' | 'pointing' | 'peeking' | 'celebrating';
+
+interface PalashCharacterProps {
+  variant: CharacterVariant;
+  size?: number;          // px; defaults per variant
+  decorative?: boolean;   // default true → aria-hidden
+  label?: string;         // overrides default aria-label when decorative=false
+}
+```
+
+- Returns **inline SVG** (not `<img>` or background-image) so colors react to CSS variables
+- All colors via `currentColor` / CSS custom properties (`var(--accent)`, etc.) — no hardcoded hex
+- Animations live in component (variant-specific) — wave on `hero-wave` only, fade-in entrance on all
+- Each SVG ≤ 4KB inline
+- Variants are separate SVG bodies in one file — shared `<defs>` for the hatch pattern and gradient definitions
+
+### Animation
+
+- **Entrance (all variants):** `useReveal` hook — opacity 0→1 + 12px y offset → 0, 0.7s ease-out-quart, triggered once on intersection
+- **Idle on hero-wave:**
+  - Arm wave: 2.4s ease-in-out infinite, rotates 18° → -8° → 0° on a `transform-origin` near the shoulder joint
+  - Blink: eye opacity 1 → 0 → 1 over 200ms, every 4-6s (randomized)
+- **Celebrating idle:** Subtle 0.5s scale-bounce on mount (1 → 1.08 → 1)
+- All idle animations check `prefers-reduced-motion: reduce` → disabled entirely
+
+### Accessibility
+
+- Hero version: `aria-label="Illustration of Palash waving hello"` (or user-provided override)
+- All other instances: `aria-hidden="true"`
+- Inline SVG (not external) — no extra network request, no render-block
+- `role="img"` only on the labelled hero instance
+- Idle animations pause when component is off-screen (intersection observer) to save battery
+
+### Open item for character art
+
+The rough SVGs shown in the visual companion are **style-direction references, not final art**. During Ship 1 the site uses my refined SVG sketches as functional placeholders. The path to final art:
+
+- **(a)** Palash draws the variants himself in Figma/Procreate following the locked design rules — most authentic, preferred
+- **(b)** Commission an illustrator who can match the Warm Hand-Drawn direction
+- **(c)** I refine the placeholder SVGs further with more anatomical accuracy
+
+Flagged in Ship 1 open items below.
+
 ## Page designs
 
 ### `/` Home
@@ -159,7 +243,7 @@ Sections top to bottom:
 4. **Selected work** — 3 featured case studies as large tiles (MyCourses, RoomieMatch, RIT Athletics). Hover triggers warm tint + custom cursor "View →". Each tile shows: cover image, project title, role tag, one-line description, year.
 5. **A bit about me** — Short paragraph + headshot + "More about me →" link to /about
 6. **Currently / Now** — 3 live strips (Building, Reading, Available)
-7. **Let's connect** — Magnetic ochre CTA + social row
+7. **Let's connect** — Magnetic ochre CTA + social row. **Character mascot instance #3:** `pointing` pose oriented toward the CTA.
 8. **Footer** — Sitemap links, copyright, "Built from scratch · 2026" credit
 
 ### `/work` Work index
@@ -177,7 +261,7 @@ Every case study uses this 8-section structure (locked).
 | # | Section | What it does |
 |---|---|---|
 | 01 | **Cover** | Title + tagline + role/year/duration/team/tools strip + hero image |
-| 02 | **Problem** | Pain narrative + one user quote pull-out + scope |
+| 02 | **Problem** | Pain narrative + one user quote pull-out + scope. **Character mascot instance #2:** `thinking` pose peeking from left margin. |
 | 03 | **Research** | Methods (2-3 max) + 3 numbered insights + research artifact images |
 | 04 | **How Might We** | One bold HMW statement + 2-3 design principles |
 | 05 | **Process** | Sketches → wireframes → iterations (2-4 visuals, each captioned with *what changed and why*) |
@@ -204,7 +288,7 @@ Every case study uses this 8-section structure (locked).
 | # | Section | Notes |
 |---|---|---|
 | 01 | **Hero** | One opinionated sentence. Word-rise on view. |
-| 02 | **Bio** | 2-3 paragraphs + portrait headshot. Pull-quote callout. |
+| 02 | **Bio** | 2-3 paragraphs + **character mascot instance #1**: `hero-wave` full-size, with idle wave + blink. The character replaces the photo headshot here as the primary personal introduction. Pull-quote callout below. |
 | 03 | **Currently** | Live strip: working on, reading, availability. Updates from `data/currently.ts`. |
 | 04 | **Experience** | Timeline rows (year · place · role). Hover for context line. |
 | 05 | **Off the clock** | **Portraits film** (cinematic moment #3). |
@@ -230,7 +314,7 @@ Every case study uses this 8-section structure (locked).
 - Big hero: "Let's make something." (or similar — final copy in content plan)
 - Form: Name · Email · Message · Project type (radio: Full-time · Freelance · Just saying hi)
 - Submit hits Resend API route at `/api/contact`
-- Success state: typewriter-style confirmation message
+- Success state: typewriter-style confirmation message + **character mascot instance #4:** `celebrating` pose with scale-pop entrance
 - Fallback: `mailto:asnddev@gmail.com` link visible below form
 
 ## Image asset strategy
@@ -305,6 +389,7 @@ Magnetic button hook `useMagnetic()` — primary CTAs translate up to 8px toward
 │   ├── marquee/StatusMarquee.tsx
 │   ├── nav/Nav.tsx
 │   ├── footer/Footer.tsx
+│   ├── character/                    PalashCharacter.tsx (all variants), variants.tsx (SVG bodies)
 │   ├── case-study/                   Section, Insight, MetricCallout, etc.
 │   ├── work/WorkTile.tsx
 │   └── ui/                           Button, MagneticButton, PlaceholderImage
@@ -334,7 +419,7 @@ Magnetic button hook `useMagnetic()` — primary CTAs translate up to 8px toward
 
 ## Build sequence
 
-### Ship 1 — MVP live URL (~2 sessions)
+### Ship 1 — MVP live URL (~2.5 sessions)
 - Project setup (Next.js, Tailwind, Framer Motion, fonts)
 - Design system tokens + global styles
 - Site shell: marquee, nav, footer, custom cursor
@@ -344,6 +429,7 @@ Magnetic button hook `useMagnetic()` — primary CTAs translate up to 8px toward
 - MyCourses case study (fully populated, all 8 sections)
 - Resume page + PDF
 - Contact form + Resend handler
+- **Character mascot system:** `PalashCharacter` component with all 5 variants, placed at 4 locations (about hero-wave, MyCourses thinking, home pointing, contact celebrating)
 - Deploy to Vercel
 - **Outcome:** Shareable URL with a fully complete look — nothing half-finished.
 
@@ -371,11 +457,12 @@ Open question for after spec approval: does the user want me to draft new copy f
 ## Open items (post-spec, pre-build)
 
 These are not blockers for spec approval but will need resolution during Ship 1:
-- [ ] User provides portrait headshot (or I use placeholder until they do)
+- [ ] User provides portrait headshot for `/about` section 02 alt slot, or accepts character mascot as the primary intro (current spec assumes character replaces headshot here)
 - [ ] User provides 6-10 hobby photos for portraits film (or placeholders + user replaces)
 - [ ] User confirms initial marquee strings + "Currently" entries
 - [ ] User provides résumé PDF or I generate one from the in-site résumé
 - [ ] Resend API key in `.env.local` for contact form (or fall back to mailto)
+- [ ] **Character art source:** decide between (a) Palash draws final variants, (b) commission an illustrator, or (c) I refine the placeholder SVGs further. Ship 1 uses my SVG sketches regardless — this just determines the v2 upgrade path.
 
 ## What "done for v1" looks like
 
@@ -388,6 +475,7 @@ These are not blockers for spec approval but will need resolution during Ship 1:
 - Marquee scrolls cleanly
 - MyCourses case study reads as a complete, polished story
 - Contact form sends or falls back to mailto
+- Character mascot present at all 4 locked locations with hero-wave idle animation
 - All copy is real (not lorem)
 
 ## Out-of-scope explicitly

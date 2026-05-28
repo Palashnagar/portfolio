@@ -98,7 +98,11 @@ export default async function CaseStudyPage({
 
       {/* MDX-rendered sections (02–08) */}
       <article>
-        <MDXRemote source={cs.body} components={mdxComponents} />
+        <MDXRemote
+          source={cs.body}
+          components={mdxComponents}
+          options={{ blockJS: false }}
+        />
       </article>
 
       <NextCaseStudy currentSlug={slug} />

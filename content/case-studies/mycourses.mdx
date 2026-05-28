@@ -1,0 +1,140 @@
+---
+title: MyCourses 2.0
+tagline: Helping 19,000+ RIT students never miss an assignment again
+role: UX Designer
+year: 2025
+duration: 8 weeks
+team: Solo
+tools:
+  - Figma
+  - Framer
+  - Maze
+cover: /case-studies/mycourses/cover.jpg
+metrics:
+  - { label: "Confidence in submission", value: "2×" }
+  - { label: "Less platform switching", value: "3×" }
+  - { label: "SUS score, up from 5.1", value: "8/10" }
+---
+
+<Section number="02" label="The problem" title="Students drowning in notifications, missing the ones that matter.">
+
+RIT runs on a 14-year-old learning platform called MyCourses. Students juggle it alongside email, Discord servers, printed handouts, and group chats. Assignments slip through the cracks — not because students aren't trying, but because the platform shouts equally loud about a parking notice and a final project deadline.
+
+<UserQuote
+  quote="I've missed three assignments this semester because notifications buried them under spam."
+  attribution="Maya, 2nd-year CS"
+/>
+
+<PalashCharacter variant="thinking" size={120} />
+
+The scope of the redesign was the **assignments + group sync** flow, not the entire LMS. I wanted to fix the part that affects everyone every week.
+
+</Section>
+
+<Section number="03" label="Research" title="What 12 interviews and 82 surveys actually told me.">
+
+I ran 12 semi-structured interviews with current RIT students across CS, Design, and Engineering, plus an 82-respondent screener survey. I built an affinity map from quotes, then narrowed it to three insights that became the design's north star.
+
+<Insight number="01" title="Notifications cause more anxiety than they solve">
+  Students described phantom-buzzing every time MyCourses pinged them. The platform treats every event as equally urgent.
+</Insight>
+
+<Insight number="02" title="Students rely on classmates more than the platform">
+  When in doubt, "I'll check with [friend]" beat opening MyCourses by a 4:1 ratio.
+</Insight>
+
+<Insight number="03" title='"Done" is invisible — no closure'>
+  Submitting an assignment produced no celebration, no clear acknowledgement. Students re-checked compulsively.
+</Insight>
+
+<ImageGroup
+  caption="Left: 47-card affinity wall. Right: insight cluster around 'notification anxiety'."
+  images={[
+    { src: "/case-studies/mycourses/research-affinity.jpg", label: "Affinity map" },
+    { src: "/case-studies/mycourses/research-cluster.jpg", label: "Insight cluster" }
+  ]}
+/>
+
+</Section>
+
+<Section number="04" label="How might we" title="From insight to design problem.">
+
+> How might we turn anxious assignment-hunting into a calm, shared rhythm?
+
+I held myself to three principles through every design decision:
+
+1. **Calm by default.** No surface should add anxiety; many should remove it.
+2. **Make "done" feel done.** Closure matters more than features.
+3. **Build for the friend group, not the individual.** Solo dashboards aren't how students actually work.
+
+</Section>
+
+<Section number="05" label="Process" title="Sketches, wireframes, and one design I killed.">
+
+I sketched four directions on paper, took two to mid-fi, and tested both in a 5-person guerilla round. The "filter-everything" approach (give users granular notification controls) tested poorly — students wanted less to think about, not more dials to tune.
+
+<ImageGroup
+  caption="Sketch sheet · low-fi A/B · mid-fi v1 (killed) · mid-fi v2 (forward)"
+  images={[
+    { src: "/case-studies/mycourses/process-sketches.jpg", label: "Sketches" },
+    { src: "/case-studies/mycourses/process-lowfi.jpg", label: "Low-fi" },
+    { src: "/case-studies/mycourses/process-midfi-killed.jpg", label: "Killed v1" },
+    { src: "/case-studies/mycourses/process-midfi-final.jpg", label: "Final v2" }
+  ]}
+/>
+
+The killed direction taught me the most: it took me a wireframe deeper than usual before I could see students hated it. I now budget more time for early-stage validation.
+
+</Section>
+
+<Section number="06" label="Solution" title="Three flows, three insights addressed.">
+
+The final design centers on three flows. Each maps directly to a research insight.
+
+<ImageGroup
+  caption="Today view — one calm screen, three things to do. Solves Insight 01."
+  images={[
+    { src: "/case-studies/mycourses/solution-today.jpg", label: "Today view", aspect: "9/16" }
+  ]}
+/>
+
+<ImageGroup
+  caption="Group sync — see what classmates are doing, ask, share. Solves Insight 02."
+  images={[
+    { src: "/case-studies/mycourses/solution-group-1.jpg", label: "Group view", aspect: "9/16" },
+    { src: "/case-studies/mycourses/solution-group-2.jpg", label: "Group sync", aspect: "9/16" }
+  ]}
+/>
+
+<ImageGroup
+  caption="Done state — a small but unmistakable celebration. Solves Insight 03."
+  images={[
+    { src: "/case-studies/mycourses/solution-done.jpg", label: "Done state", aspect: "9/16" }
+  ]}
+/>
+
+</Section>
+
+<Section number="07" label="Outcome" title="A second-round usability test, and what it showed.">
+
+I ran a second usability round with 8 students who hadn't seen earlier iterations. Each completed three core tasks: submit an assignment, check on a group, and triage a busy week. Results:
+
+<MetricCallout
+  metrics={[
+    { value: "2×", label: "Confidence in submission" },
+    { value: "3×", label: "Less platform switching" },
+    { value: "8/10", label: "SUS score, up from 5.1" }
+  ]}
+/>
+
+Confidence was measured with a post-task 7-point Likert ("I'm sure my submission went through"). Platform-switching was self-reported in a follow-up survey.
+
+</Section>
+
+<Section number="08" label="Reflection" title="What I'd do differently — and what I carry forward.">
+
+I shipped the notification redesign first because it felt the most urgent to me. In hindsight, the group-sync flow was the harder design problem and I should have validated it earlier — the killed mid-fi cost me a week.
+
+What I carry forward: **research findings should hold more weight in roadmap order than designer intuition about what's "ready" to design**. I had clear signal that group sync was the more loaded problem, and I avoided it for a week because it felt scary.
+
+</Section>

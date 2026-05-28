@@ -167,11 +167,9 @@ export default function HomePage() {
                 Get in touch →
               </MagneticButton>
             </Reveal>
-            <Reveal delay={0.2}>
-              <div className="-mb-4">
-                <PalashCharacter variant="pointing" size={140} />
-              </div>
-            </Reveal>
+            <div className="-mb-4">
+              <PalashCharacter variant="pointing" size={140} />
+            </div>
           </div>
         </section>
       </main>

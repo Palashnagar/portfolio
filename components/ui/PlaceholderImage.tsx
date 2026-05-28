@@ -28,6 +28,7 @@ export function PlaceholderImage({ slot, path: src, aspect, label }: Placeholder
         alt={label}
         width={w * 400}
         height={h * 400}
+        sizes="(min-width: 768px) 50vw, 100vw"
         className="w-full h-full object-cover"
       />
     );

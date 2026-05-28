@@ -14,11 +14,10 @@ export function CustomCursor() {
 
   useEffect(() => {
     setIsTouch(
-      typeof window !== "undefined" &&
-        (matchMedia("(pointer: coarse)").matches || "ontouchstart" in window),
+      matchMedia("(pointer: coarse)").matches || "ontouchstart" in window,
     );
 
-    if (matchMedia("(pointer: coarse)").matches) return;
+    if (matchMedia("(pointer: coarse)").matches || "ontouchstart" in window) return;
 
     const move = (e: PointerEvent) => {
       x.set(e.clientX);

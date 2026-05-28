@@ -1,8 +1,9 @@
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-      <h1 className="text-4xl font-bold">Palash Nagar</h1>
-      <p className="mt-4 text-lg text-zinc-600">Portfolio — coming soon</p>
+    <main className="min-h-screen flex items-center justify-center px-6">
+      <h1 className="font-[family-name:var(--font-display)] text-6xl md:text-8xl tracking-tight">
+        Palash <em className="text-[var(--accent)]">Nagar</em>
+      </h1>
     </main>
   );
 }

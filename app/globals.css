@@ -1,26 +1,62 @@
 @import "tailwindcss";
 
+@theme {
+  --color-bg: #f6efe3;
+  --color-bg-2: #ede5d4;
+  --color-ink: #2b1d12;
+  --color-ink-2: #5a3a22;
+  --color-accent: #b45309;
+  --color-accent-2: #d4a373;
+  --color-line: rgba(43, 29, 18, 0.12);
+
+  --font-display: "Fraunces", "EB Garamond", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+  --container-content: 72rem;
+  --container-reading: 42rem;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --duration-fast: 0.4s;
+  --duration-base: 0.7s;
+  --duration-slow: 1.2s;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #f6efe3;
+  --bg-2: #ede5d4;
+  --ink: #2b1d12;
+  --ink-2: #5a3a22;
+  --accent: #b45309;
+  --accent-2: #d4a373;
+  --accent-soft: rgba(180, 83, 9, 0.12);
+  --line: rgba(43, 29, 18, 0.12);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-feature-settings: "ss01", "cv11";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }

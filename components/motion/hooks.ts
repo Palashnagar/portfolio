@@ -34,7 +34,7 @@ export function useReveal(config: RevealConfig = {}) {
     transition: {
       duration: reduced ? 0.01 : duration,
       delay: reduced ? 0 : delay,
-      ease: [0.25, 1, 0.5, 1],
+      ease: [0.25, 1, 0.5, 1] as const,
     } as Transition,
   };
 }

@@ -57,6 +57,9 @@ body.cursor-active, body.cursor-active * { cursor: none; }
   }
 }
 
+@keyframes dot-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.dot-pulse { animation: dot-pulse 1.6s ease-in-out infinite; }
+
 /* Lenis smooth scroll */
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }

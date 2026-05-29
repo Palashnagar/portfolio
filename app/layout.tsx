@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Instrument_Serif, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
+import { Grain } from "@/components/fx/Grain";
+import { Cursor } from "@/components/fx/Cursor";
 
 const instrument = Instrument_Serif({
   weight: ["400"],
@@ -37,7 +39,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${instrument.variable} ${bricolage.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Grain />
+        <Cursor />
+        {children}
+      </body>
     </html>
   );
 }

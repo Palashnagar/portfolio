@@ -23,6 +23,8 @@
 html { scroll-behavior: smooth; background: var(--bg); }
 body { background: var(--bg); color: var(--ink); font-family: var(--font-body); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 
+body.cursor-active, body.cursor-active * { cursor: none; }
+
 ::selection {
   background: var(--accent);
   color: var(--bg);

@@ -4,6 +4,7 @@ import "./globals.css";
 import { Grain } from "@/components/fx/Grain";
 import { Cursor } from "@/components/fx/Cursor";
 import { SmoothScroll } from "@/components/fx/SmoothScroll";
+import { DistortionDefs } from "@/components/fx/Distortion";
 
 const instrument = Instrument_Serif({
   weight: ["400"],
@@ -43,6 +44,7 @@ export default function RootLayout({
       <body>
         <Grain />
         <Cursor />
+        <DistortionDefs />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

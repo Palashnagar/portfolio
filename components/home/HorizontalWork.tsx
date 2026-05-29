@@ -158,6 +158,10 @@ export default function HorizontalWork() {
   const railWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   useMotionValueEvent(scrollYProgress, "change", (p) => {
+    // Only the jack layout renders the progress label; in stack/carousel modes
+    // wrapperRef is unattached and scrollYProgress tracks the window, so skip the
+    // state churn (and re-renders) entirely.
+    if (mode !== "jack") return;
     setActiveIdx(activePanelIndex(p, projects.length));
   });
 

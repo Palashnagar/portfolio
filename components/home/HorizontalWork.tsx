@@ -17,7 +17,7 @@ import { activePanelIndex } from "@/lib/horizontal";
 
 function Thumb({ p }: { p: Project }) {
   return (
-    <DistortThumb className="h-full w-full rounded-[2px]">
+    <DistortThumb className="h-full w-full rounded-2xl">
       <svg
         viewBox="0 0 400 500"
         preserveAspectRatio="xMidYMid slice"

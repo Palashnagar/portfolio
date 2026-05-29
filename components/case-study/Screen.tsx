@@ -25,7 +25,7 @@ export function Screen({
   return (
     <figure className="my-10 grid items-start gap-6 md:grid-cols-2 md:gap-10">
       <div
-        className="relative overflow-hidden rounded-[2px] border border-line bg-ink/[0.03]"
+        className="relative overflow-hidden rounded-2xl border border-line bg-ink/[0.03]"
         style={{ aspectRatio: aspect }}
       >
         {src ? (

@@ -18,7 +18,7 @@ export function WorkGrid() {
           className="group block no-underline"
         >
           {/* Thumbnail (branded color title-card, 4:3) */}
-          <DistortThumb className="aspect-[4/3] w-full rounded-[2px]">
+          <DistortThumb className="aspect-[4/3] w-full rounded-2xl">
             <svg
               viewBox="0 0 400 300"
               preserveAspectRatio="xMidYMid slice"

@@ -20,7 +20,7 @@ export function Figure({
   return (
     <figure className="my-10">
       <div
-        className="relative overflow-hidden rounded-[2px] border border-line bg-ink/[0.03]"
+        className="relative overflow-hidden rounded-2xl border border-line bg-ink/[0.03]"
         style={{ aspectRatio: aspect }}
       >
         <Image

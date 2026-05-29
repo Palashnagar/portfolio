@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Palash Nagar — Hover Distortion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F1EA;
+    --ink: #0A0A0A;
+    --accent: #E94E1B;
+    --muted: #8A867F;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    min-height: 100vh;
+    cursor: none;
+  }
+
+  .grain {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    mix-blend-mode: multiply;
+    z-index: 100;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.65'/></svg>");
+  }
+
+  /* custom cursor */
+  .cursor {
+    position: fixed;
+    pointer-events: none;
+    z-index: 200;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+  }
+  .cursor-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .cursor.expanded .cursor-dot {
+    transform: scale(7);
+  }
+  .cursor-label {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--bg);
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition: opacity 0.2s 0.1s;
+    white-space: nowrap;
+  }
+  .cursor.expanded .cursor-label { opacity: 1; }
+
+  /* header */
+  .header {
+    position: fixed;
+    top: 32px; left: 32px; right: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    z-index: 50;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .header .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 6px;
+    vertical-align: middle;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .header a {
+    color: var(--ink);
+    text-decoration: none;
+    margin-left: 18px;
+  }
+  .header a:hover { color: var(--accent); }
+
+  /* page */
+  .page {
+    padding: 120px 6vw 80px;
+  }
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  .page-title {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(56px, 10vw, 160px);
+    line-height: 0.92;
+    letter-spacing: -0.025em;
+    margin-bottom: 80px;
+    max-width: 1400px;
+  }
+  .page-title em { color: var(--accent); }
+
+  /* grid */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  @media (max-width: 720px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  .card {
+    cursor: none;
+    text-decoration: none;
+    color: inherit;
+  }
+  .card-thumb {
+    position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: var(--ink);
+  }
+  .card-thumb svg.bg {
+    width: 100%; height: 100%;
+    display: block;
+    transition: filter 0.4s ease, transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .card:hover .card-thumb svg.bg {
+    filter: url(#distort);
+    transform: scale(1.04);
+  }
+
+  .card-meta {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .card-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-top: 8px;
+    transition: color 0.3s;
+  }
+  .card-title em { color: var(--accent); transition: color 0.3s; }
+  .card:hover .card-title { color: var(--accent); }
+
+  .card-desc {
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--ink);
+    opacity: 0.7;
+    max-width: 480px;
+  }
+
+  /* instruction */
+  .instruction {
+    position: fixed;
+    bottom: 32px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    z-index: 50;
+    text-align: center;
+  }
+  .instruction::before, .instruction::after { content: "—"; margin: 0 12px; }
+</style>
+</head>
+<body>
+  <!-- SVG filter for distortion -->
+  <svg width="0" height="0" style="position: absolute;">
+    <defs>
+      <filter id="distort">
+        <feTurbulence type="fractalNoise" baseFrequency="0.015 0.03" numOctaves="2" seed="2" id="turb">
+          <animate attributeName="baseFrequency" dur="3s" values="0.015 0.03;0.04 0.06;0.015 0.03" repeatCount="indefinite"/>
+        </feTurbulence>
+        <feDisplacementMap in="SourceGraphic" in2="turb" scale="40" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="grain"></div>
+  <div class="cursor" id="cursor">
+    <div class="cursor-dot"></div>
+    <div class="cursor-label" id="cursorLabel">View</div>
+  </div>
+
+  <div class="header">
+    <div>
+      <span class="dot"></span>Palash Nagar — UX/UI · HCI · RIT
+    </div>
+    <div>
+      <a href="#">Work</a>
+      <a href="#">About</a>
+      <a href="#">Resume</a>
+      <a href="#" style="color: var(--accent);">Contact →</a>
+    </div>
+  </div>
+
+  <main class="page">
+    <div class="eyebrow">Selected work · 4 projects</div>
+    <h1 class="page-title">Things I've <em>built.</em></h1>
+
+    <div class="grid" id="grid"></div>
+  </main>
+
+  <div class="instruction">Hover any project</div>
+
+<script>
+  const projects = [
+    {
+      title: 'MyCourses',
+      accent: '2.0',
+      meta: ['2025', 'CASE STUDY'],
+      desc: 'Helping 19,000+ RIT students never miss an assignment again.',
+      color: '#E94E1B',
+      textColor: '#FFF8F0',
+    },
+    {
+      title: 'Roomie',
+      accent: 'Match',
+      meta: ['2025', 'CASE STUDY'],
+      desc: 'Mobile-first roommate matching by lifestyle compatibility.',
+      color: '#1E3A5F',
+      textColor: '#F5F1EA',
+    },
+    {
+      title: 'RIT',
+      accent: 'Athletics',
+      meta: ['2025', 'CASE STUDY'],
+      desc: 'Keeping RIT Tigers fans connected on the go.',
+      color: '#F5A623',
+      textColor: '#1A1407',
+    },
+    {
+      title: 'RIT',
+      accent: 'EATS',
+      meta: ['2025', 'CASE STUDY'],
+      desc: 'Reducing dining-hall friction across campus.',
+      color: '#2D5F3F',
+      textColor: '#F5F1EA',
+    },
+  ];
+
+  const grid = document.getElementById('grid');
+  projects.forEach((p, i) => {
+    const card = document.createElement('a');
+    card.className = 'card';
+    card.href = '#';
+    card.innerHTML = `
+      <div class="card-thumb">
+        <svg class="bg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="300" fill="${p.color}"/>
+          <text x="200" y="155" text-anchor="middle" fill="${p.textColor}" font-family="Instrument Serif" font-size="46" font-style="italic">${p.title}</text>
+          <text x="200" y="195" text-anchor="middle" fill="${p.textColor}" opacity="0.6" font-family="Bricolage Grotesque" font-size="11" letter-spacing="3">${p.accent.toUpperCase()}</text>
+        </svg>
+      </div>
+      <div class="card-meta">
+        <span>${p.meta.join(' · ')}</span>
+        <span>0${i + 1} / 04</span>
+      </div>
+      <h3 class="card-title">${p.title} <em>${p.accent}</em></h3>
+      <p class="card-desc">${p.desc}</p>
+    `;
+    grid.appendChild(card);
+  });
+
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const cursorLabel = document.getElementById('cursorLabel');
+  let mx = window.innerWidth/2, my = window.innerHeight/2;
+  let cx = mx, cy = my;
+  window.addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; });
+  function moveCursor() {
+    cx += (mx - cx) * 0.22; cy += (my - cy) * 0.22;
+    cursor.style.left = cx + 'px';
+    cursor.style.top = cy + 'px';
+    requestAnimationFrame(moveCursor);
+  }
+  moveCursor();
+
+  document.querySelectorAll('.card').forEach(c => {
+    c.addEventListener('mouseenter', () => {
+      cursor.classList.add('expanded');
+      cursorLabel.textContent = 'View →';
+    });
+    c.addEventListener('mouseleave', () => {
+      cursor.classList.remove('expanded');
+    });
+  });
+  document.querySelectorAll('.header a').forEach(a => {
+    a.addEventListener('mouseenter', () => {
+      cursor.classList.add('expanded');
+      cursorLabel.textContent = 'Go →';
+    });
+    a.addEventListener('mouseleave', () => cursor.classList.remove('expanded'));
+  });
+</script>
+</body>
+</html>

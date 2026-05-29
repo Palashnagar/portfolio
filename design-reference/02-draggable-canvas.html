@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Palash Nagar — Draggable Canvas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F1EA;
+    --ink: #0A0A0A;
+    --accent: #E94E1B;
+    --muted: #8A867F;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    cursor: none;
+    user-select: none;
+  }
+
+  .grain {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    mix-blend-mode: multiply;
+    z-index: 100;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.65'/></svg>");
+  }
+
+  /* custom cursor */
+  .cursor {
+    position: fixed;
+    pointer-events: none;
+    z-index: 200;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+    mix-blend-mode: difference;
+  }
+  .cursor-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .cursor-label {
+    position: absolute;
+    left: 16px; top: -6px;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .cursor.show-label .cursor-label { opacity: 1; }
+
+  /* corners */
+  .corner {
+    position: fixed;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    z-index: 50;
+    line-height: 1.4;
+  }
+  .tl { top: 32px; left: 32px; }
+  .tr { top: 32px; right: 32px; text-align: right; }
+  .bl { bottom: 32px; left: 32px; }
+  .br { bottom: 32px; right: 32px; text-align: right; }
+  .corner .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 6px;
+    vertical-align: middle;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .corner a { color: var(--ink); text-decoration: none; margin-left: 18px; }
+  .corner a:hover { color: var(--accent); }
+
+  /* canvas viewport */
+  .viewport {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+  }
+  .canvas {
+    position: absolute;
+    width: 3600px;
+    height: 2400px;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    will-change: transform;
+  }
+
+  /* dotted grid background on the canvas */
+  .canvas::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(10,10,10,0.12) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  .tile {
+    position: absolute;
+    width: 360px;
+    background: var(--bg);
+    border: 1px solid rgba(10,10,10,0.12);
+    padding: 24px;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s;
+    cursor: none;
+  }
+  .tile:hover {
+    transform: scale(1.04);
+    border-color: var(--accent);
+    z-index: 10;
+  }
+  .tile-thumb {
+    aspect-ratio: 4/3;
+    width: 100%;
+    border-radius: 2px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .tile-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .tile-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 32px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .tile-title em { color: var(--accent); }
+  .tile-desc {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--ink);
+    opacity: 0.7;
+  }
+
+  /* fade edges of viewport */
+  .viewport::before, .viewport::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    z-index: 5;
+  }
+  .viewport::before {
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 40%, var(--bg) 95%);
+  }
+
+  .center-label {
+    position: fixed;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--muted);
+    text-align: center;
+    pointer-events: none;
+    z-index: 4;
+    opacity: 0;
+    transition: opacity 0.4s;
+  }
+  .center-label.show { opacity: 1; }
+
+  .instruction {
+    position: fixed;
+    bottom: 80px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    z-index: 50;
+    text-align: center;
+  }
+  .instruction::before, .instruction::after { content: "—"; margin: 0 12px; }
+</style>
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="cursor" id="cursor">
+    <div class="cursor-dot"></div>
+    <div class="cursor-label" id="cursorLabel">Drag</div>
+  </div>
+
+  <div class="corner tl">
+    <span class="dot"></span>Palash Nagar<br/>
+    <span style="color: var(--muted)">Selected work · drag to explore</span>
+  </div>
+  <div class="corner tr">
+    <a href="#">Work</a>
+    <a href="#">About</a>
+    <a href="#">Resume</a>
+  </div>
+  <div class="corner bl">
+    © 2026<br/>
+    <span style="color: var(--muted)">Rochester, NY</span>
+  </div>
+  <div class="corner br">
+    <a href="#" style="color: var(--accent); margin: 0;">Get in touch →</a>
+  </div>
+
+  <div class="viewport" id="viewport">
+    <div class="canvas" id="canvas"></div>
+  </div>
+
+  <div class="center-label" id="centerLabel">Click and drag anywhere</div>
+  <div class="instruction">Click and drag to navigate · hover a project</div>
+
+<script>
+  const projects = [
+    { x: -800, y: -500, title: 'MyCourses', accent: '2.0', meta: '2025 · EDU', desc: 'Helping 19,000+ RIT students never miss an assignment again.', color: '#E94E1B' },
+    { x: 420, y: -480, title: 'RoomieMatch', accent: '', meta: '2025 · MOBILE', desc: 'Roommate matching by lifestyle compatibility.', color: '#1E3A5F' },
+    { x: -650, y: 280, title: 'RIT Athletics', accent: '', meta: '2025 · SPORTS', desc: 'Keeping RIT Tigers fans connected on the go.', color: '#F5A623' },
+    { x: 580, y: 320, title: 'RIT EATS', accent: '', meta: '2025 · F&B', desc: 'Reducing dining-hall friction across campus.', color: '#2D5F3F' },
+    { x: -200, y: -100, title: 'Thermal', accent: 'wearable', meta: '2026 · CAPSTONE', desc: 'Thermal-illusion wearable. HCI research at RIT.', color: '#0A0A0A' },
+    { x: 100, y: 100, title: 'Process', accent: 'notes', meta: 'ONGOING', desc: "Things I'm thinking about — design, research, mistakes.", color: '#8A867F' },
+  ];
+
+  const canvas = document.getElementById('canvas');
+  const viewport = document.getElementById('viewport');
+
+  // Center coords on canvas
+  const cw = 3600, ch = 2400;
+  projects.forEach(p => {
+    const tile = document.createElement('div');
+    tile.className = 'tile';
+    tile.style.left = (cw / 2 + p.x - 180) + 'px';
+    tile.style.top = (ch / 2 + p.y - 160) + 'px';
+    tile.innerHTML = `
+      <div class="tile-thumb" style="background: ${p.color};">
+        <svg width="100%" height="100%" viewBox="0 0 100 75" preserveAspectRatio="xMidYMid slice">
+          <rect width="100" height="75" fill="${p.color}"/>
+          <text x="50" y="42" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-family="Instrument Serif" font-size="14" font-style="italic">${p.title}</text>
+        </svg>
+      </div>
+      <div class="tile-meta"><span>${p.meta}</span><span>↗</span></div>
+      <div class="tile-title">${p.title}${p.accent ? ' <em>' + p.accent + '</em>' : ''}</div>
+      <div class="tile-desc">${p.desc}</div>
+    `;
+    canvas.appendChild(tile);
+  });
+
+  // Drag logic
+  let offsetX = 0, offsetY = 0;
+  let dragging = false;
+  let startX = 0, startY = 0;
+  let startOffsetX = 0, startOffsetY = 0;
+  let velX = 0, velY = 0;
+  let lastMoveX = 0, lastMoveY = 0;
+
+  function updateCanvas() {
+    canvas.style.transform = `translate(calc(-50% + ${offsetX}px), calc(-50% + ${offsetY}px))`;
+  }
+
+  viewport.addEventListener('pointerdown', (e) => {
+    dragging = true;
+    startX = e.clientX; startY = e.clientY;
+    startOffsetX = offsetX; startOffsetY = offsetY;
+    lastMoveX = e.clientX; lastMoveY = e.clientY;
+    velX = 0; velY = 0;
+    document.getElementById('cursorLabel').textContent = 'Dragging';
+    document.getElementById('cursor').classList.add('show-label');
+  });
+
+  window.addEventListener('pointermove', (e) => {
+    if (dragging) {
+      const nx = startOffsetX + (e.clientX - startX);
+      const ny = startOffsetY + (e.clientY - startY);
+      // Clamp
+      const maxX = (cw - window.innerWidth) / 2;
+      const maxY = (ch - window.innerHeight) / 2;
+      offsetX = Math.max(-maxX, Math.min(maxX, nx));
+      offsetY = Math.max(-maxY, Math.min(maxY, ny));
+      velX = e.clientX - lastMoveX;
+      velY = e.clientY - lastMoveY;
+      lastMoveX = e.clientX; lastMoveY = e.clientY;
+      updateCanvas();
+    }
+  });
+
+  window.addEventListener('pointerup', () => {
+    dragging = false;
+    document.getElementById('cursorLabel').textContent = 'Drag';
+  });
+
+  // Inertia
+  function inertia() {
+    if (!dragging && (Math.abs(velX) > 0.1 || Math.abs(velY) > 0.1)) {
+      offsetX += velX;
+      offsetY += velY;
+      const maxX = (cw - window.innerWidth) / 2;
+      const maxY = (ch - window.innerHeight) / 2;
+      offsetX = Math.max(-maxX, Math.min(maxX, offsetX));
+      offsetY = Math.max(-maxY, Math.min(maxY, offsetY));
+      velX *= 0.92; velY *= 0.92;
+      updateCanvas();
+    }
+    requestAnimationFrame(inertia);
+  }
+  inertia();
+
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const cursorLabel = document.getElementById('cursorLabel');
+  let cx = window.innerWidth/2, cy = window.innerHeight/2;
+  let tx = cx, ty = cy;
+  window.addEventListener('pointermove', (e) => { tx = e.clientX; ty = e.clientY; });
+  function moveCursor() {
+    cx += (tx - cx) * 0.25; cy += (ty - cy) * 0.25;
+    cursor.style.left = cx + 'px';
+    cursor.style.top = cy + 'px';
+    requestAnimationFrame(moveCursor);
+  }
+  moveCursor();
+
+  // Show label on viewport hover, change on tile hover
+  viewport.addEventListener('mouseenter', () => {
+    cursor.classList.add('show-label');
+  });
+  document.querySelectorAll('.tile').forEach(t => {
+    t.addEventListener('mouseenter', () => {
+      cursorLabel.textContent = 'Open →';
+    });
+    t.addEventListener('mouseleave', () => {
+      cursorLabel.textContent = dragging ? 'Dragging' : 'Drag';
+    });
+  });
+
+  document.querySelectorAll('a, .corner').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.remove('show-label'));
+    el.addEventListener('mouseleave', () => cursor.classList.add('show-label'));
+  });
+
+  // Show hint briefly
+  setTimeout(() => document.getElementById('centerLabel').classList.add('show'), 300);
+  setTimeout(() => document.getElementById('centerLabel').classList.remove('show'), 2800);
+</script>
+</body>
+</html>

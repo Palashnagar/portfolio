@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Palash Nagar — Horizontal Scroll</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F1EA;
+    --ink: #0A0A0A;
+    --accent: #E94E1B;
+    --muted: #8A867F;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    cursor: none;
+  }
+
+  .grain {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    mix-blend-mode: multiply;
+    z-index: 100;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.65'/></svg>");
+  }
+
+  .cursor {
+    position: fixed;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    pointer-events: none;
+    z-index: 200;
+    transform: translate(-50%, -50%);
+    transition: width 0.25s, height 0.25s;
+    mix-blend-mode: difference;
+  }
+  .cursor.large { width: 50px; height: 50px; }
+
+  /* fixed header */
+  .header {
+    position: fixed;
+    top: 32px; left: 32px; right: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    z-index: 50;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .header .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 6px;
+    vertical-align: middle;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .header a {
+    color: var(--ink);
+    text-decoration: none;
+    margin-left: 18px;
+  }
+  .header a:hover { color: var(--accent); }
+
+  /* intro hero */
+  .intro {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 6vw;
+  }
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+  .intro h1 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(48px, 9vw, 140px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 32px;
+  }
+  .intro h1 em { color: var(--accent); }
+  .intro .scroll-hint {
+    margin-top: 60px;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .arrow-down {
+    display: inline-block;
+    margin-left: 10px;
+    animation: bounce 1.6s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  /* horizontal section */
+  .horizontal-wrapper {
+    position: relative;
+    height: 500vh; /* drives scroll */
+  }
+  .horizontal-sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+  }
+  .horizontal-track {
+    display: flex;
+    height: 100%;
+    will-change: transform;
+  }
+  .panel {
+    flex: 0 0 100vw;
+    height: 100%;
+    padding: 100px 6vw 80px;
+    display: flex;
+    gap: 6vw;
+    align-items: center;
+    position: relative;
+  }
+  .panel-num {
+    position: absolute;
+    top: 100px; left: 6vw;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+  }
+  .panel-thumb {
+    flex: 1 1 50%;
+    aspect-ratio: 4/5;
+    max-height: 70vh;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .panel-thumb svg { display: block; width: 100%; height: 100%; }
+  .panel-info { flex: 1 1 50%; }
+  .panel-meta {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 24px;
+    display: flex;
+    gap: 24px;
+  }
+  .panel-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(48px, 7vw, 110px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+  .panel-title em { color: var(--accent); }
+  .panel-problem {
+    font-size: 19px;
+    line-height: 1.45;
+    max-width: 480px;
+    margin-bottom: 32px;
+  }
+  .panel-problem em { font-family: 'Instrument Serif', serif; font-style: italic; }
+  .panel-cta {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 4px;
+  }
+
+  /* progress bar */
+  .progress-rail {
+    position: fixed;
+    bottom: 32px; left: 50%;
+    transform: translateX(-50%);
+    width: 280px;
+    height: 1px;
+    background: rgba(10,10,10,0.15);
+    z-index: 50;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.1s linear;
+  }
+  .progress-label {
+    position: fixed;
+    bottom: 50px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    z-index: 50;
+    white-space: nowrap;
+  }
+
+  /* outro */
+  .outro {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 80px 6vw;
+  }
+  .outro h2 {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(48px, 8vw, 120px);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .outro h2 em { color: var(--accent); }
+  .outro .contact-cta {
+    margin-top: 32px;
+    font-size: 14px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 4px;
+  }
+</style>
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="cursor" id="cursor"></div>
+
+  <div class="header">
+    <div>
+      <span class="dot"></span>Palash Nagar — UX/UI · HCI · RIT
+    </div>
+    <div>
+      <a href="#">Work</a>
+      <a href="#">About</a>
+      <a href="#">Resume</a>
+      <a href="#" style="color: var(--accent);">Contact →</a>
+    </div>
+  </div>
+
+  <section class="intro">
+    <div class="eyebrow">Portfolio · 2026</div>
+    <h1>Selected work,<br/>told <em>sideways</em>.</h1>
+    <div class="scroll-hint">Scroll to begin <span class="arrow-down">↓</span></div>
+  </section>
+
+  <div class="horizontal-wrapper" id="hWrapper">
+    <div class="horizontal-sticky">
+      <div class="horizontal-track" id="hTrack">
+        <!-- Panels injected -->
+      </div>
+    </div>
+  </div>
+
+  <div class="progress-label" id="progressLabel">01 / 04 — MyCourses 2.0</div>
+  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+
+  <section class="outro">
+    <h2>Got something<br/><em>worth building?</em></h2>
+    <a href="#" class="contact-cta">Get in touch →</a>
+  </section>
+
+<script>
+  const panels = [
+    {
+      num: '01',
+      title: 'MyCourses',
+      titleAccent: '2.0',
+      meta: ['2025', 'RIT · 19K USERS', 'CASE STUDY'],
+      problem: 'Students were missing assignments because the LMS buried due dates three clicks deep. I redesigned the dashboard around <em>what\'s due next</em>.',
+      color: '#E94E1B',
+    },
+    {
+      num: '02',
+      title: 'Roomie',
+      titleAccent: 'Match',
+      meta: ['2025', 'MOBILE', 'CASE STUDY'],
+      problem: 'Random roommate assignment caused 41% of complaints in Year 1. I built lifestyle-based matching for a <em>better first week</em>.',
+      color: '#1E3A5F',
+    },
+    {
+      num: '03',
+      title: 'RIT',
+      titleAccent: 'Athletics',
+      meta: ['2025', 'SPORTS', 'CASE STUDY'],
+      problem: 'Tigers fans were jumping between three apps for scores, schedules, and tickets. One home, one tap, <em>live</em>.',
+      color: '#F5A623',
+    },
+    {
+      num: '04',
+      title: 'RIT',
+      titleAccent: 'EATS',
+      meta: ['2025', 'F&B', 'CASE STUDY'],
+      problem: 'Dining hall lines peaked at 22 minutes. A predictive crowd map cut that to <em>under six</em>.',
+      color: '#2D5F3F',
+    },
+  ];
+
+  const track = document.getElementById('hTrack');
+  panels.forEach(p => {
+    const panel = document.createElement('div');
+    panel.className = 'panel';
+    panel.innerHTML = `
+      <div class="panel-num">${p.num} / 04</div>
+      <div class="panel-thumb">
+        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice">
+          <rect width="400" height="500" fill="${p.color}"/>
+          <text x="200" y="260" text-anchor="middle" fill="rgba(255,255,255,0.95)" font-family="Instrument Serif" font-size="38" font-style="italic">${p.title} ${p.titleAccent}</text>
+          <text x="200" y="295" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-family="Bricolage Grotesque" font-size="11" letter-spacing="3">PROJECT THUMBNAIL</text>
+        </svg>
+      </div>
+      <div class="panel-info">
+        <div class="panel-meta">
+          ${p.meta.map(m => `<span>${m}</span>`).join('')}
+        </div>
+        <h2 class="panel-title">${p.title} <em>${p.titleAccent}</em></h2>
+        <p class="panel-problem">${p.problem}</p>
+        <a href="#" class="panel-cta">Read the case study →</a>
+      </div>
+    `;
+    track.appendChild(panel);
+  });
+
+  // Horizontal scroll-jacking
+  const wrapper = document.getElementById('hWrapper');
+  const progressFill = document.getElementById('progressFill');
+  const progressLabel = document.getElementById('progressLabel');
+
+  function updateScroll() {
+    const rect = wrapper.getBoundingClientRect();
+    const wrapperTop = rect.top;
+    const wrapperHeight = wrapper.offsetHeight - window.innerHeight;
+    const progress = Math.max(0, Math.min(1, -wrapperTop / wrapperHeight));
+
+    const totalShift = (panels.length - 1) * 100;
+    track.style.transform = `translateX(-${progress * totalShift}vw)`;
+
+    progressFill.style.width = (progress * 100) + '%';
+
+    const idx = Math.min(panels.length - 1, Math.floor(progress * panels.length + 0.001));
+    const p = panels[idx];
+    progressLabel.textContent = `${String(idx + 1).padStart(2, '0')} / 04 — ${p.title} ${p.titleAccent}`;
+  }
+
+  window.addEventListener('scroll', updateScroll);
+  updateScroll();
+
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  let mx = window.innerWidth/2, my = window.innerHeight/2;
+  let cx = mx, cy = my;
+  window.addEventListener('pointermove', e => { mx = e.clientX; my = e.clientY; });
+  function moveCursor() {
+    cx += (mx - cx) * 0.22; cy += (my - cy) * 0.22;
+    cursor.style.left = cx + 'px';
+    cursor.style.top = cy + 'px';
+    requestAnimationFrame(moveCursor);
+  }
+  moveCursor();
+  document.querySelectorAll('a').forEach(a => {
+    a.addEventListener('mouseenter', () => cursor.classList.add('large'));
+    a.addEventListener('mouseleave', () => cursor.classList.remove('large'));
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Palash Nagar — Kinetic Hero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F1EA;
+    --ink: #0A0A0A;
+    --accent: #E94E1B;
+    --muted: #8A867F;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    cursor: none;
+  }
+  body { position: relative; }
+
+  /* grain overlay */
+  .grain {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    mix-blend-mode: multiply;
+    z-index: 100;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.65'/></svg>");
+  }
+
+  /* custom cursor */
+  .cursor {
+    position: fixed;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    pointer-events: none;
+    z-index: 200;
+    transform: translate(-50%, -50%);
+    transition: width 0.25s, height 0.25s, background 0.25s;
+    mix-blend-mode: difference;
+  }
+  .cursor.large {
+    width: 60px; height: 60px;
+    background: var(--accent);
+  }
+
+  /* corners */
+  .corner {
+    position: fixed;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    z-index: 50;
+    line-height: 1.4;
+  }
+  .tl { top: 32px; left: 32px; }
+  .tr { top: 32px; right: 32px; text-align: right; }
+  .bl { bottom: 32px; left: 32px; }
+  .br { bottom: 32px; right: 32px; text-align: right; }
+  .corner .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 6px;
+    vertical-align: middle;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+  .corner a {
+    color: var(--ink);
+    text-decoration: none;
+    margin-left: 18px;
+  }
+  .corner a:hover { color: var(--accent); }
+
+  /* hero */
+  .hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 6vw;
+    position: relative;
+  }
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+  .display {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(64px, 13vw, 200px);
+    line-height: 0.92;
+    letter-spacing: -0.03em;
+    user-select: none;
+  }
+  .line { display: block; white-space: nowrap; }
+  .letter {
+    display: inline-block;
+    transition: color 0.2s ease;
+    will-change: transform;
+  }
+  .letter.italic-accent {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .sub {
+    margin-top: 40px;
+    max-width: 520px;
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .sub em { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 1.1em; }
+
+  .instruction {
+    position: fixed;
+    bottom: 80px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    z-index: 50;
+    text-align: center;
+  }
+  .instruction::before, .instruction::after {
+    content: "—"; margin: 0 12px;
+  }
+
+  @media (max-width: 720px) {
+    .display { font-size: 14vw; }
+    .corner.tr, .corner.br { font-size: 10px; }
+  }
+</style>
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="cursor" id="cursor"></div>
+
+  <div class="corner tl">
+    <span class="dot"></span>Palash Nagar<br/>
+    <span style="color: var(--muted)">UX/UI · HCI · RIT</span>
+  </div>
+  <div class="corner tr">
+    <a href="#">Work</a>
+    <a href="#">About</a>
+    <a href="#">Resume</a>
+  </div>
+  <div class="corner bl">
+    © 2026 · Rochester, NY<br/>
+    <span style="color: var(--muted)">Available May 2026</span>
+  </div>
+  <div class="corner br">
+    <a href="#" style="color: var(--accent); margin: 0;">Get in touch →</a>
+  </div>
+
+  <section class="hero">
+    <div class="eyebrow">Portfolio · 2026</div>
+    <h1 class="display" id="display">
+      <span class="line" data-text="DESIGN"></span>
+      <span class="line" data-text="THAT FEELS" data-accent="THAT"></span>
+      <span class="line" data-text="INEVITABLE."></span>
+    </h1>
+    <p class="sub">
+      I'm Palash — a UX designer and HCI researcher turning <em>thermal illusions</em>
+      into wearables at RIT. I make digital things feel less anxious.
+    </p>
+  </section>
+
+  <div class="instruction">Move your cursor across the type</div>
+
+<script>
+  // Build letters
+  const display = document.getElementById('display');
+  display.querySelectorAll('.line').forEach(line => {
+    const text = line.dataset.text;
+    const accent = line.dataset.accent;
+    line.innerHTML = '';
+    text.split('').forEach((ch, i) => {
+      const span = document.createElement('span');
+      span.className = 'letter';
+      span.textContent = ch === ' ' ? '\u00A0' : ch;
+      line.appendChild(span);
+    });
+  });
+
+  // Mark accent word letters
+  document.querySelectorAll('.line').forEach(line => {
+    const accent = line.dataset.accent;
+    if (!accent) return;
+    const text = line.dataset.text;
+    const start = text.indexOf(accent);
+    const letters = line.querySelectorAll('.letter');
+    for (let i = start; i < start + accent.length; i++) {
+      if (letters[i]) letters[i].classList.add('italic-accent');
+    }
+  });
+
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let curX = mouseX, curY = mouseY;
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX; mouseY = e.clientY;
+  });
+
+  // Cursor grows on hover over links
+  document.querySelectorAll('a').forEach(a => {
+    a.addEventListener('mouseenter', () => cursor.classList.add('large'));
+    a.addEventListener('mouseleave', () => cursor.classList.remove('large'));
+  });
+
+  // Letter physics — each letter is pulled toward cursor based on proximity
+  const letters = document.querySelectorAll('.letter');
+  const letterData = [];
+  function measureLetters() {
+    letterData.length = 0;
+    letters.forEach(l => {
+      const r = l.getBoundingClientRect();
+      letterData.push({
+        el: l,
+        cx: r.left + r.width / 2,
+        cy: r.top + r.height / 2,
+      });
+    });
+  }
+  measureLetters();
+  window.addEventListener('resize', measureLetters);
+
+  function animate() {
+    // smooth cursor follow
+    curX += (mouseX - curX) * 0.18;
+    curY += (mouseY - curY) * 0.18;
+    cursor.style.left = curX + 'px';
+    cursor.style.top = curY + 'px';
+
+    // letter transforms
+    letterData.forEach(({ el, cx, cy }) => {
+      const dx = mouseX - cx;
+      const dy = mouseY - cy;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const max = 240;
+      if (dist < max) {
+        const f = 1 - dist / max;
+        const tx = -dx * f * 0.18;
+        const ty = -dy * f * 0.18;
+        const scale = 1 + f * 0.22;
+        const rot = (dx / max) * f * -8;
+        el.style.transform = `translate(${tx}px, ${ty}px) scale(${scale}) rotate(${rot}deg)`;
+        el.style.fontStyle = f > 0.5 ? 'italic' : '';
+      } else {
+        el.style.transform = '';
+        el.style.fontStyle = '';
+      }
+    });
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+</script>
+</body>
+</html>

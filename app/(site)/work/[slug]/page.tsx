@@ -12,18 +12,10 @@ import { Evidence } from "@/components/case-study/Evidence";
 import { Constraints } from "@/components/case-study/Constraints";
 import { Solution } from "@/components/case-study/Solution";
 import { Screen } from "@/components/case-study/Screen";
+import { Figure } from "@/components/case-study/Figure";
 import { Outcome } from "@/components/case-study/Outcome";
 import { NextProject } from "@/components/case-study/NextProject";
 import { Todo } from "@/components/case-study/Todo";
-
-// TRANSITIONAL: legacy Ship-1 case-study components stay mapped only so the
-// not-yet-migrated content renders and the build stays green. They are dropped
-// once every study is re-authored onto the new spine (T17–T20). The mascot is
-// neutralised immediately (renders nothing) per the v2 direction.
-import { Section } from "@/components/case-study/Section";
-import { MetricCallout } from "@/components/case-study/MetricCallout";
-import { UserQuote } from "@/components/case-study/UserQuote";
-import { ImageGroup } from "@/components/case-study/ImageGroup";
 
 export async function generateStaticParams() {
   const slugs = await listCaseStudySlugs();
@@ -50,7 +42,6 @@ export async function generateMetadata({
 }
 
 const mdxComponents = {
-  // v2 spine
   Problem,
   Research,
   Insight,
@@ -58,14 +49,9 @@ const mdxComponents = {
   Constraints,
   Solution,
   Screen,
+  Figure,
   Outcome,
   Todo,
-  // transitional Ship-1 shims (removed after T17–T20)
-  Section,
-  MetricCallout,
-  UserQuote,
-  ImageGroup,
-  PalashCharacter: () => null,
 };
 
 export default async function CaseStudyPage({

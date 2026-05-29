@@ -1,0 +1,118 @@
+---
+title: RoomieMatch
+tagline: Mobile-first roommate matching by lifestyle compatibility.
+role: UX Designer
+year: 2025
+team: Solo
+tools:
+  - Figma
+cover: /case-studies/roomiematch/pulled-45.png
+---
+
+{/* NOTE: duration is intentionally omitted from frontmatter — the real project
+timeline isn't documented. The Hero meta row filters out empty values, so no
+fabricated "X weeks" appears. Add it here if Palash confirms the real duration. */}
+
+<Figure
+  src="/case-studies/roomiematch/pulled-45.png"
+  alt="RoomieMatch title screen with three phone mockups: a community listings page, the 'I am looking for' onboarding step, and a swipe-style match card."
+  caption="RoomieMatch — a mobile app for finding roommates you'd actually want to live with."
+  aspect="4/3"
+/>
+
+<Problem title="Finding a roommate is left almost entirely to chance.">
+
+RoomieMatch began with my own problem. Looking for a place near campus, I wanted to live with people who shared my habits and interests — and realized there was no real way to find them. Students end up piecing it together through WhatsApp groups, Facebook channels, and one-off DMs, then hope the person they move in with turns out to be compatible.
+
+Three problems sat underneath that:
+
+**Hard to find a fit.** Compatible roommates are difficult to find when habits, schedules, and budgets stay invisible until you already share a lease.
+
+**No way to build trust first.** Nothing lets you vet or get to know a potential roommate before committing to living together.
+
+**Nowhere to gather.** There's no purpose-built place to search and talk — just scattered group chats and DMs that leave everything cluttered.
+
+<Evidence>
+Imagine if students could choose their roommates and ideal location, instead of leaving it all to chance.
+</Evidence>
+
+{/* NOTE: an earlier internal mockup (design-reference 03) carried a placeholder
+line — "random roommate assignment caused 41% of complaints in Year 1." That
+figure was never sourced from Palash and is intentionally omitted rather than
+presented as fact. If a real complaint or dissatisfaction statistic exists, it
+belongs in this section. */}
+
+</Problem>
+
+<Research title="Who I designed for — and the questions that drove it." methods={["Persona development", "How-Might-We framing"]}>
+
+I built the project around a primary persona drawn from the people living this problem: budget-conscious university students who want somewhere affordable near campus and a roommate who respects how they live.
+
+<Evidence source="RoomieMatch persona — Sarah, 21, student">
+As a college student, I want to find a roommate who respects my study schedule so that I can focus on academics without distractions.
+</Evidence>
+
+Sarah's goal was simple — a responsible, study-friendly roommate near campus. Her pain points were just as clear: past roommates who were noisy and unreliable, and the difficulty of finding an affordable place close to the university. She's comfortable with mobile apps and social media, so a phone-first product fits how she already lives.
+
+<Todo>any primary research behind this persona — interviews or surveys, the methods used, and how many students took part — plus any personas or segments beyond Sarah</Todo>
+
+That framing turned into three "how might we" questions the whole design had to answer:
+
+<Insight number="01" title="How might we help users feel part of a welcoming roommate-seeking community?" />
+
+<Insight number="02" title="How might we make it easier to discover roommates with shared values and routines?" />
+
+<Insight number="03" title="How might we make the search itself more interactive and genuinely enjoyable?" />
+
+</Research>
+
+<Constraints title="The bets I made — and what I left out.">
+
+As a solo concept, I kept the scope to the core loop — set up who you are, find compatible people, talk safely — and made three deliberate bets:
+
+1. **Compatibility before browsing.** Capture lifestyle, budget, and location up front so matches mean something, rather than dropping people into a cold list of rooms.
+2. **Make discovery feel good.** Borrow the swipe interaction people already know from dating apps, so finding a roommate feels fast and a little fun instead of like filing paperwork.
+3. **Build trust into the product.** Verification, profiles, and in-app messaging replace the unvetted WhatsApp-and-DM scramble students fall back on today.
+
+What I deliberately left out was the marketplace machinery — payments, lease paperwork, dispute handling. Those matter for a real launch, but they'd have buried the one thing I wanted to prove: that compatibility-first matching is worth using.
+
+</Constraints>
+
+<Solution title="One guided loop: set up, match, and talk.">
+
+RoomieMatch turns roommate-hunting into a single, calm flow. You tell it how you live, it surfaces compatible people and places, and you get to know them inside the app before anything is decided.
+
+<Screen
+  src="/case-studies/roomiematch/pulled-15.png"
+  alt="Two RoomieMatch onboarding screens: 'I am looking for' with a roommate-or-apartment toggle, location and budget; and 'Tell us about yourself' with student or professional, a budget range, a move-in date, and lifestyle toggles for early bird, night owl, neat, and casual."
+  insight="Chance pairings fail because nobody captures fit before move-in."
+  decision="A short, guided setup asks what you're looking for, your budget and timing, and the lifestyle signals that actually predict friction — early bird or night owl, neat or casual — then feeds them straight into matching."
+  caption="Onboarding: a few focused steps stand in for everything roommates usually discover too late."
+  aspect="4/3"
+/>
+
+<Figure
+  src="/case-studies/roomiematch/pulled-16.png"
+  alt="Four RoomieMatch screens in sequence: 'I am looking for', 'Tell us about yourself', a profile with roommate preferences, and a 'Find Your Perfect Roomie' match intro."
+  caption="The full guided path — from what you're looking for, through your profile, to your first matches."
+  aspect="16/9"
+/>
+
+<Figure
+  src="/case-studies/roomiematch/pulled-17.png"
+  alt="Four RoomieMatch feature screens: a swipe-style match card for 'Stacy, 25', an apartment comparison view, a community listings page with rooms such as 'Apex' and 'Park Point', and a chats inbox."
+  caption="The four core surfaces — swipe to match, compare apartments side by side, browse the community's listings, and chat securely before you commit."
+  aspect="16/9"
+/>
+
+</Solution>
+
+<Outcome title="Where it stands — and what I'd test next.">
+
+RoomieMatch is a concept I took from a personal frustration all the way to a hi-fi, end-to-end prototype: onboarding, matching, comparison, community, and chat. It's the project where I learned to start from a real problem and a specific person, then let that drive every screen.
+
+<Todo>validation or testing data — RoomieMatch has not been usability-tested or shipped, so there are no outcome metrics yet</Todo>
+
+If I carried it forward, I'd put the swipe-matching model in front of real students first, since it's the riskiest bet: does compatibility-based swiping actually beat browsing listings? From there I'd validate which lifestyle signals genuinely predict a good match, then design the verification flow for real — trust is the feature that makes everything else safe to act on.
+
+</Outcome>

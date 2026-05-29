@@ -4,13 +4,17 @@
 
 import Link from "next/link";
 import { Magnetic } from "@/components/fx/Magnetic";
+import { RidgeSilhouette } from "@/components/home/RidgeSilhouette";
 
 export default function ContactCta() {
   return (
     <section
-      className="flex min-h-screen flex-col items-center justify-center text-center"
-      style={{ padding: "80px 6vw" }}
+      className="relative flex min-h-[78vh] flex-col items-center justify-center overflow-hidden text-center"
+      style={{ padding: "96px 6vw 72px", isolation: "isolate" }}
     >
+      {/* Mountain-ridge motif echoing the hero — grounds the closing beat. */}
+      <RidgeSilhouette className="h-[36%]" />
+
       <h2
         style={{
           fontFamily: "var(--font-display)",

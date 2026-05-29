@@ -3,12 +3,17 @@
 // presentational server component — the scroll-hint bounce is CSS-only and is
 // neutralized by the global prefers-reduced-motion block in globals.css.
 
+import { RidgeSilhouette } from "@/components/home/RidgeSilhouette";
+
 export default function IntroSlate() {
   return (
     <section
-      className="flex min-h-screen flex-col justify-center"
-      style={{ padding: "0 6vw" }}
+      className="relative flex min-h-[72vh] flex-col justify-center overflow-hidden"
+      style={{ padding: "0 6vw", isolation: "isolate" }}
     >
+      {/* Faint ridge echo — quiet visual anchor for the transitional beat. */}
+      <RidgeSilhouette className="h-[26%]" opacity={0.5} />
+
       <h2
         style={{
           fontFamily: "var(--font-display)",

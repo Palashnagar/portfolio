@@ -127,7 +127,7 @@ function ResumeRow({
         <div className="font-medium">{primary}</div>
         <div className="text-sm opacity-75">{secondary}</div>
         {tertiary && (
-          <div className="text-sm opacity-55 mt-0.5">{tertiary}</div>
+          <div className="text-sm opacity-70 mt-0.5">{tertiary}</div>
         )}
       </div>
     </div>

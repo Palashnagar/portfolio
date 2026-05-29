@@ -39,7 +39,7 @@ export default function HomePage() {
           <Reveal delay={0.4}>
             <a
               href="#work"
-              className="mt-10 inline-block text-sm uppercase tracking-[0.18em] opacity-60 hover:opacity-100"
+              className="mt-10 inline-block text-sm uppercase tracking-[0.18em] opacity-75 hover:opacity-100"
             >
               See selected work ↓
             </a>
@@ -76,7 +76,7 @@ export default function HomePage() {
                     <h3 className="font-[family-name:var(--font-display)] text-2xl">
                       {cs.title}
                     </h3>
-                    <span className="text-xs uppercase tracking-wider opacity-55">
+                    <span className="text-xs uppercase tracking-wider opacity-70">
                       {cs.year}
                     </span>
                   </div>
@@ -90,7 +90,7 @@ export default function HomePage() {
           <Reveal>
             <Link
               href="/work"
-              className="mt-12 inline-block text-sm uppercase tracking-[0.18em] opacity-60 hover:opacity-100"
+              className="mt-12 inline-block text-sm uppercase tracking-[0.18em] opacity-75 hover:opacity-100"
             >
               All work →
             </Link>
@@ -110,7 +110,7 @@ export default function HomePage() {
               </p>
               <Link
                 href="/about"
-                className="mt-8 inline-block text-sm uppercase tracking-[0.18em] opacity-60 hover:opacity-100"
+                className="mt-8 inline-block text-sm uppercase tracking-[0.18em] opacity-75 hover:opacity-100"
               >
                 More about me →
               </Link>
@@ -140,19 +140,19 @@ export default function HomePage() {
           </Reveal>
           <div className="grid md:grid-cols-3 gap-8">
             <Reveal>
-              <div className="text-xs uppercase tracking-[0.18em] opacity-55 mb-2">
+              <div className="text-xs uppercase tracking-[0.18em] opacity-70 mb-2">
                 Building
               </div>
               <p className="text-lg">{currently.building}</p>
             </Reveal>
             <Reveal delay={0.1}>
-              <div className="text-xs uppercase tracking-[0.18em] opacity-55 mb-2">
+              <div className="text-xs uppercase tracking-[0.18em] opacity-70 mb-2">
                 Reading
               </div>
               <p className="text-lg">{currently.reading}</p>
             </Reveal>
             <Reveal delay={0.2}>
-              <div className="text-xs uppercase tracking-[0.18em] opacity-55 mb-2">
+              <div className="text-xs uppercase tracking-[0.18em] opacity-70 mb-2">
                 Available
               </div>
               <p className="text-lg">{currently.availability}</p>

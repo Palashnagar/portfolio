@@ -21,7 +21,7 @@ export function WorkTile({ cs }: { cs: CaseStudyMeta }) {
         <h3 className="font-[family-name:var(--font-display)] text-2xl md:text-3xl">
           {cs.title}
         </h3>
-        <span className="text-xs uppercase tracking-wider opacity-55">
+        <span className="text-xs uppercase tracking-wider opacity-70">
           {cs.year}
         </span>
       </div>

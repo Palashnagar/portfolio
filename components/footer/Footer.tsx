@@ -27,7 +27,7 @@ export function Footer() {
           </p>
         </div>
         <div>
-          <div className="text-xs uppercase tracking-[0.18em] opacity-55 mb-3">
+          <div className="text-xs uppercase tracking-[0.18em] opacity-70 mb-3">
             Sitemap
           </div>
           <ul className="space-y-1.5 text-sm">
@@ -41,7 +41,7 @@ export function Footer() {
           </ul>
         </div>
         <div>
-          <div className="text-xs uppercase tracking-[0.18em] opacity-55 mb-3">
+          <div className="text-xs uppercase tracking-[0.18em] opacity-70 mb-3">
             Elsewhere
           </div>
           <ul className="space-y-1.5 text-sm">
@@ -60,7 +60,7 @@ export function Footer() {
           </ul>
         </div>
       </div>
-      <div className="max-w-content mx-auto px-6 md:px-10 py-6 border-t border-[var(--line)] flex justify-between text-xs opacity-55">
+      <div className="max-w-content mx-auto px-6 md:px-10 py-6 border-t border-[var(--line)] flex justify-between text-xs opacity-70">
         <span>© {new Date().getFullYear()} Palash Nagar</span>
         <span>Built from scratch · 2026</span>
       </div>

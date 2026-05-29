@@ -71,13 +71,13 @@ export default async function CaseStudyPage({
         <Reveal delay={0.2}>
           <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm">
             <div>
-              <div className="text-xs uppercase tracking-[0.12em] opacity-55 mb-1">
+              <div className="text-xs uppercase tracking-[0.12em] opacity-70 mb-1">
                 Team
               </div>
               <div>{cs.frontmatter.team}</div>
             </div>
             <div>
-              <div className="text-xs uppercase tracking-[0.12em] opacity-55 mb-1">
+              <div className="text-xs uppercase tracking-[0.12em] opacity-70 mb-1">
                 Tools
               </div>
               <div>{cs.frontmatter.tools.join(" · ")}</div>

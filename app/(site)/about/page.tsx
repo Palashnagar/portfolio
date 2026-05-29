@@ -70,19 +70,19 @@ export default function AboutPage() {
           </div>
           <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <div className="text-xs uppercase tracking-[0.18em] opacity-55 mb-2">
+              <div className="text-xs uppercase tracking-[0.18em] opacity-70 mb-2">
                 Building
               </div>
               <p className="text-lg">{currently.building}</p>
             </div>
             <div>
-              <div className="text-xs uppercase tracking-[0.18em] opacity-55 mb-2">
+              <div className="text-xs uppercase tracking-[0.18em] opacity-70 mb-2">
                 Reading
               </div>
               <p className="text-lg">{currently.reading}</p>
             </div>
             <div>
-              <div className="text-xs uppercase tracking-[0.18em] opacity-55 mb-2">
+              <div className="text-xs uppercase tracking-[0.18em] opacity-70 mb-2">
                 Available
               </div>
               <p className="text-lg">{currently.availability}</p>
@@ -105,14 +105,14 @@ export default function AboutPage() {
           {experience.map((e, i) => (
             <Reveal key={i} delay={i * 0.05} as="div">
               <li className="py-5 grid grid-cols-[120px_1fr] md:grid-cols-[140px_1fr_2fr] gap-6 items-baseline">
-                <span className="text-xs uppercase tracking-[0.08em] opacity-55">
+                <span className="text-xs uppercase tracking-[0.08em] opacity-70">
                   {e.year}
                 </span>
                 <span className="font-medium">{e.where}</span>
                 <span className="opacity-70">
                   {e.role}
                   {e.context && (
-                    <span className="hidden md:inline opacity-55">
+                    <span className="hidden md:inline opacity-70">
                       {" · "}
                       {e.context}
                     </span>
@@ -209,7 +209,7 @@ export default function AboutPage() {
             <MagneticButton href="/contact">Let's talk →</MagneticButton>
             <a
               href="/palash-nagar-resume.pdf"
-              className="text-sm uppercase tracking-[0.18em] opacity-60 hover:opacity-100"
+              className="text-sm uppercase tracking-[0.18em] opacity-75 hover:opacity-100"
               download
             >
               Download résumé ↓

@@ -10,7 +10,7 @@ export function MetricCallout({ metrics }: MetricCalloutProps) {
           <div className="font-[family-name:var(--font-display)] text-5xl md:text-6xl text-[var(--accent)]">
             {m.value}
           </div>
-          <div className="text-xs uppercase tracking-[0.12em] opacity-55 mt-2">
+          <div className="text-xs uppercase tracking-[0.12em] opacity-70 mt-2">
             {m.label}
           </div>
         </div>

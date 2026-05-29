@@ -16,7 +16,7 @@ export function Section({ number, label, title, children }: SectionProps) {
             <div className="font-[family-name:var(--font-display)] italic text-[var(--accent)] text-3xl md:text-4xl mb-2">
               {number}
             </div>
-            <div className="text-xs uppercase tracking-[0.18em] opacity-55">
+            <div className="text-xs uppercase tracking-[0.18em] opacity-70">
               {label}
             </div>
           </div>

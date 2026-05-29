@@ -77,7 +77,7 @@ export function ContactForm() {
             <Field label="Email" name="email" type="email" required />
             <FieldArea label="Message" name="message" required minLength={10} />
             <fieldset>
-              <legend className="text-xs uppercase tracking-[0.18em] opacity-55 mb-3">
+              <legend className="text-xs uppercase tracking-[0.18em] opacity-70 mb-3">
                 Project type
               </legend>
               <div className="flex flex-wrap gap-3">
@@ -129,7 +129,7 @@ export function ContactForm() {
               {state === "submitting" ? "Sending…" : "Send message →"}
             </button>
 
-            <p className="text-sm opacity-60">
+            <p className="text-sm opacity-75">
               Prefer email?{" "}
               <a className="underline" href="mailto:asnddev@gmail.com">
                 asnddev@gmail.com
@@ -157,7 +157,7 @@ function Field({
     <div>
       <label
         htmlFor={name}
-        className="block text-xs uppercase tracking-[0.18em] opacity-55 mb-2"
+        className="block text-xs uppercase tracking-[0.18em] opacity-70 mb-2"
       >
         {label}
       </label>
@@ -187,7 +187,7 @@ function FieldArea({
     <div>
       <label
         htmlFor={name}
-        className="block text-xs uppercase tracking-[0.18em] opacity-55 mb-2"
+        className="block text-xs uppercase tracking-[0.18em] opacity-70 mb-2"
       >
         {label}
       </label>

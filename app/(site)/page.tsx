@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { IntroReveal } from "@/components/motion/IntroReveal";
 import { Reveal } from "@/components/motion/Reveal";
@@ -6,6 +7,12 @@ import { PlaceholderImage } from "@/components/ui/PlaceholderImage";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { caseStudies } from "@/data/case-studies";
 import { currently } from "@/data/currently";
+
+export const metadata: Metadata = {
+  title: "Palash Nagar — UX/UI Designer",
+  description:
+    "UX designer and HCI researcher at RIT. Designing digital things that feel inevitable.",
+};
 
 export default function HomePage() {
   const featured = caseStudies.filter((cs) => cs.featured);
@@ -114,7 +121,7 @@ export default function HomePage() {
                   slot="portrait"
                   path="/me/portrait.jpg"
                   aspect="1/1"
-                  label="Portrait"
+                  label="Palash Nagar"
                 />
               </div>
             </Reveal>

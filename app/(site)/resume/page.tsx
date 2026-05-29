@@ -11,8 +11,7 @@ export const metadata: Metadata = {
 
 export default async function ResumePage() {
   // Selected projects come from the canonical MDX frontmatter, ordered to match
-  // the homepage work section (data/projects.ts). This decouples the résumé from
-  // the legacy data/case-studies.ts registry so the registry can be removed.
+  // the homepage work section (data/projects.ts).
   const loaded = await Promise.all(projects.map((p) => loadCaseStudy(p.slug)));
   const selected = loaded
     .map((cs) => cs?.frontmatter)

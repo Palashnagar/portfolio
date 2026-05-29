@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { caseStudies } from "@/data/case-studies";
+import { projects } from "@/data/projects";
 
 const BASE_URL = "https://palashnagar.vercel.app";
 
@@ -12,8 +12,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/contact`, lastModified: new Date(), changeFrequency: "yearly", priority: 0.6 },
   ];
 
-  const caseStudyRoutes: MetadataRoute.Sitemap = caseStudies.map((cs) => ({
-    url: `${BASE_URL}/work/${cs.slug}`,
+  const caseStudyRoutes: MetadataRoute.Sitemap = projects.map((p) => ({
+    url: `${BASE_URL}/work/${p.slug}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
     priority: 0.8,

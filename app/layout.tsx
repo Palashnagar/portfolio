@@ -3,6 +3,7 @@ import { Instrument_Serif, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 import { Grain } from "@/components/fx/Grain";
 import { Cursor } from "@/components/fx/Cursor";
+import { SmoothScroll } from "@/components/fx/SmoothScroll";
 
 const instrument = Instrument_Serif({
   weight: ["400"],
@@ -42,7 +43,7 @@ export default function RootLayout({
       <body>
         <Grain />
         <Cursor />
-        {children}
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

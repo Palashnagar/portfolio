@@ -1,18 +1,31 @@
-interface InsightProps {
-  number: string;
-  title: string;
-  children: React.ReactNode;
-}
+// A single research insight (lives inside <Research>): serif-italic accent
+// number + statement, with optional evidence (an <Evidence> quote/stat) below.
 
-export function Insight({ number, title, children }: InsightProps) {
+import type { ReactNode } from "react";
+
+export function Insight({
+  number,
+  title,
+  children,
+}: {
+  number?: string;
+  title: ReactNode;
+  children?: ReactNode;
+}) {
   return (
-    <div className="grid grid-cols-[60px_1fr] gap-4 py-4 border-t border-[var(--line)]">
-      <span className="font-[family-name:var(--font-display)] italic text-[var(--accent)] text-2xl">
-        {number}
-      </span>
-      <div>
-        <div className="font-medium text-lg mb-1">{title}</div>
-        <div className="opacity-75">{children}</div>
+    <div className="grid grid-cols-[44px_1fr] gap-4 border-t border-line py-6 first:border-t-0">
+      {number && (
+        <span
+          aria-hidden
+          className="leading-none text-accent"
+          style={{ fontFamily: "var(--font-display)", fontStyle: "italic", fontSize: "26px" }}
+        >
+          {number}
+        </span>
+      )}
+      <div className={number ? "" : "col-span-2"}>
+        <p className="text-[19px] font-medium leading-snug text-ink">{title}</p>
+        {children && <div className="mt-2 text-[15px] leading-relaxed text-muted">{children}</div>}
       </div>
     </div>
   );

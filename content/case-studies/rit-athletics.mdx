@@ -1,0 +1,111 @@
+---
+title: RIT Athletics
+tagline: Keeping RIT Tigers fans connected on the go.
+role: UX Designer
+year: 2025
+team: Solo
+tools:
+  - Figma
+cover: /case-studies/rit-athletics/pulled-04.png
+---
+
+{/* NOTE: duration is intentionally omitted — the real project timeline isn't
+documented. The Hero meta row filters out empty values, so no fabricated
+"X weeks" appears. Add it here if Palash confirms the real duration. */}
+
+<Figure
+  src="/case-studies/rit-athletics/pulled-04.png"
+  alt="Two redesigned RIT Athletics screens: a live match view showing RIT Tigers leading 3–2 with the team roster, and a live commentary feed with timestamped play-by-play."
+  caption="RIT Athletics, redesigned — live scores and play-by-play for the teams you actually follow."
+  aspect="4/3"
+/>
+
+<Problem title="Following your team shouldn't mean refreshing an app all day.">
+
+RIT Tigers fans already have an athletics app — it just gets in their way. To know whether a game is on, you check the Schedule tab by hand. Marking a team as a favorite sets up the expectation of alerts that never arrive. Scores live on the website, ticketing bounces you to a separate site, and sharing a result means taking a screenshot.
+
+I took this on as a redesign: keep what fans recognize, and fix the parts that quietly fail them.
+
+<Figure
+  src="/case-studies/rit-athletics/pulled-12.png"
+  alt="Three screens of the current RIT Athletics app: a Women's Hockey page with Schedule, Roster, and Media tabs; a roster list; and a separate ritathletics.com web view showing a live score."
+  caption="The current design — what fans use today, including the jump out to the website for live scores."
+  aspect="16/9"
+/>
+
+</Problem>
+
+<Research title="Two fans, and the moment the app lets them down." methods={["Journey mapping", "Personas", "Current-design audit"]}>
+
+I grounded the redesign in two people. **Marcus "The Stat-Tracker" Chen** follows RIT basketball and soccer religiously — he doesn't just watch games, he analyzes them, and gets frustrated when he misses a start time or the data he finds is old. **Sarah "The Gameday" Jenkins** organizes her friend group's stadium trips and posts scores to Instagram and Twitter; she values speed over deep stats, and abandons ticket purchases when the app kicks her out to an external site.
+
+<Figure
+  src="/case-studies/rit-athletics/pulled-05.png"
+  alt="A journey map titled 'Student Trying to Stay Updated About a Match' with stages — Awareness, Decision, Monitoring, Watching Match — each listing the user goal, actions, emotions, and where the experience breaks down."
+  caption="Mapping one common task — staying updated about a match — pinpointed exactly where the current app breaks."
+  aspect="16/9"
+/>
+
+The map made the friction concrete: there's no quick search, marking a 'Favorite' doesn't trigger notifications, there are no personalized alerts, and the 'Watch' tab feels disconnected from the rest. Three findings cut across both fans:
+
+<Insight number="01" title="Following a team does nothing.">
+Marking a team as a favorite sets an expectation of alerts the app never delivers, so people check manually — and still miss the first ten minutes.
+</Insight>
+
+<Insight number="02" title="The fans who care most can't go deep.">
+Stats are shallow and often stale; there's no real player or team depth for the supporters who analyze every game.
+</Insight>
+
+<Insight number="03" title="Everything social happens outside the app.">
+Tickets redirect to a separate site with its own login, and scores have to be screenshotted to share — so the social side lives everywhere except the app.
+</Insight>
+
+<Todo>how the personas and journey map were grounded — any interviews, surveys, or analytics behind them, and how many fans took part</Todo>
+
+</Research>
+
+<Constraints title="A redesign, not a clean slate.">
+
+Because fans already live in this app, two things bounded the work. I kept RIT's athletic identity — the Tigers orange, the wordmark, the tab structure people already know — and I scoped the redesign to the *staying-updated-about-a-match* journey rather than rebuilding the entire athletics ecosystem. The deliberate decisions:
+
+1. **Fix notifications at the source.** Make Follow and push alerts obvious on every team page, so "following" finally does what people expect.
+2. **Bring the data in-app and keep it live.** Real-time scores, rosters, and player stats — plus streaming and commentary — instead of bouncing fans out to the website.
+3. **Design for depth without clutter.** Dedicated team and player pages give analysts room to go deep while the casual path stays fast.
+
+What I left out was the heavy infrastructure — the ticketing and streaming back-ends. I designed the in-app entry points and assumed those services exist, because the goal was to prove the experience, not to rebuild RIT's plumbing.
+
+</Constraints>
+
+<Solution title="Make following a team finally mean something.">
+
+The redesign keeps the parts fans recognize and repairs the ones that quietly fail them. Three improvements carry most of the weight.
+
+<Figure
+  src="/case-studies/rit-athletics/pulled-13.png"
+  alt="A row of redesigned RIT Athletics screens under three headings: integrated streaming and live commentary; consistent real-time data for schedules, rosters, and player stats; and dedicated team and player pages with comprehensive, easy-to-read stats."
+  caption="Three pillars: integrated streaming and commentary, real-time schedule and stat data, and dedicated team and player pages."
+  aspect="2/1"
+/>
+
+The single most important fix answers the journey map directly. On every team page, one clear **Follow** control sits beside an obvious switch for push notifications — so the breakdown where favoriting did nothing simply disappears.
+
+<Figure
+  src="/case-studies/rit-athletics/pulled-14.png"
+  alt="Before and after: the current favorite-teams screen next to redesigned Women's Hockey team pages with a Follow Team button, a Following state with a notification bell, Roster, Schedule, and Highlights tabs, and season statistics."
+  caption="Before and after — a team page where Following actually means something, with push notifications one tap away."
+  aspect="2/1"
+/>
+
+On match day, that same structure carries live scores and play-by-play commentary, so the fans who used to refresh the Schedule tab can just watch it unfold.
+
+</Solution>
+
+<Outcome title="A coherent redesign — and the half I'd build next.">
+
+RIT Athletics is a redesign concept: a full audit of the current app turned into a coherent set of fixes for the fans who use it most. It taught me how to redesign inside an existing brand and information architecture — improving the experience without throwing away what users already know.
+
+<Todo>validation or testing data — this is a redesign concept that hasn't been usability-tested or shipped, so there are no outcome metrics yet</Todo>
+
+Where I'd take it next is Sarah's half of the story: the ticketing flow that currently sends fans to a separate login, and the share-a-score moment that today means a screenshot. Those are named, real pains — they just sat outside the staying-updated journey I chose to solve first.
+
+</Outcome>

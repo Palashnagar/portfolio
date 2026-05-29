@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hero F — Mountains, Refined</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F1EA;
+    --ink: #0A0A0A;
+    --accent: #E94E1B;
+    --muted: #8A867F;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* ============== AMBIENT LAYER ============== */
+  .ambient {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .ambient svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .parallax {
+    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    will-change: transform;
+  }
+
+  /* sun gentle breath */
+  .sun-group {
+    transform-origin: center;
+    animation: sunBreath 10s ease-in-out infinite;
+  }
+  @keyframes sunBreath {
+    0%, 100% { transform: translateY(3px); }
+    50% { transform: translateY(-5px); }
+  }
+
+  /* clouds drift, but stay on the right half */
+  .cloud { animation: drift 80s linear infinite; }
+  .cloud.b { animation-duration: 110s; animation-delay: -40s; opacity: 0.55; }
+  @keyframes drift {
+    from { transform: translateX(-100px); }
+    to { transform: translateX(900px); }
+  }
+
+  /* gentle tree sway */
+  .lone-tree {
+    transform-origin: bottom center;
+    animation: treeSway 12s ease-in-out infinite alternate;
+  }
+  @keyframes treeSway {
+    0% { transform: rotate(-1deg); }
+    100% { transform: rotate(1.2deg); }
+  }
+
+  /* ============== BIRD LAYER ============== */
+  .birds {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .bird {
+    position: absolute;
+    width: 28px;
+    height: 16px;
+    will-change: transform;
+    transform: translate(-100px, -100px);
+  }
+  .bird svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .bird-wings {
+    animation: flap 0.55s ease-in-out infinite;
+    transform-origin: center;
+  }
+  .bird.b .bird-wings { animation-duration: 0.62s; animation-delay: 0.1s; }
+  .bird.c .bird-wings { animation-duration: 0.48s; animation-delay: 0.25s; }
+  .bird.d .bird-wings { animation-duration: 0.58s; animation-delay: 0.05s; }
+  .bird.e .bird-wings { animation-duration: 0.51s; animation-delay: 0.18s; }
+  .bird.f .bird-wings { animation-duration: 0.66s; animation-delay: 0.32s; }
+  .bird.g .bird-wings { animation-duration: 0.45s; animation-delay: 0.4s; }
+  @keyframes flap {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(0.4); }
+  }
+
+  /* GRAIN */
+  .grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    mix-blend-mode: multiply;
+    z-index: 3;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.65'/></svg>");
+  }
+
+  /* ============== CHROME ============== */
+  .corner {
+    position: fixed;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    z-index: 50;
+    line-height: 1.5;
+  }
+  .tl { top: 32px; left: 32px; }
+  .tr { top: 32px; right: 32px; text-align: right; }
+  .bl { bottom: 32px; left: 32px; }
+  .br { bottom: 32px; right: 32px; text-align: right; }
+  .corner .dot {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 6px;
+    vertical-align: middle;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+  .corner a { color: var(--ink); text-decoration: none; margin-left: 18px; }
+  .corner a:hover { color: var(--accent); }
+  .corner .muted { color: var(--muted); }
+  .br a { margin: 0; color: var(--accent); }
+
+  /* ============== HERO TEXT — completely stable, no transforms ever ============== */
+  .hero {
+    position: relative;
+    z-index: 10;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 6vw;
+  }
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+  h1 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(64px, 11vw, 168px);
+    line-height: 0.92;
+    letter-spacing: -0.028em;
+    max-width: 14ch;
+  }
+  h1 em {
+    color: var(--accent);
+    font-style: italic;
+  }
+  .bio {
+    margin-top: 40px;
+    max-width: 480px;
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  .bio em {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 1.08em;
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============== AMBIENT FULL-BLEED ============== -->
+  <div class="ambient" id="ambient">
+    <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <!-- The right-side dissolve mask. White = visible, black = hidden. -->
+        <linearGradient id="rightFadeGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%"  stop-color="black"/>
+          <stop offset="32%" stop-color="black"/>
+          <stop offset="48%" stop-color="#3a3a3a"/>
+          <stop offset="62%" stop-color="#888"/>
+          <stop offset="78%" stop-color="#d8d8d8"/>
+          <stop offset="92%" stop-color="white"/>
+          <stop offset="100%" stop-color="white"/>
+        </linearGradient>
+        <mask id="rightFadeMask">
+          <rect width="1600" height="900" fill="url(#rightFadeGrad)"/>
+        </mask>
+
+        <!-- Sun aura, right-side warm wash that fades into the cream bg -->
+        <radialGradient id="sunAura" cx="0.82" cy="0.32" r="0.55">
+          <stop offset="0%" stop-color="#F4C9A8" stop-opacity="0.78"/>
+          <stop offset="35%" stop-color="#F0D4B8" stop-opacity="0.4"/>
+          <stop offset="70%" stop-color="#F5F1EA" stop-opacity="0.1"/>
+          <stop offset="100%" stop-color="#F5F1EA" stop-opacity="0"/>
+        </radialGradient>
+
+        <radialGradient id="sunGlow" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stop-color="#E94E1B" stop-opacity="0.45"/>
+          <stop offset="55%" stop-color="#E94E1B" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="#E94E1B" stop-opacity="0"/>
+        </radialGradient>
+
+        <linearGradient id="ridgeFar" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#A39E94" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#8A867F" stop-opacity="0.5"/>
+        </linearGradient>
+        <linearGradient id="ridgeMid" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#6C6862" stop-opacity="0.95"/>
+          <stop offset="100%" stop-color="#4A4641" stop-opacity="1"/>
+        </linearGradient>
+        <linearGradient id="ridgeNear" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2A2722" stop-opacity="1"/>
+          <stop offset="100%" stop-color="#0A0A0A" stop-opacity="1"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Warm sun aura (no mask — softly extends across, fades into cream naturally) -->
+      <rect width="1600" height="900" fill="url(#sunAura)"/>
+
+      <!-- Sun glow + core (sit outside mask so they're crisp on the right) -->
+      <circle cx="1280" cy="370" r="220" fill="url(#sunGlow)"/>
+      <g class="sun-group">
+        <circle cx="1280" cy="370" r="68" fill="#E94E1B" opacity="0.96"/>
+      </g>
+
+      <!-- ============== EVERYTHING BELOW DISSOLVES FROM RIGHT TO LEFT ============== -->
+      <g mask="url(#rightFadeMask)">
+
+        <!-- Cloud wisps (drift across, masked so they only exist in the right side) -->
+        <g class="cloud" opacity="0.7">
+          <ellipse cx="600" cy="200" rx="110" ry="5" fill="#F5F1EA"/>
+          <ellipse cx="630" cy="194" rx="70" ry="3" fill="#F5F1EA" opacity="0.65"/>
+        </g>
+        <g class="cloud b">
+          <ellipse cx="500" cy="155" rx="90" ry="4" fill="#F5F1EA"/>
+        </g>
+
+        <!-- FAR ridges -->
+        <g class="parallax" data-depth="0.25">
+          <path d="
+            M 400 620
+            L 520 555 L 620 590
+            L 730 530 L 840 575
+            L 960 520 L 1080 565
+            L 1200 510 L 1320 560
+            L 1450 525 L 1560 555
+            L 1650 540
+            L 1650 900 L 400 900 Z"
+            fill="url(#ridgeFar)"/>
+        </g>
+
+        <!-- MID ridges -->
+        <g class="parallax" data-depth="0.55">
+          <path d="
+            M 380 700
+            L 500 615 L 620 660
+            L 740 590 L 860 645
+            L 980 580 L 1100 635
+            L 1230 590 L 1360 640
+            L 1490 615 L 1600 645
+            L 1650 635
+            L 1650 900 L 380 900 Z"
+            fill="url(#ridgeMid)"/>
+
+          <!-- Snow caps -->
+          <path d="M 740 590 L 750 583 L 762 591 L 756 600 L 760 610 L 744 606 Z" fill="#F5F1EA" opacity="0.85"/>
+          <path d="M 1100 635 L 1110 628 L 1120 636 L 1116 643 Z" fill="#F5F1EA" opacity="0.75"/>
+          <path d="M 980 580 L 992 572 L 1006 582 L 998 592 L 1003 603 L 986 598 Z" fill="#F5F1EA" opacity="0.8"/>
+        </g>
+
+        <!-- NEAR ridges — darkest, in front -->
+        <g class="parallax" data-depth="1">
+          <path d="
+            M 320 800
+            L 460 720 L 580 760
+            L 710 690 L 840 745
+            L 970 685 L 1100 735
+            L 1230 695 L 1360 740
+            L 1490 715 L 1620 745
+            L 1650 740
+            L 1650 900 L 320 900 Z"
+            fill="url(#ridgeNear)"/>
+        </g>
+
+        <!-- FOREGROUND silhouette + lone trees -->
+        <g class="parallax" data-depth="1.3">
+          <path d="M 320 855 Q 700 838 1100 845 T 1650 850 L 1650 900 L 320 900 Z" fill="#0A0A0A"/>
+
+          <!-- Larger lone tree (mid-right, on near ridge) -->
+          <g transform="translate(820 855)" class="lone-tree">
+            <rect x="-1.5" y="0" width="3" height="32" fill="#0A0A0A"/>
+            <path d="M 0 -5 L -11 14 L 11 14 Z" fill="#0A0A0A"/>
+            <path d="M 0 -14 L -9 6 L 9 6 Z" fill="#0A0A0A"/>
+            <path d="M 0 -23 L -7 -1 L 7 -1 Z" fill="#0A0A0A"/>
+          </g>
+
+          <!-- Smaller tree right of sun, dimmer -->
+          <g transform="translate(1380 858)" class="lone-tree" style="animation-delay: 3s;">
+            <rect x="-1" y="0" width="2" height="20" fill="#0A0A0A"/>
+            <path d="M 0 -3 L -7 9 L 7 9 Z" fill="#0A0A0A"/>
+            <path d="M 0 -10 L -5 4 L 5 4 Z" fill="#0A0A0A"/>
+          </g>
+        </g>
+
+      </g>
+    </svg>
+  </div>
+
+  <!-- ============== BIRDS (above ambient, JS-driven) ============== -->
+  <div class="birds" id="birds">
+    <div class="bird" style="width: 28px; height: 16px;">
+      <svg viewBox="-14 -8 28 16">
+        <g class="bird-wings">
+          <path d="M -11 0 q 5.5 -5.5 11 0 q 5.5 -5.5 11 0" fill="none" stroke="#0A0A0A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity="0.75"/>
+        </g>
+      </svg>
+    </div>
+    <div class="bird b" style="width: 22px; height: 13px;">
+      <svg viewBox="-14 -8 28 16">
+        <g class="bird-wings">
+          <path d="M -9 0 q 4.5 -4.5 9 0 q 4.5 -4.5 9 0" fill="none" stroke="#0A0A0A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" opacity="0.6"/>
+        </g>
+      </svg>
+    </div>
+    <div class="bird c" style="width: 32px; height: 18px;">
+      <svg viewBox="-14 -8 28 16">
+        <g class="bird-wings">
+          <path d="M -12 0 q 6 -6 12 0 q 6 -6 12 0" fill="none" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" opacity="0.78"/>
+        </g>
+      </svg>
+    </div>
+    <div class="bird d" style="width: 20px; height: 12px;">
+      <svg viewBox="-14 -8 28 16">
+        <g class="bird-wings">
+          <path d="M -10 0 q 5 -5 10 0 q 5 -5 10 0" fill="none" stroke="#0A0A0A" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" opacity="0.55"/>
+        </g>
+      </svg>
+    </div>
+    <div class="bird e" style="width: 26px; height: 15px;">
+      <svg viewBox="-14 -8 28 16">
+        <g class="bird-wings">
+          <path d="M -11 0 q 5.5 -5 11 0 q 5.5 -5 11 0" fill="none" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+        </g>
+      </svg>
+    </div>
+    <div class="bird f" style="width: 18px; height: 11px;">
+      <svg viewBox="-14 -8 28 16">
+        <g class="bird-wings">
+          <path d="M -9 0 q 4.5 -4 9 0 q 4.5 -4 9 0" fill="none" stroke="#0A0A0A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.5"/>
+        </g>
+      </svg>
+    </div>
+    <div class="bird g" style="width: 24px; height: 14px;">
+      <svg viewBox="-14 -8 28 16">
+        <g class="bird-wings">
+          <path d="M -10 0 q 5 -5 10 0 q 5 -5 10 0" fill="none" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.65"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="grain"></div>
+
+  <!-- CHROME -->
+  <div class="corner tl">
+    <span class="dot"></span>Palash Nagar<br/>
+    <span class="muted">UX/UI · HCI · RIT</span>
+  </div>
+  <div class="corner tr">
+    <a href="#">Work</a>
+    <a href="#">About</a>
+    <a href="#">Resume</a>
+  </div>
+  <div class="corner bl">
+    © 2026 · Rochester, NY<br/>
+    <span class="muted">Available May 2026</span>
+  </div>
+  <div class="corner br">
+    <a href="#">Get in touch →</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="eyebrow">Portfolio · 2026</div>
+    <h1>Design <em>that</em> feels inevitable.</h1>
+    <p class="bio">
+      I'm Palash — a UX designer and HCI researcher at RIT. I make digital things feel <em>less anxious</em>.
+    </p>
+  </section>
+
+<script>
+  // -------------------- PARALLAX (subtle, only on ambient ridges, never on text) --------------------
+  const ambient = document.getElementById('ambient');
+  const parallaxLayers = ambient.querySelectorAll('.parallax');
+  let pmx = 0, pmy = 0, pcx = 0, pcy = 0;
+
+  // -------------------- BIRDS --------------------
+  // Natural flight via simple steering: each bird has velocity, wanders gently,
+  // maintains a general drift direction, and gets pushed away from the cursor.
+  const birdEls = document.querySelectorAll('.bird');
+  let mouseX = -9999, mouseY = -9999;
+
+  class Bird {
+    constructor(el, idx) {
+      this.el = el;
+      // Stagger horizontally across the right half so they don't all enter together
+      this.x = window.innerWidth * 0.5 + idx * (window.innerWidth * 0.18) + Math.random() * 80;
+      this.y = window.innerHeight * (0.15 + Math.random() * 0.32);
+      this.vx = -(0.5 + Math.random() * 0.45);
+      this.vy = (Math.random() - 0.5) * 0.18;
+      this.wanderPhase = Math.random() * Math.PI * 2;
+      this.wanderSpeed = 0.007 + Math.random() * 0.008;
+      this.baseDir = -1; // intended drift direction (negative = leftward)
+      this.cruiseSpeed = 0.55 + Math.random() * 0.35;
+    }
+
+    update() {
+      // 1. Gentle wandering — soft vertical sin perturbation
+      this.wanderPhase += this.wanderSpeed;
+      const wander = Math.sin(this.wanderPhase) * 0.025;
+      this.vy += wander;
+
+      // 2. Cursor avoidance — strong push away when near
+      const dx = this.x - mouseX;
+      const dy = this.y - mouseY;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      const avoidR = 180;
+      if (dist < avoidR && dist > 0.01) {
+        const f = Math.pow(1 - dist / avoidR, 2) * 1.2;
+        this.vx += (dx / dist) * f;
+        this.vy += (dy / dist) * f;
+      }
+
+      // 3. Maintain general drift direction (gentle pull back to cruise)
+      const targetVx = this.baseDir * this.cruiseSpeed;
+      this.vx += (targetVx - this.vx) * 0.012;
+
+      // 4. Damp vertical so birds don't fly straight up/down forever
+      this.vy *= 0.98;
+
+      // 5. Cap speed
+      const sp = Math.sqrt(this.vx*this.vx + this.vy*this.vy);
+      const maxSp = 1.6;
+      if (sp > maxSp) {
+        this.vx = this.vx / sp * maxSp;
+        this.vy = this.vy / sp * maxSp;
+      }
+
+      // 6. Position
+      this.x += this.vx;
+      this.y += this.vy;
+
+      // 7. Wrap around screen edges
+      const margin = 80;
+      if (this.x < -margin) {
+        this.x = window.innerWidth + margin;
+        this.y = window.innerHeight * (0.15 + Math.random() * 0.25);
+        this.vx = -this.cruiseSpeed;
+        this.vy = 0;
+      } else if (this.x > window.innerWidth + margin) {
+        this.x = -margin;
+        this.y = window.innerHeight * (0.15 + Math.random() * 0.25);
+        this.vx = this.cruiseSpeed * (this.baseDir > 0 ? 1 : -1);
+        this.vy = 0;
+      }
+      if (this.y < 40) { this.y = 40; this.vy = Math.abs(this.vy); }
+      if (this.y > window.innerHeight * 0.55) {
+        this.y = window.innerHeight * 0.55;
+        this.vy = -Math.abs(this.vy);
+      }
+
+      // 8. Render — translate to position, point in direction of travel without flipping upside-down.
+      // A bird's silhouette is symmetric left/right but NOT top/bottom (wings curve up).
+      // So we mirror horizontally when flying left, and only rotate by the small banking angle.
+      const facingLeft = this.vx < 0;
+      const bankAngle = Math.atan2(this.vy, Math.abs(this.vx)) * 180 / Math.PI;
+      const scaleX = facingLeft ? -1 : 1;
+      this.el.style.transform = `translate(${this.x}px, ${this.y}px) scaleX(${scaleX}) rotate(${bankAngle}deg)`;
+    }
+  }
+
+  const birds = Array.from(birdEls).map((el, i) => new Bird(el, i));
+
+  window.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    pmx = (e.clientX / window.innerWidth - 0.5) * 2;
+    pmy = (e.clientY / window.innerHeight - 0.5) * 2;
+  });
+  window.addEventListener('mouseleave', () => {
+    mouseX = -9999; mouseY = -9999;
+  });
+
+  function tick() {
+    // birds
+    birds.forEach(b => b.update());
+
+    // parallax — only the SVG ridge layers, very subtle
+    pcx += (pmx - pcx) * 0.045;
+    pcy += (pmy - pcy) * 0.045;
+    parallaxLayers.forEach(l => {
+      const d = parseFloat(l.dataset.depth);
+      l.style.transform = `translate(${-pcx * 14 * d}px, ${-pcy * 7 * d}px)`;
+    });
+
+    requestAnimationFrame(tick);
+  }
+  tick();
+</script>
+</body>
+</html>

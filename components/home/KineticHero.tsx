@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { letterTransform } from "@/lib/kinetic";
+import AmbientScene from "@/components/home/AmbientScene";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -139,8 +140,11 @@ export default function KineticHero() {
   return (
     <section
       className="min-h-screen flex flex-col justify-center"
-      style={{ padding: "0 6vw" }}
+      style={{ padding: "0 6vw", position: "relative", isolation: "isolate" }}
     >
+      {/* Ambient mountain scene — behind the hero, scrolls away with it. */}
+      <AmbientScene />
+
       {/* Eyebrow */}
       <div
         style={{

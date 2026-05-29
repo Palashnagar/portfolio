@@ -1,0 +1,111 @@
+/* Hero ambient scene styles — ported from design-reference/hero-F-final.html.
+   Scoped to the hero feature via CSS Modules so nothing here touches globals.css
+   or the shared token/typography system. The site's global prefers-reduced-motion
+   rule (app/globals.css) freezes every animation below automatically, which gives
+   us the required static scene; the JS loops are gated separately in the component. */
+
+/* Layers are ABSOLUTE (not fixed) so the scene is contained to the hero section and
+   scrolls up out of view as you enter the work section. The hero section sets
+   `isolation: isolate`, so these negative z-indexes keep the scene behind the
+   in-flow hero text (which stays untouched at auto) without escaping behind the
+   page. Order is preserved: ambient (-2) sits behind the birds (-1). */
+.ambient {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+}
+.ambient svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.birds {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.bird {
+  position: absolute;
+  width: 28px;
+  height: 16px;
+  will-change: transform;
+  transform: translate(-100px, -100px); /* offscreen until the RAF loop positions it */
+}
+.bird svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+/* Ridge parallax — JS sets the translate each frame; this smooths it. */
+.parallax {
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
+}
+
+/* Sun gentle breath */
+.sunGroup {
+  transform-origin: center;
+  animation: sunBreath 10s ease-in-out infinite;
+}
+@keyframes sunBreath {
+  0%,
+  100% {
+    transform: translateY(3px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Clouds drift across the right half */
+.cloud {
+  animation: drift 80s linear infinite;
+}
+.cloudB {
+  animation: drift 110s linear infinite;
+  animation-delay: -40s;
+  opacity: 0.55;
+}
+@keyframes drift {
+  from {
+    transform: translateX(-100px);
+  }
+  to {
+    transform: translateX(900px);
+  }
+}
+
+/* Gentle tree sway */
+.loneTree {
+  transform-origin: bottom center;
+  animation: treeSway 12s ease-in-out infinite alternate;
+}
+@keyframes treeSway {
+  0% {
+    transform: rotate(-1deg);
+  }
+  100% {
+    transform: rotate(1.2deg);
+  }
+}
+
+/* Wing flap — per-bird duration/delay are set inline in the component */
+.birdWings {
+  animation: flap 0.55s ease-in-out infinite;
+  transform-origin: center;
+}
+@keyframes flap {
+  0%,
+  100% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(0.4);
+  }
+}

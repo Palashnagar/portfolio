@@ -69,3 +69,45 @@ html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 .lenis.lenis-stopped { overflow: hidden; }
 .lenis.lenis-smooth iframe { pointer-events: none; }
+
+/* Thermal mode — Konami easter egg (toggled by components/fx/ThermalMode.tsx).
+   A slow cool→warm heat-map wash over the whole canvas, sitting just under the
+   grain (z-100) and cursor (z-200). The global prefers-reduced-motion rule above
+   freezes the animation automatically; the warm pointer trail is gated off in JS
+   under reduced motion, so reduced motion gets a static gradient only. */
+body.thermal::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  background:
+    radial-gradient(55% 50% at 18% 22%, rgba(233, 78, 27, 0.34), transparent 70%),
+    radial-gradient(48% 44% at 82% 28%, rgba(245, 166, 35, 0.28), transparent 72%),
+    radial-gradient(60% 55% at 50% 96%, rgba(30, 58, 95, 0.30), transparent 74%);
+  animation: thermal-shift 14s ease-in-out infinite alternate;
+}
+@keyframes thermal-shift {
+  0%   { filter: hue-rotate(0deg); transform: scale(1.05) translate(-1%, -1%); }
+  100% { filter: hue-rotate(-12deg); transform: scale(1.18) translate(1.5%, 1.5%); }
+}
+.thermal-trail {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 240px;
+  height: 240px;
+  margin: -120px 0 0 -120px;
+  z-index: 95;
+  pointer-events: none;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  filter: blur(10px);
+  background: radial-gradient(
+    circle,
+    rgba(255, 96, 32, 0.5),
+    rgba(245, 166, 35, 0.22) 45%,
+    transparent 70%
+  );
+}

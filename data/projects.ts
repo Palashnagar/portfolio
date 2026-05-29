@@ -26,6 +26,7 @@ export interface Project {
   title: string; // primary title, e.g. "MyCourses"
   accent: string; // accent word, rendered italic-orange, e.g. "2.0"
   meta: string[]; // [year, context, "CASE STUDY"]
+  desc: string; // one-line tagline for the /work grid card (04 anatomy)
   problem: ProblemSegment[];
   color: string; // brand color — title-card background
   textColor: string; // readable text color on `color`
@@ -38,6 +39,7 @@ export const projects: Project[] = [
     title: "MyCourses",
     accent: "2.0",
     meta: ["2025", "RIT · 19K USERS", "CASE STUDY"],
+    desc: "Helping 19,000+ RIT students never miss an assignment again.",
     problem: [
       {
         text: "Students were missing assignments because the LMS buried due dates three clicks deep. I redesigned the dashboard around ",
@@ -54,6 +56,7 @@ export const projects: Project[] = [
     title: "Roomie",
     accent: "Match",
     meta: ["2025", "MOBILE", "CASE STUDY"],
+    desc: "Mobile-first roommate matching by lifestyle compatibility.",
     // TODO: confirm "41% of complaints in Year 1" with Palash — figure sourced
     // from the design-reference mockup, not yet independently verified.
     problem: [
@@ -72,6 +75,7 @@ export const projects: Project[] = [
     title: "RIT",
     accent: "Athletics",
     meta: ["2025", "SPORTS", "CASE STUDY"],
+    desc: "Keeping RIT Tigers fans connected on the go.",
     problem: [
       {
         text: "Tigers fans were jumping between three apps for scores, schedules, and tickets. One home, one tap, ",
@@ -91,6 +95,7 @@ export const projects: Project[] = [
     // data (data/case-studies.ts) records RIT EATS as a 2024 project — using the
     // real year. TODO: confirm year with Palash.
     meta: ["2024", "F&B", "CASE STUDY"],
+    desc: "Campus food ordering, redesigned.",
     // TODO: confirm "lines peaked at 22 minutes ... under six" with Palash —
     // figures sourced from the design-reference mockup, not yet verified.
     problem: [

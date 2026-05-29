@@ -1,47 +1,36 @@
-import { Reveal } from "@/components/motion/Reveal";
-import { WorkTile } from "@/components/work/WorkTile";
-import { MagneticButton } from "@/components/ui/MagneticButton";
-import { caseStudies } from "@/data/case-studies";
+// /work index — distortion grid (anatomy from 04-hover-distortion.html): mono
+// eyebrow + serif page title with accent + 2-col WorkGrid driven by
+// data/projects.ts. No <main> here — the (site) layout provides it.
+
+import { projects } from "@/data/projects";
+import { WorkGrid } from "@/components/work/WorkGrid";
 
 export const metadata = {
   title: "Work — Palash Nagar",
-  description: "Selected case studies in UX/UI and product design.",
+  description: "Selected case studies in UX/UI, product design, and HCI research.",
 };
 
 export default function WorkIndexPage() {
   return (
-    <main>
-      <section className="max-w-content mx-auto px-6 md:px-10 pt-24 pb-16">
-        <Reveal>
-          <div className="text-xs uppercase tracking-[0.18em] text-[var(--accent)] mb-3">
-            Selected work · {String(caseStudies.length).padStart(2, "0")} projects
-          </div>
-          <h1 className="font-[family-name:var(--font-display)] text-5xl md:text-7xl tracking-tight leading-[1.0]">
-            Things I've <em>built.</em>
-          </h1>
-        </Reveal>
-      </section>
-
-      <section className="max-w-content mx-auto px-6 md:px-10 pb-24">
-        <div className="grid gap-16 md:grid-cols-2">
-          {caseStudies.map((cs, i) => (
-            <Reveal key={cs.slug} delay={(i % 2) * 0.1}>
-              <WorkTile cs={cs} />
-            </Reveal>
-          ))}
+    <div style={{ padding: "120px 6vw 80px" }}>
+      <div className="mx-auto max-w-[1400px]">
+        <div className="mb-6 text-[13px] uppercase tracking-[0.15em] text-muted">
+          Selected work · {String(projects.length).padStart(2, "0")} projects
         </div>
-      </section>
+        <h1
+          className="mb-20 text-ink"
+          style={{
+            fontFamily: "var(--font-display)",
+            fontSize: "clamp(56px, 10vw, 160px)",
+            lineHeight: 0.92,
+            letterSpacing: "-0.025em",
+          }}
+        >
+          Things I&apos;ve <em style={{ color: "var(--accent)" }}>built.</em>
+        </h1>
 
-      <section className="max-w-content mx-auto px-6 md:px-10 py-24 border-t border-[var(--line)]">
-        <Reveal>
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <h2 className="font-[family-name:var(--font-display)] text-3xl md:text-4xl">
-              Want to <em>talk through one?</em>
-            </h2>
-            <MagneticButton href="/contact">Get in touch →</MagneticButton>
-          </div>
-        </Reveal>
-      </section>
-    </main>
+        <WorkGrid />
+      </div>
+    </div>
   );
 }

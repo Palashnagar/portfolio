@@ -1,46 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #f6efe3;
-  --color-bg-2: #ede5d4;
-  --color-ink: #2b1d12;
-  --color-ink-2: #5a3a22;
-  --color-accent: #b45309;
-  --color-accent-2: #d4a373;
-  --color-accent-soft: rgba(180, 83, 9, 0.12);
-  --color-line: rgba(43, 29, 18, 0.12);
+  --color-bg: #F5F1EA;
+  --color-ink: #0A0A0A;
+  --color-accent: #E94E1B;
+  --color-muted: #8A867F;
+  --color-line: rgba(10, 10, 10, 0.14);
 
-  --font-display: "Fraunces", "EB Garamond", Georgia, serif;
-  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: var(--font-instrument), serif;
+  --font-body: var(--font-bricolage), sans-serif;
 
-  --container-content: 72rem;
+  --container-content: 75rem;
   --container-reading: 42rem;
 
-  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
-  --duration-fast: 0.4s;
-  --duration-base: 0.7s;
-  --duration-slow: 1.2s;
+  --ease-out-soft: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 :root {
-  --bg: #f6efe3;
-  --bg-2: #ede5d4;
-  --ink: #2b1d12;
-  --ink-2: #5a3a22;
-  --accent: #b45309;
-  --accent-2: #d4a373;
-  --accent-soft: rgba(180, 83, 9, 0.12);
-  --line: rgba(43, 29, 18, 0.12);
+  --bg: #F5F1EA; --ink: #0A0A0A; --accent: #E94E1B; --muted: #8A867F; --line: rgba(10,10,10,0.14);
 }
 
-html, body {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--font-body);
-  font-feature-settings: "ss01", "cv11";
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-}
+html { scroll-behavior: smooth; background: var(--bg); }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 
 ::selection {
   background: var(--accent);
@@ -51,10 +32,6 @@ html, body {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
   border-radius: 2px;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 @media (prefers-reduced-motion: reduce) {

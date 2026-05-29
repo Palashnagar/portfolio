@@ -1,29 +1,31 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Instrument_Serif, Bricolage_Grotesque } from "next/font/google";
 import "./globals.css";
 
-const fraunces = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-display",
-  axes: ["opsz", "SOFT"],
+const instrument = Instrument_Serif({
+  weight: ["400"],
   style: ["normal", "italic"],
+  subsets: ["latin"],
+  variable: "--font-instrument",
   display: "swap",
 });
 
-const inter = Inter({
+const bricolage = Bricolage_Grotesque({
+  weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
-  variable: "--font-body",
+  variable: "--font-bricolage",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Palash Nagar — UX/UI Designer",
+  title: "Palash Nagar — UX Designer & HCI Researcher",
   description:
-    "UX designer and HCI researcher. Designing things that feel inevitable.",
+    "UX designer and HCI researcher at RIT. Designing interfaces that feel inevitable — from thermal-illusion wearables to software people actually want to use.",
   metadataBase: new URL("https://palashnagar.vercel.app"),
   openGraph: {
-    title: "Palash Nagar — UX/UI Designer",
-    description: "Designing things that feel inevitable.",
+    title: "Palash Nagar — UX Designer & HCI Researcher",
+    description:
+      "Designing interfaces that feel inevitable — from thermal-illusion wearables to software people actually want to use.",
     type: "website",
   },
 };
@@ -34,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+    <html lang="en" className={`${instrument.variable} ${bricolage.variable}`}>
       <body>{children}</body>
     </html>
   );

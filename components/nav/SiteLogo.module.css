@@ -50,6 +50,10 @@
     max-width 0.55s cubic-bezier(0.6, 0, 0.3, 1),
     color 0.55s ease;
   vertical-align: top;
+  /* The collapse uses overflow:hidden on .middle (to clip width to 0), which
+     also clips descenders vertically. Pad the bottom so the clip box extends
+     below the baseline and g / p / y aren't cut. */
+  padding-bottom: 0.18em;
 }
 
 /* Only the middle letters collapse to zero width, so only they get clipping. */

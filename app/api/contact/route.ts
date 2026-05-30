@@ -56,7 +56,7 @@ export async function POST(req: Request) {
       },
       body: JSON.stringify({
         from: "Portfolio <noreply@palashnagar.com>",
-        to: "asnddev@gmail.com",
+        to: "nagar.palash683@gmail.com",
         reply_to: body.email,
         subject: `Portfolio contact · ${body.projectType} · ${body.name}`,
         text: `From: ${body.name} <${body.email}>\nProject type: ${body.projectType}\n\n${body.message}`,

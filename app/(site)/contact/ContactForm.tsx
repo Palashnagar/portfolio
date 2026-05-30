@@ -153,8 +153,8 @@ export function ContactForm() {
 
             <p className="text-[14px] text-muted">
               Prefer email?{" "}
-              <a className="text-ink underline transition-colors hover:text-accent" href="mailto:asnddev@gmail.com">
-                asnddev@gmail.com
+              <a className="text-ink underline transition-colors hover:text-accent" href="mailto:nagar.palash683@gmail.com">
+                nagar.palash683@gmail.com
               </a>
             </p>
           </div>

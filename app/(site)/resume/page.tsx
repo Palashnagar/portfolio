@@ -33,8 +33,8 @@ export default async function ResumePage() {
         </h1>
         <p className="mt-3 text-muted">UX/UI Designer · HCI Master&apos;s at RIT · Rochester, NY</p>
         <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-[14px]">
-          <a href="mailto:asnddev@gmail.com" className="text-ink transition-colors hover:text-accent">
-            asnddev@gmail.com
+          <a href="mailto:nagar.palash683@gmail.com" className="text-ink transition-colors hover:text-accent">
+            nagar.palash683@gmail.com
           </a>
           <a
             href="https://linkedin.com/in/palashnagar"

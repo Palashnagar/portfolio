@@ -210,7 +210,9 @@ export default function KineticHero() {
           color: "var(--ink)",
         }}
       >
-        I&apos;m Palash — a UX designer and HCI researcher turning{" "}
+        I&apos;m a UX designer who loves the overlap between research and
+        intuition. These days that also means vibe coding in Framer and
+        co-designing with AI like Claude Code and Codex — without losing{" "}
         <em
           style={{
             fontFamily: "var(--font-display)",
@@ -218,9 +220,8 @@ export default function KineticHero() {
             fontSize: "1.1em",
           }}
         >
-          thermal illusions
-        </em>{" "}
-        into wearables at RIT. I make digital things feel less anxious.
+          the human part.
+        </em>
       </p>
     </section>
   );

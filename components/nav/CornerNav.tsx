@@ -50,7 +50,7 @@ export function CornerNav() {
       {/* Bottom-left: location + availability */}
       <div className={`${cornerBase} bottom-8 left-8`} style={fadeStyle}>
         <div>© 2026 · Rochester, NY</div>
-        <div className="mt-0.5 text-[var(--muted)]">Available May 2026</div>
+        <div className="mt-0.5 text-[var(--muted)]">Available Dec 2026</div>
       </div>
 
       {/* Bottom-right: contact CTA */}

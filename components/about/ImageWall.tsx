@@ -183,11 +183,20 @@ export function ImageWall() {
       hasTarget = true;
     };
     const onFocusIn = (e: FocusEvent) => {
-      const t = e.target as HTMLElement;
-      if (t?.matches?.('[data-tile="real"]')) {
-        paused = true;
-        centerOn(t);
+      if (isDragging) return; // a pointer drag isn't keyboard navigation
+      const t = e.target as HTMLElement | null;
+      if (!t?.matches?.('[data-tile="real"]')) return;
+      // Only KEYBOARD focus pauses + centers. A mouse press also focuses the
+      // button, but focus-visible is false for that — so clicks/drags don't pause.
+      let keyboard = true;
+      try {
+        keyboard = t.matches(":focus-visible");
+      } catch {
+        /* :focus-visible unsupported — treat as keyboard */
       }
+      if (!keyboard) return;
+      paused = true;
+      centerOn(t);
     };
     const onFocusOut = () => {
       window.setTimeout(() => {
@@ -211,9 +220,12 @@ export function ImageWall() {
 
     let raf = 0;
     const loop = () => {
-      if (paused && hasTarget) {
+      if (isDragging) {
+        // Offset is driven directly by the pointer in onMove — highest priority,
+        // so neither the keyboard-centering nor the autoscroll fights the drag.
+      } else if (paused && hasTarget) {
         offset += (target - offset) * 0.12; // ease focused tile to center
-      } else if (!isDragging) {
+      } else {
         velocity += (BASE - velocity) * 0.025; // momentum eases back to base
         offset += velocity;
       }

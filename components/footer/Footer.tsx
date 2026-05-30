@@ -3,11 +3,12 @@ import Link from "next/link";
 const socialLinks = [
   { href: "https://linkedin.com/in/palashnagar", label: "LinkedIn" },
   { href: "https://twitter.com/palashnagar", label: "X" },
-  { href: "mailto:asnddev@gmail.com", label: "Email" },
+  { href: "mailto:nagar.palash683@gmail.com", label: "Email" },
 ];
 
 const siteLinks = [
   { href: "/work", label: "Work" },
+  { href: "/explorations", label: "Explorations" },
   { href: "/about", label: "About" },
   { href: "/resume", label: "Resume" },
   { href: "/contact", label: "Contact" },
@@ -22,7 +23,7 @@ export function Footer() {
             Palash Nagar
           </div>
           <p className="mt-2 text-sm text-[var(--muted)] max-w-xs">
-            UX designer & HCI researcher. Rochester, NY.
+            Product/UX designer & HCI researcher. Rochester, NY.
           </p>
         </div>
 

@@ -45,13 +45,15 @@ export default function AboutTeaser() {
               letterSpacing: "-0.01em",
             }}
           >
-            I&apos;m a UX designer and HCI researcher at RIT. My capstone turns{" "}
+            A UX designer driven by curiosity and a pull toward real problems
+            for real people — turning complex challenges into intuitive, minimal
+            experiences that{" "}
             <em style={{ fontStyle: "italic", color: "var(--accent)" }}>
-              thermal illusions
+              make life easier.
             </em>{" "}
-            into wearables; my day-to-day turns messy problems into interfaces
-            that feel calm and legible. I like the seam where research meets
-            craft.
+            Lately I work where design meets AI: prototyping in Framer, prompting
+            Claude, building in an afternoon what once took weeks. Always
+            evolving, always designing.
           </p>
           <Link
             href="/about"

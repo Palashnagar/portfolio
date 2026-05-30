@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import NowStrip from "@/components/home/NowStrip";
+import { ImageWall } from "@/components/about/ImageWall";
 import { Magnetic } from "@/components/fx/Magnetic";
 import { experience } from "@/data/experience";
 import { toolkit } from "@/data/tools";
@@ -117,6 +118,9 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* "The rest of me" — full-bleed draggable wall of things Palash loves */}
+      <ImageWall />
 
       {/* 03 — What I research: thermal illusions → wearables */}
       <section className="border-t border-line" style={{ padding: "80px 6vw" }}>

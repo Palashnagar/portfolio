@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>About — draggable wall with voice captions</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F1EA;
+    --ink: #0A0A0A;
+    --accent: #E94E1B;
+    --muted: #8A867F;
+    --border: rgba(10,10,10,0.10);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    padding: 60px 0 100px;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .grain {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    mix-blend-mode: multiply;
+    z-index: 100;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.65'/></svg>");
+  }
+
+  .container { max-width: 1400px; margin: 0 auto; padding: 0 6vw; }
+
+  header { margin-bottom: 50px; max-width: 720px; }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  h1 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(48px, 7vw, 96px);
+    line-height: 0.95;
+    letter-spacing: -0.025em;
+    margin-bottom: 24px;
+  }
+  h1 em { color: var(--accent); font-style: italic; }
+  header p {
+    font-size: 17px;
+    line-height: 1.55;
+    max-width: 56ch;
+  }
+  header p em { font-family: 'Instrument Serif', serif; font-style: italic; }
+
+  /* WALL — full-bleed beyond container */
+  .wall-wrap {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-bottom: 30px;
+  }
+  .wall {
+    position: relative;
+    height: 380px;
+    overflow: hidden;
+    cursor: grab;
+    user-select: none;
+    mask-image: linear-gradient(90deg, transparent 0%, black 4%, black 96%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 4%, black 96%, transparent 100%);
+  }
+  .wall.dragging { cursor: grabbing; }
+  .wall-track {
+    display: flex;
+    gap: 16px;
+    position: absolute;
+    top: 0; left: 0;
+    height: 100%;
+    will-change: transform;
+    padding: 0 16px;
+  }
+  .wall-pair {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  .wall-item {
+    position: relative;
+    flex-shrink: 0;
+    border-radius: 2px;
+    overflow: hidden;
+    height: 175px;
+    transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+    cursor: pointer;
+  }
+  .wall-item.sz-s { width: 175px; }
+  .wall-item.sz-m { width: 235px; }
+  .wall-item.sz-l { width: 290px; }
+  .wall-item:hover { transform: scale(1.04); z-index: 5; }
+
+  .wall-item .img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    background: var(--ink);
+    overflow: hidden;
+  }
+  .wall-item .img svg {
+    width: 100%; height: 100%;
+    display: block;
+    transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+    filter: brightness(0.88) saturate(0.85);
+  }
+  .wall-item:hover .img svg {
+    filter: brightness(1) saturate(1);
+    transform: scale(1.08);
+  }
+
+  /* dark gradient at bottom for caption legibility */
+  .wall-item::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 60%;
+    background: linear-gradient(180deg, transparent 0%, rgba(10,10,10,0.6) 70%, rgba(10,10,10,0.92) 100%);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
+  }
+  .wall-item:hover::after { opacity: 1; }
+
+  /* caption: voice-y, two-line, italic key word */
+  .wall-caption {
+    position: absolute;
+    left: 14px; right: 14px;
+    bottom: 12px;
+    z-index: 2;
+    color: var(--bg);
+    font-family: 'Instrument Serif', serif;
+    font-size: 15px;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+    transform: translateY(0);
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .wall-caption em { font-style: italic; color: var(--accent); }
+  .wall-caption .tag {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 6px;
+    font-style: normal;
+  }
+  .wall-item:hover .wall-caption { transform: translateY(-2px); }
+
+  /* hint pill */
+  .hint {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(10,10,10,0.85);
+    color: var(--bg);
+    padding: 10px 18px;
+    border-radius: 100px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    pointer-events: none;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    backdrop-filter: blur(8px);
+  }
+  .hint.show { opacity: 1; }
+  .hint::before {
+    content: '⟷';
+    color: var(--accent);
+    font-size: 14px;
+  }
+
+  /* progress bar showing scroll position */
+  .progress {
+    margin: 24px 6vw 0;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .progress-rail {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .progress-fill {
+    position: absolute;
+    height: 100%;
+    background: var(--accent);
+    width: 30%;
+    transition: transform 0.1s linear;
+  }
+
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<div class="container">
+  <header>
+    <div class="eyebrow"><span class="dot"></span>About · the rest of me</div>
+    <h1>Things I <em>love</em>, in no particular order.</h1>
+    <p>Outside of pixels and prototypes I'm <em>collecting moments</em> — places that humbled me, songs I've designed to, books I keep returning to, food I'm trying to get right. Drag the wall, or just watch it drift.</p>
+  </header>
+</div>
+
+<div class="wall-wrap">
+  <div class="wall" id="wall">
+    <div class="wall-track" id="wallTrack"></div>
+    <div class="hint" id="hint">Drag to explore</div>
+  </div>
+</div>
+
+<div class="progress">
+  <span>Now scrolling</span>
+  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+  <span id="progressLabel">Kyoto → cooking</span>
+</div>
+
+<script>
+  // ============== Voice-y captions ==============
+  // Each item: { tag, caption (use <em> to highlight the key phrase), palette index, variant for SVG pattern }
+  const ITEMS = [
+    { tag: 'Kyoto · 2024',       caption: 'The trip that made me <em>start journaling</em>.', palette: 0, variant: 2 },
+    { tag: 'Listening',          caption: '<em>Tame Impala</em> on every redesign.',          palette: 1, variant: 0 },
+    { tag: 'Reading',            caption: 'Murakami — I read <em>Norwegian Wood</em> twice.',  palette: 2, variant: 1 },
+    { tag: 'Iceland · 2023',     caption: 'Where I learned silence has <em>a texture</em>.',    palette: 3, variant: 0 },
+    { tag: 'Listening',          caption: 'Frank Ocean. Especially <em>Pyramids</em>.',          palette: 4, variant: 2 },
+    { tag: 'Hobby',              caption: 'Cooking dal until my mom <em>approves</em>.',         palette: 5, variant: 3 },
+    { tag: 'Mumbai · home',      caption: 'Where I figured out <em>what I want to make</em>.',  palette: 6, variant: 1 },
+    { tag: 'Watching',           caption: '<em>The Bear</em> — the kitchen, the chaos, the love.',palette: 7, variant: 0 },
+    { tag: 'Hobby',              caption: 'Film cameras. <em>One shot per moment</em>.',          palette: 8, variant: 2 },
+    { tag: 'Reading',            caption: 'Don Norman — <em>the book that ruined doors</em> for me.', palette: 9, variant: 3 },
+    { tag: 'Watching',           caption: '<em>Past Lives</em>. Still thinking about it.',         palette: 10, variant: 0 },
+    { tag: 'Lisbon · 2025',      caption: 'A whole city built around <em>azulejo tiles</em>.',     palette: 11, variant: 1 },
+    { tag: 'Listening',          caption: '<em>Anderson .Paak</em> for any 2 a.m. crit night.',    palette: 0, variant: 3 },
+    { tag: 'Hobby',              caption: 'Long bike rides. <em>No destination</em>.',             palette: 5, variant: 2 },
+    { tag: 'Goa · 2024',         caption: 'Where I read <em>three books in four days</em>.',       palette: 8, variant: 0 },
+    { tag: 'Hobby',              caption: 'Pottery. Mostly <em>terrible</em>. Still going.',        palette: 4, variant: 3 },
+    { tag: 'Reading',            caption: 'Letterboxd more than <em>any social app</em>.',         palette: 3, variant: 2 },
+    { tag: 'Listening',          caption: 'Lo-fi for deep work. <em>Sorry, not sorry</em>.',       palette: 7, variant: 1 },
+  ];
+
+  const COLORS = ['#E94E1B', '#1E3A5F', '#F5A623', '#2D5F3F', '#6B4530', '#8E5C8B', '#3A6B5C', '#C97852', '#3D4A5C', '#A56A45', '#5B7B8C', '#7A4A3A'];
+
+  function makePlaceholder(item, idx) {
+    const c = COLORS[item.palette % COLORS.length];
+    let pattern = '';
+    if (item.variant === 0) {
+      pattern = `<rect width='400' height='400' fill='${c}'/>
+        <circle cx='200' cy='200' r='95' fill='rgba(255,255,255,0.16)'/>
+        <circle cx='200' cy='200' r='52' fill='rgba(0,0,0,0.18)'/>`;
+    } else if (item.variant === 1) {
+      pattern = `<rect width='400' height='400' fill='${c}'/>
+        <rect x='0' y='210' width='400' height='190' fill='rgba(0,0,0,0.22)'/>
+        <rect x='0' y='270' width='400' height='2' fill='rgba(255,255,255,0.3)'/>`;
+    } else if (item.variant === 2) {
+      pattern = `<defs><linearGradient id='gx${idx}' x1='0' y1='0' x2='1' y2='1'>
+          <stop offset='0%' stop-color='${c}'/>
+          <stop offset='100%' stop-color='#0A0A0A'/>
+        </linearGradient></defs>
+        <rect width='400' height='400' fill='url(#gx${idx})'/>`;
+    } else {
+      pattern = `<rect width='400' height='400' fill='${c}'/>
+        <polygon points='200,80 320,320 80,320' fill='rgba(255,255,255,0.16)'/>`;
+    }
+    return `<svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice">${pattern}</svg>`;
+  }
+
+  // ============== Build wall as vertical pairs ==============
+  const track = document.getElementById('wallTrack');
+  const sizePattern = ['sz-m', 'sz-s', 'sz-l', 'sz-s', 'sz-m', 'sz-l', 'sz-m', 'sz-l', 'sz-s'];
+
+  function makeItem(item, idx) {
+    const el = document.createElement('div');
+    el.className = 'wall-item ' + sizePattern[idx % sizePattern.length];
+    el.innerHTML = `
+      <div class="img">${makePlaceholder(item, idx)}</div>
+      <div class="wall-caption">
+        <span class="tag">${item.tag}</span>
+        ${item.caption}
+      </div>
+    `;
+    return el;
+  }
+
+  function buildTrack() {
+    // Build pairs of items stacked vertically; duplicate the full sequence for seamless looping.
+    const buildOnce = () => {
+      for (let i = 0; i < ITEMS.length; i += 2) {
+        const pair = document.createElement('div');
+        pair.className = 'wall-pair';
+        pair.appendChild(makeItem(ITEMS[i], i));
+        pair.appendChild(makeItem(ITEMS[(i + 1) % ITEMS.length], (i + 1) % ITEMS.length));
+        track.appendChild(pair);
+      }
+    };
+    buildOnce();
+    buildOnce(); // duplicate for seamless loop
+  }
+  buildTrack();
+
+  // ============== Auto-scroll + drag physics ==============
+  let offset = 0;
+  let velocity = -0.5;
+  let isDragging = false;
+  let dragStart = 0, dragStartOffset = 0, lastX = 0, lastT = 0;
+  let trackHalfWidth = 0;
+
+  const wall = document.getElementById('wall');
+  const hint = document.getElementById('hint');
+  const progressFill = document.getElementById('progressFill');
+  const progressLabel = document.getElementById('progressLabel');
+
+  // Measure half the track (the looping unit)
+  function measure() {
+    trackHalfWidth = track.scrollWidth / 2;
+  }
+  setTimeout(measure, 100);
+  window.addEventListener('resize', measure);
+
+  // Show hint briefly on load
+  setTimeout(() => hint.classList.add('show'), 400);
+  setTimeout(() => hint.classList.remove('show'), 3200);
+
+  wall.addEventListener('pointerdown', (e) => {
+    isDragging = true;
+    dragStart = e.clientX;
+    dragStartOffset = offset;
+    lastX = e.clientX;
+    lastT = performance.now();
+    wall.classList.add('dragging');
+    wall.setPointerCapture(e.pointerId);
+    hint.classList.remove('show');
+  });
+  wall.addEventListener('pointermove', (e) => {
+    if (!isDragging) return;
+    offset = dragStartOffset + (e.clientX - dragStart);
+    const now = performance.now();
+    const dt = Math.max(1, now - lastT);
+    velocity = ((e.clientX - lastX) / dt) * 16; // px per frame at 60fps
+    lastX = e.clientX;
+    lastT = now;
+  });
+  wall.addEventListener('pointerup', () => {
+    isDragging = false;
+    wall.classList.remove('dragging');
+  });
+  wall.addEventListener('pointerleave', () => {
+    if (isDragging) {
+      isDragging = false;
+      wall.classList.remove('dragging');
+    }
+  });
+
+  function loop() {
+    if (!isDragging) {
+      // ease velocity back toward base autoscroll speed
+      velocity += (-0.5 - velocity) * 0.025;
+      offset += velocity;
+    }
+    // seamless wrap
+    if (trackHalfWidth > 0) {
+      if (offset <= -trackHalfWidth) offset += trackHalfWidth;
+      if (offset > 0) offset -= trackHalfWidth;
+    }
+    track.style.transform = `translateX(${offset}px)`;
+
+    // update progress fill — abs offset normalized
+    if (trackHalfWidth > 0) {
+      const pct = Math.abs(offset / trackHalfWidth);
+      progressFill.style.transform = `translateX(${pct * 233}%)`; // wraps visually
+      // figure out roughly which item is "centered" for the label
+      const itemWidth = trackHalfWidth / ITEMS.length;
+      const centerOffset = Math.abs(offset) + window.innerWidth / 2;
+      const idx = Math.floor(centerOffset / itemWidth) % ITEMS.length;
+      const item = ITEMS[idx];
+      if (item) {
+        progressLabel.textContent = item.tag.split(' · ')[0] || item.tag;
+      }
+    }
+
+    requestAnimationFrame(loop);
+  }
+  loop();
+</script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+/* "Things I love" draggable image wall — ported from
+   design-reference/about-wall-final.html. The wall breaks out of the content
+   column to full-bleed; the heading above and progress strip below stay in the
+   column. Drag physics + autoscroll live in ImageWall.tsx. Mono micro-labels in
+   the reference are rendered in Bricolage here to keep the site's 2-font system. */
+
+.wallWrap {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(50% - 50vw); /* break out of the content column → full-bleed */
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+.wall {
+  position: relative;
+  height: 380px;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 4%, black 96%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, black 4%, black 96%, transparent 100%);
+}
+.wall.dragging {
+  cursor: grabbing;
+}
+
+.track {
+  display: flex;
+  gap: 16px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  will-change: transform;
+  padding: 0 16px;
+}
+
+.pair {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+/* Each tile is a focusable <button>; reset the native button chrome. */
+.item {
+  position: relative;
+  flex-shrink: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  border-radius: 2px;
+  overflow: hidden;
+  height: 175px;
+  transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+  cursor: pointer;
+}
+.szS {
+  width: 175px;
+}
+.szM {
+  width: 235px;
+}
+.szL {
+  width: 290px;
+}
+.item:hover,
+.item:focus-visible {
+  transform: scale(1.04);
+  z-index: 5;
+}
+.item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--ink);
+  overflow: hidden;
+}
+.img svg,
+.img img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  filter: brightness(0.88) saturate(0.85);
+}
+.item:hover .img svg,
+.item:hover .img img,
+.item:focus-visible .img svg,
+.item:focus-visible .img img {
+  filter: brightness(1) saturate(1);
+  transform: scale(1.08);
+}
+
+/* dark gradient at the bottom so captions stay legible over any photo */
+.item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 60%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(10, 10, 10, 0.6) 70%,
+    rgba(10, 10, 10, 0.92) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+.item:hover::after,
+.item:focus-visible::after {
+  opacity: 1;
+}
+
+.caption {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 12px;
+  z-index: 2;
+  color: var(--bg);
+  font-family: var(--font-display);
+  font-size: 15px;
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  transform: translateY(0);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.caption em {
+  font-style: italic;
+  color: var(--accent);
+}
+.tag {
+  display: block;
+  font-family: var(--font-body); /* reference used JetBrains Mono; 2-font system */
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 6px;
+  font-style: normal;
+}
+.item:hover .caption,
+.item:focus-visible .caption {
+  transform: translateY(-2px);
+}
+
+/* hint pill */
+.hint {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(10, 10, 10, 0.85);
+  color: var(--bg);
+  padding: 10px 18px;
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  pointer-events: none;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  backdrop-filter: blur(8px);
+}
+.hint.show {
+  opacity: 1;
+}
+.hint::before {
+  content: "\27F7"; /* ⟷ */
+  color: var(--accent);
+  font-size: 14px;
+}
+
+/* progress strip (stays in the content column) */
+.progress {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--muted);
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.progressRail {
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+  position: relative;
+  overflow: hidden;
+}
+.progressFill {
+  position: absolute;
+  height: 100%;
+  background: var(--accent);
+  width: 30%;
+  transition: transform 0.1s linear;
+}
+
+/* Reduced motion: autoscroll is disabled in JS; soften the hover scale. */
+@media (prefers-reduced-motion: reduce) {
+  .item:hover,
+  .item:focus-visible {
+    transform: scale(1.01);
+  }
+}
+
+/* Touch: smaller, denser; flash brightening on tap instead of hover. */
+@media (hover: none) {
+  .wall {
+    height: 290px;
+  }
+  .item {
+    height: 130px;
+  }
+  .szS {
+    width: 130px;
+  }
+  .szM {
+    width: 175px;
+  }
+  .szL {
+    width: 215px;
+  }
+  .item:active .img svg,
+  .item:active .img img {
+    filter: brightness(1) saturate(1);
+    transform: scale(1.08);
+  }
+}

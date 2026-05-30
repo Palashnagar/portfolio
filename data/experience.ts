@@ -17,8 +17,8 @@ export const experience: ExperienceRow[] = [
   {
     year: "2025",
     where: "Excellus BCBS",
-    role: "Usability Tester",
-    context: "Healthcare claims platform · accessibility focus",
+    role: "Usability Testing · Course Project",
+    context: "Graduate team usability study of their member website",
     kind: "work",
   },
   {

@@ -82,25 +82,22 @@ export default function AboutPage() {
           <div>
             <div className="max-w-[58ch] space-y-6 text-[17px] leading-[1.65] text-ink">
               <p>
-                I&apos;m Palash — a UX designer and a Master&apos;s student in Human-Computer
-                Interaction at RIT. Before grad school I designed as an intern at Netlink Software
-                and Code Clause, where I learned that good interfaces are mostly about{" "}
+                Hi, I&apos;m Palash Nagar — a UX designer and HCI graduate student who believes
+                thoughtful interaction design can turn everyday frustrations into{" "}
                 <em
                   style={{ fontFamily: "var(--font-display)", fontStyle: "italic", fontSize: "1.08em" }}
                 >
-                  removing
+                  smooth experiences.
                 </em>{" "}
-                things, not adding them.
+                I enjoy making small UX improvements that guide users, respond to their actions, and
+                help them get things done with ease.
               </p>
               <p>
-                Most recently I was a usability tester at Excellus BCBS, working on a healthcare
-                claims platform with an accessibility focus — the kind of high-stakes, low-glamour
-                interface where clarity isn&apos;t a nicety, it&apos;s the whole job. I&apos;m drawn
-                to interaction design because it sits exactly where usability and emotion meet.
-              </p>
-              <p>
-                Off the clock I&apos;m a cricketer, a gym regular, and someone who genuinely enjoys
-                airport layovers — they&apos;re forced quiet time.
+                I&apos;m especially drawn to interaction design because it&apos;s where usability and
+                emotion meet. Subtle transitions, clear feedback, and thoughtful motion can turn a
+                confusing interface into something that feels calm and trustworthy. I like designing
+                experiences that guide users quietly in the background instead of demanding their
+                attention.
               </p>
             </div>
 

@@ -9,6 +9,7 @@
 
   --font-display: var(--font-instrument), serif;
   --font-body: var(--font-bricolage), sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
 
   --container-content: 75rem;
   --container-reading: 42rem;

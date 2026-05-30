@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Bricolage_Grotesque } from "next/font/google";
+import { Instrument_Serif, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Grain } from "@/components/fx/Grain";
 import { Cursor } from "@/components/fx/Cursor";
@@ -18,6 +18,15 @@ const bricolage = Bricolage_Grotesque({
   weight: ["300", "400", "500", "700"],
   subsets: ["latin"],
   variable: "--font-bricolage",
+  display: "swap",
+});
+
+// Mono accent — used ONLY for small technical labels (filter chips, badges,
+// meta, counters, read-times). Headlines/body stay serif + grotesque.
+const jetbrains = JetBrains_Mono({
+  weight: ["400", "500"],
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
   display: "swap",
 });
 
@@ -40,7 +49,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${instrument.variable} ${bricolage.variable}`}>
+    <html
+      lang="en"
+      className={`${instrument.variable} ${bricolage.variable} ${jetbrains.variable}`}
+    >
       <body>
         <Grain />
         <Cursor />

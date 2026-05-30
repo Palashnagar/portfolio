@@ -1,8 +1,8 @@
 /* "Things I love" draggable image wall — ported from
    design-reference/about-wall-final.html. The wall breaks out of the content
    column to full-bleed; the heading above and progress strip below stay in the
-   column. Drag physics + autoscroll live in ImageWall.tsx. Mono micro-labels in
-   the reference are rendered in Bricolage here to keep the site's 2-font system. */
+   column. Drag physics + autoscroll live in ImageWall.tsx. Technical micro-labels
+   (tag, hint, progress) use the JetBrains Mono accent (--font-mono). */
 
 .wallWrap {
   position: relative;
@@ -148,7 +148,7 @@
 }
 .tag {
   display: block;
-  font-family: var(--font-body); /* reference used JetBrains Mono; 2-font system */
+  font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -171,7 +171,7 @@
   color: var(--bg);
   padding: 10px 18px;
   border-radius: 100px;
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -200,7 +200,7 @@
   align-items: center;
   gap: 16px;
   color: var(--muted);
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.18em;
   text-transform: uppercase;

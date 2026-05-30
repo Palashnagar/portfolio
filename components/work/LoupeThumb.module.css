@@ -85,9 +85,7 @@
   left: 50%;
   bottom: -28px;
   transform: translateX(-50%);
-  /* Reference used JetBrains Mono; the site is a strict 2-font system, so the
-     label stays in Bricolage (body) to avoid a third typeface. */
-  font-family: var(--font-body);
+  font-family: var(--font-mono);
   font-size: 9px;
   letter-spacing: 0.2em;
   text-transform: uppercase;

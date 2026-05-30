@@ -1,0 +1,364 @@
+/* Explorations grid — ported from design-reference/explorations-final.html.
+   Editorial mixed grid in "all" mode; a `.uniform` class morphs it to a tidy
+   3-col grid for filtered views (grid-template-columns transitions). Per-type
+   sizing via [data-type]/[data-feature] attribute selectors (attributes pass
+   through CSS Modules untouched). Technical micro-labels use the JetBrains Mono
+   accent (--font-mono). */
+
+/* ── Filter row ── */
+.filterRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+.label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-right: 8px;
+}
+.chip {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  padding: 7px 14px;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.chip:hover {
+  border-color: var(--ink);
+}
+.chip.active {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+.chip .count {
+  color: var(--muted);
+  font-size: 10px;
+}
+.chip.active .count {
+  color: rgba(245, 241, 234, 0.6);
+}
+.chipDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.chip[data-filter="research"] .chipDot {
+  background: #5b7b8c;
+}
+.chip[data-filter="mockup"] .chipDot {
+  background: #2d5f3f;
+}
+.chip[data-filter="sketch"] .chipDot {
+  background: #8e5c8b;
+}
+.chip[data-filter="exploration"] .chipDot {
+  background: #f5a623;
+}
+.chip[data-filter="all"] .chipDot {
+  display: none;
+}
+
+.resultsCount {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.resultsCount strong {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ── Grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-flow: dense;
+  gap: 24px;
+  transition: grid-template-columns 0.5s ease;
+}
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+.grid.uniform {
+  grid-template-columns: repeat(3, 1fr);
+}
+@media (max-width: 900px) {
+  .grid.uniform {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .grid.uniform {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Card ── */
+.card {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease;
+  grid-column: span 1;
+  grid-row: span 1;
+}
+.card:hover {
+  transform: translateY(-4px);
+}
+.thumb {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  margin-bottom: 14px;
+  background: var(--ink);
+  aspect-ratio: 4 / 3;
+}
+.art {
+  position: absolute;
+  inset: 0;
+}
+.thumb svg,
+.thumb img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: brightness(0.9) saturate(0.85);
+  transition: filter 0.6s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.card:hover .thumb svg,
+.card:hover .thumb img {
+  filter: brightness(1) saturate(1);
+  transform: scale(1.04);
+}
+
+/* Editorial-mode sizing by feature/type */
+.grid:not(.uniform) .card[data-feature="true"] {
+  grid-column: span 2;
+}
+.grid:not(.uniform) .card[data-feature="true"] .thumb {
+  aspect-ratio: 16 / 10;
+}
+.grid:not(.uniform) .card[data-feature="true"] .title {
+  font-size: 32px;
+}
+.grid:not(.uniform) .card[data-feature="true"] .desc {
+  font-size: 15px;
+  opacity: 0.85;
+}
+.grid:not(.uniform) .card[data-type="research"] {
+  grid-column: span 2;
+}
+.grid:not(.uniform) .card[data-type="research"] .thumb {
+  aspect-ratio: 21 / 10;
+}
+.grid:not(.uniform) .card[data-type="research"] .title {
+  font-size: 26px;
+}
+.grid:not(.uniform) .card[data-type="mockup"] .thumb,
+.grid:not(.uniform) .card[data-type="exploration"] .thumb,
+.grid:not(.uniform) .card[data-type="sketch"] .thumb {
+  aspect-ratio: 1 / 1;
+}
+.grid:not(.uniform) .card[data-type="animation"]:not([data-feature="true"]) .thumb {
+  aspect-ratio: 4 / 3;
+}
+
+/* Uniform-mode: every card identical regardless of feature/type */
+.grid.uniform .card {
+  grid-column: span 1 !important;
+}
+.grid.uniform .card .thumb {
+  aspect-ratio: 4 / 3 !important;
+}
+.grid.uniform .card .title {
+  font-size: 20px !important;
+}
+.grid.uniform .card .desc {
+  font-size: 13px !important;
+  opacity: 0.7 !important;
+}
+
+/* ── Badges ── */
+.badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(245, 241, 234, 0.92);
+  color: var(--ink);
+  padding: 4px 9px;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.badgeDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.badge[data-type="research"] .badgeDot {
+  background: #5b7b8c;
+}
+.badge[data-type="mockup"] .badgeDot {
+  background: #2d5f3f;
+}
+.badge[data-type="sketch"] .badgeDot {
+  background: #8e5c8b;
+}
+.badge[data-type="exploration"] .badgeDot {
+  background: #f5a623;
+}
+.playBadge {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(10, 10, 10, 0.85);
+  color: var(--bg);
+  padding: 5px 11px;
+  border-radius: 100px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.playBadge::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 6px solid var(--accent);
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+}
+
+/* ── Card text ── */
+.meta {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.meta .type {
+  color: var(--accent);
+}
+.title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+  transition: font-size 0.4s ease;
+}
+.title em {
+  color: var(--accent);
+  font-style: italic;
+}
+.desc {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+  opacity: 0.7;
+  max-width: 48ch;
+  transition: font-size 0.4s ease, opacity 0.4s ease;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Empty state (sits inside the grid) */
+.emptyState {
+  display: none;
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--muted);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 22px;
+}
+.grid.empty .emptyState {
+  display: block;
+}
+
+/* Reduced motion: no lift / scale, no transitioned morph; filter still applies. */
+@media (prefers-reduced-motion: reduce) {
+  .grid {
+    transition: none;
+  }
+  .card,
+  .thumb svg,
+  .thumb img,
+  .title,
+  .desc {
+    transition: none;
+  }
+  .card:hover {
+    transform: none;
+  }
+  .card:hover .thumb svg,
+  .card:hover .thumb img {
+    transform: none;
+  }
+}
+
+/* Touch: flash the awaken/lift on tap. */
+@media (hover: none) {
+  .card:active {
+    transform: translateY(-4px);
+  }
+  .card:active .thumb svg,
+  .card:active .thumb img {
+    filter: brightness(1) saturate(1);
+    transform: scale(1.04);
+  }
+}

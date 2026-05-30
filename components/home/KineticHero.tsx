@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { letterTransform } from "@/lib/kinetic";
 import AmbientScene from "@/components/home/AmbientScene";
+import { useIntro } from "@/components/nav/intro-context";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
 
@@ -39,6 +40,10 @@ function buildLetters(line: LineData): Array<{ char: string; accent: boolean }> 
 // ─── Component ───────────────────────────────────────────────────────────────
 
 export default function KineticHero() {
+  // During the homepage intro the hero (text + ambient scene) stays hidden, then
+  // fades in once the sequence reveals the page — coordinated via IntroProvider.
+  const { playIntro, revealed, ready } = useIntro();
+
   // Refs for all letter spans and their resting centers
   const letterRefs = useRef<HTMLSpanElement[]>([]);
   const restingCenters = useRef<Array<{ el: HTMLSpanElement; cx: number; cy: number; accent: boolean }>>([]);
@@ -140,23 +145,16 @@ export default function KineticHero() {
   return (
     <section
       className="min-h-screen flex flex-col justify-center"
-      style={{ padding: "0 6vw", position: "relative", isolation: "isolate" }}
+      style={{
+        padding: "0 6vw",
+        position: "relative",
+        isolation: "isolate",
+        opacity: playIntro && !revealed ? 0 : 1,
+        transition: ready ? "opacity 0.8s ease 1.4s" : "none",
+      }}
     >
       {/* Ambient mountain scene — behind the hero, scrolls away with it. */}
       <AmbientScene />
-
-      {/* Eyebrow */}
-      <div
-        style={{
-          fontSize: "13px",
-          letterSpacing: "0.15em",
-          textTransform: "uppercase",
-          color: "var(--muted)",
-          marginBottom: "32px",
-        }}
-      >
-        Portfolio · 2026
-      </div>
 
       {/* Headline */}
       <h1

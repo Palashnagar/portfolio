@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useIntro } from "./intro-context";
 
 const navLinks = [
   { href: "/work", label: "Work" },
@@ -10,24 +13,26 @@ const cornerBase =
   "fixed z-50 text-[11px] uppercase tracking-[0.08em] leading-[1.4]";
 
 export function CornerNav() {
+  const { playIntro, revealed, ready } = useIntro();
+
+  // During the homepage intro these corners start hidden and fade in once the
+  // sequence reveals the page (~2.2s + the 1.4s delay below, matching the
+  // reference). Everywhere else they're visible immediately. Transitions are
+  // suppressed until `ready` so the non-playing settle doesn't animate.
+  const fadeStyle: React.CSSProperties = {
+    opacity: playIntro && !revealed ? 0 : 1,
+    transition: ready ? "opacity 0.7s ease 1.4s" : "none",
+  };
+
   return (
     <>
-      {/* Top-left: identity */}
-      <div className={`${cornerBase} top-8 left-8`}>
-        <div className="flex items-center gap-[6px]">
-          <span
-            className="dot-pulse inline-block w-[6px] h-[6px] rounded-full bg-[var(--accent)] shrink-0"
-            aria-hidden="true"
-          />
-          <span>Palash Nagar</span>
-        </div>
-        <div className="mt-0.5 text-[var(--muted)]">UX/UI · HCI · RIT</div>
-      </div>
+      {/* Top-left identity now lives in <SiteLogo /> (the parked logo). */}
 
       {/* Top-right: nav links */}
       <nav
         aria-label="Primary navigation"
         className={`${cornerBase} top-8 right-8 text-right`}
+        style={fadeStyle}
       >
         {navLinks.map((link) => (
           <Link
@@ -42,13 +47,13 @@ export function CornerNav() {
       </nav>
 
       {/* Bottom-left: location + availability */}
-      <div className={`${cornerBase} bottom-8 left-8`}>
+      <div className={`${cornerBase} bottom-8 left-8`} style={fadeStyle}>
         <div>© 2026 · Rochester, NY</div>
         <div className="mt-0.5 text-[var(--muted)]">Available May 2026</div>
       </div>
 
       {/* Bottom-right: contact CTA */}
-      <div className={`${cornerBase} bottom-8 right-8 text-right`}>
+      <div className={`${cornerBase} bottom-8 right-8 text-right`} style={fadeStyle}>
         <Link
           href="/contact"
           data-cursor="link"

@@ -1,0 +1,157 @@
+/* Site logo styles — ported from design-reference/intro-logo.html. Scoped via CSS
+   Modules; uses the global color/font tokens. The same element morphs across
+   phases by toggling .transitioning / .parked on the root — the CSS does the
+   heavy lifting, JS just schedules the class changes. */
+
+.logo {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 60;
+  cursor: pointer;
+  user-select: none;
+
+  /* intro phase: large, centered */
+  --logo-size: clamp(56px, 8vw, 120px);
+
+  transition:
+    top 1.1s cubic-bezier(0.7, 0, 0.25, 1),
+    left 1.1s cubic-bezier(0.7, 0, 0.25, 1),
+    transform 1.1s cubic-bezier(0.7, 0, 0.25, 1),
+    --logo-size 0.5s ease;
+}
+
+/* Initial-settle guard: while the provider confirms whether the intro plays,
+   suppress every transition so the non-playing cases snap into place instead of
+   sliding/fading out of the SSR opening state. */
+.notReady,
+.notReady * {
+  transition: none !important;
+}
+
+.logoName {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--logo-size);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+  display: inline-block;
+  position: relative;
+}
+
+/* Letters animate individually for the collapse */
+.ltr {
+  display: inline-block;
+  transition:
+    opacity 0.55s cubic-bezier(0.6, 0, 0.3, 1),
+    transform 0.55s cubic-bezier(0.6, 0, 0.3, 1),
+    max-width 0.55s cubic-bezier(0.6, 0, 0.3, 1),
+    color 0.55s ease;
+  vertical-align: top;
+}
+
+/* Only the middle letters collapse to zero width, so only they get clipping. */
+.ltr.middle {
+  max-width: 1.2em;
+  overflow: hidden;
+}
+
+/* The P and N keep their italic accent during intro and on hover. The italic
+   slant needs right-side breathing room and must never be clipped. */
+.ltr.accent {
+  padding-right: 0.08em;
+  color: var(--accent);
+  font-style: italic;
+}
+
+/* Parked: P and N go upright ink */
+.logo.parked .ltr.accent {
+  color: var(--ink);
+  font-style: normal;
+}
+
+/* Parked / collapsing: the in-between letters fade and collapse to zero width */
+.logo.parked .ltr.middle {
+  opacity: 0;
+  max-width: 0;
+  transform: translateY(-4px);
+}
+
+/* Re-expand on hover (desktop pointers only) */
+@media (hover: hover) {
+  .logo.parked:hover .ltr.middle {
+    opacity: 1;
+    max-width: 1.2em;
+    transform: translateY(0);
+  }
+  .logo.parked:hover .ltr.accent {
+    color: var(--accent);
+    font-style: italic;
+  }
+}
+
+/* Keyboard focus mirrors hover */
+.logo.parked:focus-visible .ltr.middle {
+  opacity: 1;
+  max-width: 1.2em;
+  transform: translateY(0);
+}
+.logo.parked:focus-visible .ltr.accent {
+  color: var(--accent);
+  font-style: italic;
+}
+
+/* Role line under the name during intro */
+.logoRole {
+  margin-top: 18px;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  white-space: nowrap;
+}
+.logoRole.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.logoRole .dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin: 0 10px;
+  vertical-align: middle;
+}
+
+/* Role line hides during the transition + parked state */
+.logo.transitioning .logoRole,
+.logo.parked .logoRole {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+/* PARKED — top-left corner */
+.logo.parked {
+  top: 32px;
+  left: 32px;
+  transform: translate(0, 0);
+  --logo-size: 24px;
+}
+
+/* Mobile: nudge the parked logo in, and (per spec) no hover-expand — parked is
+   parked. The hover rules above are already gated to (hover: hover); touch UAs
+   simply never match them. */
+@media (max-width: 720px) {
+  .logo.parked {
+    top: 20px;
+    left: 20px;
+  }
+}

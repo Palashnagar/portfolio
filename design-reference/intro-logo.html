@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Intro + hover-logo — Palash Nagar</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F1EA;
+    --ink: #0A0A0A;
+    --accent: #E94E1B;
+    --muted: #8A867F;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .grain {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    mix-blend-mode: multiply;
+    z-index: 3;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.65'/></svg>");
+  }
+
+  /* ============== LOGO — the same DOM element moves & morphs ============== */
+  .logo {
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 60;
+    cursor: pointer;
+    user-select: none;
+
+    /* phase = intro: large, centered */
+    --logo-size: clamp(56px, 8vw, 120px);
+
+    transition:
+      top 1.1s cubic-bezier(0.7, 0, 0.25, 1),
+      left 1.1s cubic-bezier(0.7, 0, 0.25, 1),
+      transform 1.1s cubic-bezier(0.7, 0, 0.25, 1),
+      --logo-size 0.5s ease;
+  }
+  .logo-name {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: var(--logo-size);
+    line-height: 1;
+    letter-spacing: -0.025em;
+    white-space: nowrap;
+    display: inline-block;
+    position: relative;
+  }
+
+  /* Letters animate individually for the collapse */
+  .ltr {
+    display: inline-block;
+    transition:
+      opacity 0.55s cubic-bezier(0.6, 0, 0.3, 1),
+      transform 0.55s cubic-bezier(0.6, 0, 0.3, 1),
+      max-width 0.55s cubic-bezier(0.6, 0, 0.3, 1),
+      color 0.55s ease;
+    vertical-align: top;
+  }
+  /* Only the middle letters need to collapse to zero width, so only they get the clipping */
+  .ltr.middle {
+    max-width: 1.2em;
+    overflow: hidden;
+  }
+  /* Italic letters need extra room on the right because of their slant — don't clip them */
+  .ltr.accent {
+    padding-right: 0.08em;
+  }
+  /* The P and N keep their italic accent during intro and on hover */
+  .ltr.accent {
+    color: var(--accent);
+    font-style: italic;
+  }
+  /* During the parked state (PN only), P and N go to ink */
+  .logo.parked .ltr.accent {
+    color: var(--ink);
+    font-style: normal;
+  }
+  /* When parked OR collapsing, the in-between letters fade and collapse to zero width */
+  .logo.collapsed .ltr.middle,
+  .logo.parked .ltr.middle {
+    opacity: 0;
+    max-width: 0;
+    transform: translateY(-4px);
+  }
+  /* Re-expand on hover (when parked) */
+  .logo.parked:hover .ltr.middle {
+    opacity: 1;
+    max-width: 1.2em;
+    transform: translateY(0);
+  }
+  .logo.parked:hover .ltr.accent {
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  /* The role line under the name during intro */
+  .logo-role {
+    margin-top: 18px;
+    font-size: 12px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    white-space: nowrap;
+  }
+  .logo-role.show { opacity: 1; transform: translateY(0); }
+  .logo-role .dot {
+    display: inline-block;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin: 0 10px;
+    vertical-align: middle;
+  }
+
+  /* the role line hides during transition + parked state */
+  .logo.transitioning .logo-role,
+  .logo.parked .logo-role {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  /* PARKED STATE — top-left corner */
+  .logo.parked {
+    top: 32px;
+    left: 32px;
+    transform: translate(0, 0);
+    --logo-size: 24px;
+  }
+
+  /* Small status text that appears beside the parked logo */
+  .logo-status {
+    display: inline-block;
+    margin-top: 6px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0;
+    transition: opacity 0.5s ease 0.3s;
+  }
+  .logo.parked .logo-status { opacity: 1; }
+  .logo-status .pulse {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 6px;
+    vertical-align: middle;
+    animation: pulse 1.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  /* ============== HERO CONTENT — fades in after intro ============== */
+  .corner {
+    position: fixed;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    z-index: 50;
+    line-height: 1.5;
+    opacity: 0;
+    transition: opacity 0.7s ease 1.4s;
+  }
+  .corner.show { opacity: 1; }
+  .tr { top: 32px; right: 32px; text-align: right; }
+  .bl { bottom: 32px; left: 32px; }
+  .br { bottom: 32px; right: 32px; text-align: right; }
+  .corner a { color: var(--ink); text-decoration: none; margin-left: 18px; }
+  .corner a:hover { color: var(--accent); }
+  .corner .muted { color: var(--muted); }
+  .br a { margin: 0; color: var(--accent); }
+
+  .hero {
+    position: relative;
+    z-index: 10;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 6vw;
+    opacity: 0;
+    transition: opacity 0.8s ease 1.4s;
+  }
+  .hero.show { opacity: 1; }
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 32px;
+  }
+  h1 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(64px, 11vw, 168px);
+    line-height: 0.92;
+    letter-spacing: -0.028em;
+    max-width: 14ch;
+  }
+  h1 em { color: var(--accent); font-style: italic; }
+  .bio {
+    margin-top: 40px;
+    max-width: 480px;
+    font-size: 17px;
+    line-height: 1.5;
+  }
+  .bio em {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 1.08em;
+  }
+
+  /* tiny replay button so you can re-trigger the intro */
+  .replay {
+    position: fixed;
+    bottom: 18px; left: 50%;
+    transform: translateX(-50%);
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    z-index: 80;
+    opacity: 0;
+    transition: opacity 0.6s ease 2s;
+    background: none;
+    border: none;
+    font-family: inherit;
+  }
+  .replay.show { opacity: 1; }
+  .replay:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+
+  <!-- ============== THE LOGO — single element, morphs across phases ============== -->
+  <div class="logo" id="logo" role="link" tabindex="0" aria-label="Palash Nagar — home">
+    <span class="logo-name">
+      <span class="ltr accent">P</span><span class="ltr middle">a</span><span class="ltr middle">l</span><span class="ltr middle">a</span><span class="ltr middle">s</span><span class="ltr middle">h</span><span class="ltr middle">&nbsp;</span><span class="ltr accent">N</span><span class="ltr middle">a</span><span class="ltr middle">g</span><span class="ltr middle">a</span><span class="ltr middle">r</span>
+    </span>
+    <div class="logo-role" id="role">
+      Product<span class="dot"></span>UX Designer
+    </div>
+    <div class="logo-status">
+      <span class="pulse"></span>UX/UI · HCI · RIT
+    </div>
+  </div>
+
+  <!-- ============== REST OF PAGE — appears after intro ============== -->
+  <div class="grain"></div>
+
+  <div class="corner tr" id="cornerTR">
+    <a href="#">Work</a>
+    <a href="#">About</a>
+    <a href="#">Resume</a>
+  </div>
+  <div class="corner bl" id="cornerBL">
+    © 2026 · Rochester, NY<br/>
+    <span class="muted">Available May 2026</span>
+  </div>
+  <div class="corner br" id="cornerBR">
+    <a href="#">Get in touch →</a>
+  </div>
+
+  <section class="hero" id="hero">
+    <div class="eyebrow">Portfolio · 2026</div>
+    <h1>Design <em>that</em> feels inevitable.</h1>
+    <p class="bio">
+      I'm Palash — a UX designer and HCI researcher at RIT. I make digital things feel <em>less anxious</em>.
+    </p>
+  </section>
+
+  <button class="replay" id="replay">↻ Replay intro</button>
+
+<script>
+  const logo = document.getElementById('logo');
+  const role = document.getElementById('role');
+  const cornerTR = document.getElementById('cornerTR');
+  const cornerBL = document.getElementById('cornerBL');
+  const cornerBR = document.getElementById('cornerBR');
+  const hero = document.getElementById('hero');
+  const replay = document.getElementById('replay');
+
+  function runIntro() {
+    // reset
+    logo.classList.remove('parked', 'collapsed', 'transitioning');
+    role.classList.remove('show');
+    cornerTR.classList.remove('show');
+    cornerBL.classList.remove('show');
+    cornerBR.classList.remove('show');
+    hero.classList.remove('show');
+    replay.classList.remove('show');
+
+    // phase 1: name appears in middle (default state on load), role label fades in after a beat
+    setTimeout(() => role.classList.add('show'), 350);
+
+    // phase 2: hold for ~1.3s, then start the move-to-corner transition
+    setTimeout(() => {
+      logo.classList.add('transitioning'); // hides role label
+    }, 1700);
+
+    setTimeout(() => {
+      logo.classList.add('parked'); // triggers move + size change + letter collapse + color shift
+    }, 1850);
+
+    // phase 3: bring in the rest of the page
+    setTimeout(() => {
+      cornerTR.classList.add('show');
+      cornerBL.classList.add('show');
+      cornerBR.classList.add('show');
+      hero.classList.add('show');
+      replay.classList.add('show');
+    }, 2200);
+  }
+
+  runIntro();
+  replay.addEventListener('click', runIntro);
+
+  // Skip intro on click
+  logo.addEventListener('click', () => {
+    if (!logo.classList.contains('parked')) {
+      // jump straight to parked state
+      logo.classList.add('transitioning', 'parked');
+      role.classList.remove('show');
+      setTimeout(() => {
+        cornerTR.classList.add('show');
+        cornerBL.classList.add('show');
+        cornerBR.classList.add('show');
+        hero.classList.add('show');
+        replay.classList.add('show');
+      }, 400);
+    }
+  });
+</script>
+</body>
+</html>

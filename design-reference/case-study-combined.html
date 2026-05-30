@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Case study hover — B + C combined</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F1EA;
+    --ink: #0A0A0A;
+    --accent: #E94E1B;
+    --muted: #8A867F;
+    --border: rgba(10,10,10,0.10);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    padding: 60px 6vw 100px;
+    min-height: 100vh;
+  }
+  .grain {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    mix-blend-mode: multiply;
+    z-index: 100;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.65'/></svg>");
+  }
+
+  header { margin-bottom: 50px; max-width: 720px; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 52px; line-height: 1; letter-spacing: -0.02em; margin-bottom: 18px; }
+  h1 em { color: var(--accent); font-style: italic; }
+  header p { font-size: 15px; line-height: 1.5; color: var(--ink); max-width: 60ch; }
+  header p em { font-family: 'Instrument Serif', serif; font-style: italic; }
+
+  .stack { display: flex; flex-direction: column; gap: 28px; }
+
+  .card {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 4vw;
+    align-items: center;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 36px 40px;
+    background: var(--bg);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+  }
+  .card:hover { border-color: rgba(10,10,10,0.28); }
+  .card-info { position: relative; z-index: 2; }
+
+  .meta {
+    display: flex;
+    gap: 18px;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .meta .num { color: var(--accent); }
+
+  .case-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(42px, 5vw, 64px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+    transition: color 0.3s ease;
+  }
+  .case-title em { color: var(--accent); font-style: italic; }
+
+  .case-desc {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 22px;
+    max-width: 42ch;
+  }
+  .case-desc em { font-family: 'Instrument Serif', serif; font-style: italic; }
+
+  .case-cta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .case-cta-arrow {
+    display: inline-block;
+    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .card:hover .case-cta-arrow { transform: translateX(4px); }
+
+  /* THUMBNAIL */
+  .case-thumb {
+    position: relative;
+    aspect-ratio: 4/3;
+    background: var(--ink);
+    overflow: hidden;
+    border-radius: 2px;
+    cursor: none;
+  }
+
+  /* ===== VARIANT B layer: image color awakening ===== */
+  .case-thumb svg.bg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    filter: brightness(0.88) saturate(0.78);
+    transition: filter 0.6s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .card:hover .case-thumb svg.bg {
+    filter: brightness(1) saturate(1);
+    transform: scale(1.04);
+  }
+  /* warm light sweep on hover */
+  .case-thumb::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(115deg, rgba(233,78,27,0) 0%, rgba(233,78,27,0.22) 50%, rgba(233,78,27,0) 100%);
+    transform: translateX(-100%);
+    transition: transform 0.95s cubic-bezier(0.6, 0, 0.3, 1);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .card:hover .case-thumb::after { transform: translateX(100%); }
+
+  /* ===== VARIANT C layer: cursor loupe ===== */
+  .loupe {
+    position: absolute;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.7);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    background-size: 240% 240%;
+    background-repeat: no-repeat;
+    border: 1px solid rgba(255,255,255,0.45);
+    box-shadow:
+      0 12px 32px rgba(0,0,0,0.28),
+      inset 0 0 0 6px rgba(233,78,27,0.18);
+    z-index: 3;
+    overflow: hidden;
+  }
+  .loupe.active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  .loupe-label {
+    position: absolute;
+    left: 50%;
+    bottom: -28px;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(10,10,10,0.7);
+    white-space: nowrap;
+    background: var(--bg);
+    padding: 4px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    opacity: 0;
+    transition: opacity 0.3s ease 0.1s;
+  }
+  .loupe.active .loupe-label { opacity: 1; }
+
+  /* card-level title color shift on hover for a tiny extra signal */
+  .card:hover .case-title { color: var(--accent); }
+
+  /* ============== Comparison strip at top of page ============== */
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-bottom: 50px;
+  }
+  .comparison .label {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+  .comparison .label .accent { color: var(--accent); }
+
+  .tip {
+    margin-top: 60px;
+    padding: 20px 24px;
+    border: 1px dashed var(--border);
+    border-radius: 4px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 720px;
+  }
+  .tip strong { color: var(--ink); font-weight: 500; }
+  .tip em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--ink); }
+
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header>
+  <div class="eyebrow">Case study hover · B + C combined</div>
+  <h1>Color awakens, <em>then</em> the loupe rewards.</h1>
+  <p>At rest the cards are calm and slightly muted. Hover the thumbnail and three things happen in sequence: image brightens to full color, an orange light sweeps across, and a cursor loupe appears that magnifies wherever you point. Move the cursor inside the thumbnail to inspect details. The title shifts to orange. Move out to reset.</p>
+</header>
+
+<div class="stack">
+
+  <!-- ============================== CARD 1 ============================== -->
+  <a class="card" data-card-id="1">
+    <div class="case-info card-info">
+      <div class="meta"><span class="num">01 / 04</span><span>2025</span><span>CASE STUDY</span></div>
+      <div class="case-title">MyCourses <em>2.0</em></div>
+      <div class="case-desc">Helping 19,000+ RIT students never miss an assignment again. A redesign around <em>what's due next</em>.</div>
+      <span class="case-cta">Read the case study <span class="case-cta-arrow">→</span></span>
+    </div>
+    <div class="case-thumb" data-thumb-id="1">
+      <svg class="bg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+        <rect width="400" height="300" fill="#E94E1B"/>
+        <text x="200" y="155" text-anchor="middle" fill="#FFF8F0" font-family="Instrument Serif" font-size="46" font-style="italic">MyCourses</text>
+        <text x="200" y="195" text-anchor="middle" fill="#FFF8F0" opacity="0.6" font-family="Bricolage Grotesque" font-size="11" letter-spacing="3">2.0</text>
+      </svg>
+      <div class="loupe">
+        <span class="loupe-label">Look closer</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- ============================== CARD 2 ============================== -->
+  <a class="card" data-card-id="2">
+    <div class="case-info card-info">
+      <div class="meta"><span class="num">02 / 04</span><span>2025</span><span>CASE STUDY</span></div>
+      <div class="case-title">Roomie <em>Match</em></div>
+      <div class="case-desc">Mobile-first roommate matching by lifestyle compatibility. Cut Year 1 complaints by <em>41%</em>.</div>
+      <span class="case-cta">Read the case study <span class="case-cta-arrow">→</span></span>
+    </div>
+    <div class="case-thumb" data-thumb-id="2">
+      <svg class="bg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+        <rect width="400" height="300" fill="#1E3A5F"/>
+        <text x="200" y="155" text-anchor="middle" fill="#F5F1EA" font-family="Instrument Serif" font-size="46" font-style="italic">Roomie</text>
+        <text x="200" y="195" text-anchor="middle" fill="#F5F1EA" opacity="0.6" font-family="Bricolage Grotesque" font-size="11" letter-spacing="3">MATCH</text>
+      </svg>
+      <div class="loupe">
+        <span class="loupe-label">Look closer</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- ============================== CARD 3 ============================== -->
+  <a class="card" data-card-id="3">
+    <div class="case-info card-info">
+      <div class="meta"><span class="num">03 / 04</span><span>2025</span><span>CASE STUDY</span></div>
+      <div class="case-title">RIT <em>Athletics</em></div>
+      <div class="case-desc">Keeping RIT Tigers fans connected on the go. One home for scores, schedules, and tickets — <em>live</em>.</div>
+      <span class="case-cta">Read the case study <span class="case-cta-arrow">→</span></span>
+    </div>
+    <div class="case-thumb" data-thumb-id="3">
+      <svg class="bg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+        <rect width="400" height="300" fill="#F5A623"/>
+        <text x="200" y="155" text-anchor="middle" fill="#1A1407" font-family="Instrument Serif" font-size="46" font-style="italic">RIT</text>
+        <text x="200" y="195" text-anchor="middle" fill="#1A1407" opacity="0.6" font-family="Bricolage Grotesque" font-size="11" letter-spacing="3">ATHLETICS</text>
+      </svg>
+      <div class="loupe">
+        <span class="loupe-label">Look closer</span>
+      </div>
+    </div>
+  </a>
+
+  <!-- ============================== CARD 4 ============================== -->
+  <a class="card" data-card-id="4">
+    <div class="case-info card-info">
+      <div class="meta"><span class="num">04 / 04</span><span>2025</span><span>CASE STUDY</span></div>
+      <div class="case-title">RIT <em>EATS</em></div>
+      <div class="case-desc">Reducing dining-hall friction across campus. A predictive crowd map cut lines from 22 minutes to <em>under six</em>.</div>
+      <span class="case-cta">Read the case study <span class="case-cta-arrow">→</span></span>
+    </div>
+    <div class="case-thumb" data-thumb-id="4">
+      <svg class="bg" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice">
+        <rect width="400" height="300" fill="#2D5F3F"/>
+        <text x="200" y="155" text-anchor="middle" fill="#F5F1EA" font-family="Instrument Serif" font-size="46" font-style="italic">RIT</text>
+        <text x="200" y="195" text-anchor="middle" fill="#F5F1EA" opacity="0.6" font-family="Bricolage Grotesque" font-size="11" letter-spacing="3">EATS</text>
+      </svg>
+      <div class="loupe">
+        <span class="loupe-label">Look closer</span>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<div class="tip">
+  <strong>How it works:</strong> the loupe shows the same image as the thumbnail, scaled 2.4× and positioned to follow the cursor. <em>It updates the displayed text on the fly</em> — when you build the real version, the loupe's background URL is generated per-card so each card magnifies its own thumbnail. The label "Look closer" sits just below the loupe in cream-colored pill, so it doesn't compete with the orange ring.
+</div>
+
+<script>
+  // Pre-encode each thumbnail's SVG so the loupe can reference it as a background-image.
+  // Each card has a data-thumb-id; we use the same color/text data to generate a matching SVG URL.
+  const thumbSpecs = {
+    '1': { fill: '#E94E1B', textFill: '#FFF8F0', title: 'MyCourses', sub: '2.0' },
+    '2': { fill: '#1E3A5F', textFill: '#F5F1EA', title: 'Roomie',    sub: 'MATCH' },
+    '3': { fill: '#F5A623', textFill: '#1A1407', title: 'RIT',       sub: 'ATHLETICS' },
+    '4': { fill: '#2D5F3F', textFill: '#F5F1EA', title: 'RIT',       sub: 'EATS' },
+  };
+  function svgURLFor(spec) {
+    const svg = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300' preserveAspectRatio='xMidYMid slice'>
+      <rect width='400' height='300' fill='${spec.fill}'/>
+      <text x='200' y='155' text-anchor='middle' fill='${spec.textFill}' font-family='Instrument Serif' font-size='46' font-style='italic'>${spec.title}</text>
+      <text x='200' y='195' text-anchor='middle' fill='${spec.textFill}' opacity='0.6' font-family='Bricolage Grotesque' font-size='11' letter-spacing='3'>${spec.sub}</text>
+    </svg>`;
+    return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+  }
+
+  document.querySelectorAll('.case-thumb').forEach(thumb => {
+    const id = thumb.dataset.thumbId;
+    const loupe = thumb.querySelector('.loupe');
+    const spec = thumbSpecs[id];
+    if (!spec) return;
+    const bgURL = svgURLFor(spec);
+    loupe.style.backgroundImage = `url("${bgURL}")`;
+
+    thumb.addEventListener('mouseenter', () => loupe.classList.add('active'));
+    thumb.addEventListener('mouseleave', () => loupe.classList.remove('active'));
+    thumb.addEventListener('mousemove', (e) => {
+      const r = thumb.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      loupe.style.left = x + 'px';
+      loupe.style.top = y + 'px';
+      // background-position controls which part of the magnified image is shown inside the circle.
+      // x=0 → show left edge (0%), x=width → show right edge (100%). Same for Y.
+      const bgX = (x / r.width) * 100;
+      const bgY = (y / r.height) * 100;
+      loupe.style.backgroundPosition = `${bgX}% ${bgY}%`;
+    });
+  });
+</script>
+</body>
+</html>

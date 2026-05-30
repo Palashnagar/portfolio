@@ -5,7 +5,8 @@
 
 import Link from "next/link";
 import { projects } from "@/data/projects";
-import { DistortThumb } from "@/components/fx/Distortion";
+import { LoupeThumb } from "@/components/work/LoupeThumb";
+import { thumbDataUri } from "@/lib/thumb";
 
 export function WorkGrid() {
   return (
@@ -18,7 +19,10 @@ export function WorkGrid() {
           className="group block no-underline"
         >
           {/* Thumbnail (branded color title-card, 4:3) */}
-          <DistortThumb className="aspect-[4/3] w-full rounded-2xl">
+          <LoupeThumb
+            className="aspect-[4/3] w-full rounded-2xl"
+            loupeImage={thumbDataUri(p, 400, 300)}
+          >
             <svg
               viewBox="0 0 400 300"
               preserveAspectRatio="xMidYMid slice"
@@ -49,7 +53,7 @@ export function WorkGrid() {
                 {p.accent.toUpperCase()}
               </text>
             </svg>
-          </DistortThumb>
+          </LoupeThumb>
 
           {/* Meta row */}
           <div className="mt-4 flex justify-between text-[11px] uppercase tracking-[0.15em] text-muted">

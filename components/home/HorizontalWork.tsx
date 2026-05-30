@@ -10,14 +10,15 @@ import {
 } from "framer-motion";
 import Link from "next/link";
 import { projects, type Project } from "@/data/projects";
-import { DistortThumb } from "@/components/fx/Distortion";
+import { LoupeThumb } from "@/components/work/LoupeThumb";
+import { thumbDataUri } from "@/lib/thumb";
 import { activePanelIndex } from "@/lib/horizontal";
 
 // ─── Sub-components ────────────────────────────────────────────────────────────
 
 function Thumb({ p }: { p: Project }) {
   return (
-    <DistortThumb className="h-full w-full rounded-2xl">
+    <LoupeThumb className="h-full w-full rounded-2xl" loupeImage={thumbDataUri(p, 400, 500)}>
       <svg
         viewBox="0 0 400 500"
         preserveAspectRatio="xMidYMid slice"
@@ -48,7 +49,7 @@ function Thumb({ p }: { p: Project }) {
           {p.accent.toUpperCase()}
         </text>
       </svg>
-    </DistortThumb>
+    </LoupeThumb>
   );
 }
 

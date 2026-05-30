@@ -94,14 +94,27 @@ export function Cursor() {
       rafRef.current = requestAnimationFrame(loop);
     }
 
+    // Cursor coordination: areas like the case-study loupe ask the global cursor
+    // to step aside (visibility hidden, not removed) while they act as the cursor.
+    function hideCursor() {
+      if (outerRef.current) outerRef.current.style.visibility = "hidden";
+    }
+    function showCursor() {
+      if (outerRef.current) outerRef.current.style.visibility = "visible";
+    }
+
     rafRef.current = requestAnimationFrame(loop);
     window.addEventListener("pointermove", onPointerMove);
     document.addEventListener("pointerover", onPointerOver);
+    window.addEventListener("customCursor:hide", hideCursor);
+    window.addEventListener("customCursor:show", showCursor);
 
     return () => {
       cancelAnimationFrame(rafRef.current);
       window.removeEventListener("pointermove", onPointerMove);
       document.removeEventListener("pointerover", onPointerOver);
+      window.removeEventListener("customCursor:hide", hideCursor);
+      window.removeEventListener("customCursor:show", showCursor);
       document.body.classList.remove("cursor-active");
     };
   }, [enabled]);

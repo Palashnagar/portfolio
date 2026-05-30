@@ -4,7 +4,6 @@ import "./globals.css";
 import { Grain } from "@/components/fx/Grain";
 import { Cursor } from "@/components/fx/Cursor";
 import { SmoothScroll } from "@/components/fx/SmoothScroll";
-import { DistortionDefs } from "@/components/fx/Distortion";
 import { ThermalMode } from "@/components/fx/ThermalMode";
 
 const instrument = Instrument_Serif({
@@ -46,7 +45,6 @@ export default function RootLayout({
         <Grain />
         <Cursor />
         <ThermalMode />
-        <DistortionDefs />
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

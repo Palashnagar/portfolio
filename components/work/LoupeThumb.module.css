@@ -1,0 +1,134 @@
+/* Case-study thumbnail hover — B (color awakening) + C (cursor loupe). Ported
+   from design-reference/case-study-combined.html. Color awakening / sweep / scale
+   fire on the CARD's hover (a .group ancestor) and on keyboard focus-within; the
+   loupe is pointer-only and driven by JS in LoupeThumb.tsx. */
+
+.thumb {
+  position: relative;
+  overflow: hidden;
+  background: var(--ink);
+  cursor: none; /* native cursor hidden inside the thumb; the loupe takes over */
+}
+
+/* The magnifiable image layer (color awakens + scales on hover) */
+.bg {
+  width: 100%;
+  height: 100%;
+  filter: brightness(0.88) saturate(0.78);
+  transition: filter 0.6s ease, transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.bg > svg,
+.bg > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Awaken on card hover OR keyboard focus (focus skips the loupe — pointer only) */
+:global(.group):hover .bg,
+:global(.group):focus-within .bg {
+  filter: brightness(1) saturate(1);
+  transform: scale(1.04);
+}
+
+/* Diagonal warm light sweep */
+.sweep {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    rgba(233, 78, 27, 0) 0%,
+    rgba(233, 78, 27, 0.22) 50%,
+    rgba(233, 78, 27, 0) 100%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.95s cubic-bezier(0.6, 0, 0.3, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+:global(.group):hover .sweep {
+  transform: translateX(100%);
+}
+
+/* ── Loupe ── outer follows the cursor (translate3d set in JS); inner handles
+   the appearance + scale-in transition so the cursor-follow stays instant. */
+.loupe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  pointer-events: none;
+  z-index: 3;
+  will-change: transform;
+}
+.loupeVisual {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-size: 240% 240%;
+  background-repeat: no-repeat;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.28),
+    inset 0 0 0 6px rgba(233, 78, 27, 0.18);
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.loupe.active .loupeVisual {
+  opacity: 1;
+  transform: scale(1);
+}
+.loupeLabel {
+  position: absolute;
+  left: 50%;
+  bottom: -28px;
+  transform: translateX(-50%);
+  /* Reference used JetBrains Mono; the site is a strict 2-font system, so the
+     label stays in Bricolage (body) to avoid a third typeface. */
+  font-family: var(--font-body);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(10, 10, 10, 0.7);
+  white-space: nowrap;
+  background: var(--bg);
+  padding: 4px 10px;
+  border-radius: 100px;
+  border: 1px solid var(--line);
+  opacity: 0;
+  transition: opacity 0.3s ease 0.1s;
+}
+.loupe.active .loupeLabel {
+  opacity: 1;
+}
+
+/* Reduced motion: no sweep, gentler scale, no loupe (JS also gates it off). */
+@media (prefers-reduced-motion: reduce) {
+  .sweep {
+    display: none;
+  }
+  :global(.group):hover .bg,
+  :global(.group):focus-within .bg {
+    transform: scale(1.01);
+  }
+  .loupe {
+    display: none;
+  }
+}
+
+/* Touch: no hover state — flash the awakening on tap (:active) instead, and
+   never show the loupe or hide a (nonexistent) cursor. */
+@media (hover: none) {
+  .thumb {
+    cursor: auto;
+  }
+  .loupe {
+    display: none;
+  }
+  :global(.group):active .bg {
+    filter: brightness(1) saturate(1);
+    transform: scale(1.02);
+  }
+}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import NowStrip from "@/components/home/NowStrip";
 import { ImageWall } from "@/components/about/ImageWall";
@@ -59,24 +60,41 @@ export default function AboutPage() {
       {/* 02 — Who: typographic portrait block + bio prose + belief pull-quote */}
       <section className="border-t border-line" style={{ padding: "80px 6vw" }}>
         <div className="mx-auto grid max-w-[1100px] grid-cols-1 gap-10 md:grid-cols-[1fr_1.5fr] md:gap-16">
-          {/* Typographic portrait block — no portrait asset exists, so a clean
-              monogram stands in (same pattern as the home AboutTeaser). TODO:
-              when Palash provides a portrait, drop it at /me/portrait.jpg and
-              render it with next/image inside this frame. */}
-          <div className="flex aspect-[4/5] max-h-[58vh] flex-col justify-between border border-line p-8">
-            <span className="text-[11px] uppercase tracking-[0.2em] text-muted">UX · HCI</span>
-            <span
+          {/* Portrait — Palash in his graduation suit, via next/image in a
+              bordered, slightly rounded 4/5 frame. "UX · HCI" / "Just Graduated!"
+              stay as cream label overlays for editorial continuity. */}
+          <div className="relative aspect-[4/5] max-h-[58vh] overflow-hidden rounded-2xl border border-line">
+            <Image
+              src="/me/graduation.jpg"
+              alt="Palash in a maroon suit on graduation day, an American flag and blue sky behind him"
+              fill
+              sizes="(max-width: 768px) 90vw, 40vw"
+              className="object-cover"
+              style={{ objectPosition: "center 62%" }}
+            />
+            {/* top + bottom scrims keep the labels legible over the photo */}
+            <div
               aria-hidden
+              className="pointer-events-none absolute inset-0"
               style={{
-                fontFamily: "var(--font-display)",
-                fontStyle: "italic",
-                fontSize: "clamp(72px, 12vw, 150px)",
-                lineHeight: 0.9,
+                background:
+                  "linear-gradient(180deg, rgba(10,10,10,0.5) 0%, transparent 24%, transparent 70%, rgba(10,10,10,0.6) 100%)",
               }}
-            >
-              P<span style={{ color: "var(--accent)" }}>N</span>
-            </span>
-            <span className="text-[11px] uppercase tracking-[0.2em] text-muted">Rochester, NY</span>
+            />
+            <div className="absolute inset-0 flex flex-col justify-between p-6">
+              <span
+                className="text-[11px] uppercase tracking-[0.2em]"
+                style={{ color: "var(--bg)", fontFamily: "var(--font-mono)" }}
+              >
+                UX · HCI
+              </span>
+              <span
+                className="text-[11px] uppercase tracking-[0.2em]"
+                style={{ color: "var(--bg)", fontFamily: "var(--font-mono)" }}
+              >
+                Just Graduated!
+              </span>
+            </div>
           </div>
 
           <div>

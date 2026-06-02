@@ -1,35 +1,50 @@
 // Short researcher-meets-designer teaser on the homepage (spec §6). Editorial
-// serif lead + a typographic portrait block + link to /about. Server component.
+// serif lead + a portrait photo + link to /about. Server component.
 //
-// No portrait photo asset exists yet, so the left panel is a typographic
-// name-card (sanctioned by the plan: "real file or a clean typographic block if
-// none"). TODO: when Palash provides a portrait, drop it at /me/portrait.jpg and
-// render via next/image inside the bordered frame to replace the monogram.
+// The left panel is Palash at SUMMIT One Vanderbilt (/me/portrait.jpg), rendered
+// via next/image in a bordered, slightly rounded 4/5 frame, with "UX · HCI" /
+// "SUMMIT · NYC" kept as cream label overlays for editorial continuity.
 
+import Image from "next/image";
 import Link from "next/link";
 
 export default function AboutTeaser() {
   return (
     <section className="px-[6vw] py-32">
       <div className="mx-auto grid max-w-content grid-cols-1 items-center gap-[6vw] md:grid-cols-2">
-        {/* Typographic portrait block */}
-        <div className="flex aspect-[4/5] max-h-[60vh] flex-col justify-between border border-line p-8">
-          <span className="text-[11px] uppercase tracking-[0.2em] text-muted">
-            UX · HCI
-          </span>
-          <span
+        {/* Portrait — Palash at SUMMIT One Vanderbilt. The framing labels stay
+            as cream overlays (over subtle scrims) for editorial continuity. */}
+        <div className="relative aspect-[4/5] max-h-[60vh] overflow-hidden rounded-2xl border border-line">
+          <Image
+            src="/me/portrait.jpg"
+            alt="Palash at SUMMIT One Vanderbilt, the Midtown Manhattan skyline behind him"
+            fill
+            sizes="(max-width: 768px) 90vw, 40vw"
+            className="object-cover"
+          />
+          {/* top + bottom scrims keep the labels legible over any part of the photo */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
             style={{
-              fontFamily: "var(--font-display)",
-              fontStyle: "italic",
-              fontSize: "clamp(72px, 12vw, 150px)",
-              lineHeight: 0.9,
+              background:
+                "linear-gradient(180deg, rgba(10,10,10,0.5) 0%, transparent 24%, transparent 70%, rgba(10,10,10,0.6) 100%)",
             }}
-          >
-            P<span style={{ color: "var(--accent)" }}>N</span>
-          </span>
-          <span className="text-[11px] uppercase tracking-[0.2em] text-muted">
-            Rochester, NY
-          </span>
+          />
+          <div className="absolute inset-0 flex flex-col justify-between p-6">
+            <span
+              className="text-[11px] uppercase tracking-[0.2em]"
+              style={{ color: "var(--bg)", fontFamily: "var(--font-mono)" }}
+            >
+              UX · HCI
+            </span>
+            <span
+              className="text-[11px] uppercase tracking-[0.2em]"
+              style={{ color: "var(--bg)", fontFamily: "var(--font-mono)" }}
+            >
+              SUMMIT · NYC
+            </span>
+          </div>
         </div>
 
         {/* Copy */}

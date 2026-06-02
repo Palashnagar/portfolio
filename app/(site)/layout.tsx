@@ -2,6 +2,7 @@ import { SiteChrome } from "@/components/nav/SiteChrome";
 import { Footer } from "@/components/footer/Footer";
 import { IntroProvider } from "@/components/nav/intro-context";
 import { SiteLogo } from "@/components/nav/SiteLogo";
+import { BackToTop } from "@/components/fx/BackToTop";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -17,6 +18,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
       <SiteChrome />
       <main id="main-content">{children}</main>
       <Footer />
+      <BackToTop />
     </IntroProvider>
   );
 }

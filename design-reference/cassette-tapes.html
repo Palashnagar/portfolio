@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cassette tape illustrations</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Permanent+Marker&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F1EA;
+    --ink: #0A0A0A;
+    --accent: #E94E1B;
+    --muted: #8A867F;
+    --border: rgba(10,10,10,0.10);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    padding: 60px 6vw 100px;
+    min-height: 100vh;
+  }
+  .grain {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    mix-blend-mode: multiply;
+    z-index: 100;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.65'/></svg>");
+  }
+
+  header { margin-bottom: 50px; max-width: 720px; }
+  .eyebrow { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 52px; line-height: 1; letter-spacing: -0.02em; margin-bottom: 18px; }
+  h1 em { color: var(--accent); font-style: italic; }
+  header p { font-size: 15px; line-height: 1.5; max-width: 60ch; }
+  header p em { font-family: 'Instrument Serif', serif; font-style: italic; }
+
+  .section { margin-bottom: 70px; }
+  .section-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .cassette-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  @media (max-width: 900px) { .cassette-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .cassette-grid { grid-template-columns: 1fr; } }
+
+  .cassette-card {
+    aspect-ratio: 1/1;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+  .cassette-card svg { width: 100%; height: 100%; display: block; }
+
+  /* preview row */
+  .preview-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    align-items: center;
+  }
+  .preview-tile {
+    height: 175px;
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+  .preview-tile.sz-m { aspect-ratio: 235/175; }
+  .preview-tile.sz-s { aspect-ratio: 1/1; }
+  .preview-tile svg, .preview-tile img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .preview-tile::after {
+    content: '';
+    position: absolute; left: 0; right: 0; bottom: 0;
+    height: 60%;
+    background: linear-gradient(180deg, transparent 0%, rgba(10,10,10,0.6) 70%, rgba(10,10,10,0.92) 100%);
+    opacity: 0.85;
+    pointer-events: none;
+  }
+  .preview-caption {
+    position: absolute;
+    left: 14px; right: 14px;
+    bottom: 12px;
+    z-index: 2;
+    color: var(--bg);
+  }
+  .preview-caption .tag {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 4px;
+  }
+  .preview-caption .text {
+    font-family: 'Instrument Serif', serif;
+    font-size: 14px;
+    line-height: 1.2;
+  }
+  .preview-caption .text em { font-style: italic; color: var(--accent); }
+
+  .photo-fake {
+    background: linear-gradient(135deg, #1E3A5F, #0A0A0A);
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.4);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .note {
+    margin-top: 18px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted);
+    max-width: 64ch;
+  }
+  .note strong { color: var(--ink); font-weight: 500; }
+  .note em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--ink); }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header>
+  <div class="eyebrow">Cassette illustrations · for the music tiles</div>
+  <h1>Mixtapes, <em>basically</em>.</h1>
+  <p>Each artist gets a stylized cassette tape with their name handwritten on the J-card label — like you wrote it yourself in marker on a tape you burned for someone. <em>No portraits, no IP issues, more personal</em> than a vinyl mockup.</p>
+</header>
+
+<!-- ======================== Big preview ======================== -->
+<div class="section">
+  <div class="section-title">At display size · 320×320</div>
+  <div class="cassette-grid">
+
+    <!-- ============= MJ Cassette ============= -->
+    <div class="cassette-card">
+      <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="mjGrainC">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/>
+            <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0"/>
+            <feComposite in2="SourceGraphic" operator="in"/>
+          </filter>
+          <linearGradient id="mjBodyG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#252525"/>
+            <stop offset="50%" stop-color="#1a1a1a"/>
+            <stop offset="100%" stop-color="#0A0A0A"/>
+          </linearGradient>
+        </defs>
+
+        <!-- background -->
+        <rect width="1000" height="1000" fill="#1E3A5F"/>
+        <rect width="1000" height="1000" filter="url(#mjGrainC)"/>
+
+        <!-- subtle sleeve hint behind -->
+        <rect x="80" y="200" width="840" height="600" fill="#F5F1EA" opacity="0.04" rx="8" transform="rotate(-2 500 500)"/>
+
+        <!-- cassette body (slight tilt for life) -->
+        <g transform="rotate(-3 500 500)">
+
+          <!-- shadow -->
+          <rect x="115" y="290" width="780" height="430" rx="14" fill="#000" opacity="0.35"/>
+
+          <!-- body -->
+          <rect x="110" y="280" width="780" height="430" rx="14" fill="url(#mjBodyG)"/>
+          <rect x="110" y="280" width="780" height="430" rx="14" fill="url(#mjBodyG)" filter="url(#mjGrainC)"/>
+
+          <!-- top highlight -->
+          <rect x="110" y="280" width="780" height="22" rx="14" fill="#fff" opacity="0.07"/>
+
+          <!-- J-card label (cream sticker) -->
+          <rect x="160" y="320" width="680" height="200" rx="3" fill="#F5F1EA"/>
+          <rect x="160" y="320" width="680" height="200" rx="3" fill="#F5F1EA" filter="url(#mjGrainC)"/>
+          <!-- label red top stripe -->
+          <rect x="160" y="320" width="680" height="32" fill="#E94E1B"/>
+          <text x="500" y="343" text-anchor="middle" font-family="JetBrains Mono" font-size="14" letter-spacing="3" fill="#F5F1EA">SIDE A · 90 MIN · 1982</text>
+
+          <!-- handwritten artist name -->
+          <text x="500" y="430" text-anchor="middle" font-family="Permanent Marker, cursive" font-size="62" fill="#0A0A0A">Michael Jackson</text>
+          <!-- small handwritten subtitle -->
+          <text x="500" y="478" text-anchor="middle" font-family="Permanent Marker, cursive" font-size="22" fill="#E94E1B">— the essentials</text>
+          <text x="500" y="500" text-anchor="middle" font-family="Permanent Marker, cursive" font-size="14" fill="#8A867F">recorded from vinyl, w/ love</text>
+
+          <!-- TAPE WINDOW (the iconic see-through plastic) -->
+          <rect x="280" y="540" width="440" height="120" rx="6" fill="#F5F1EA" opacity="0.12"/>
+          <rect x="280" y="540" width="440" height="120" rx="6" fill="none" stroke="#F5F1EA" stroke-width="1.5" opacity="0.3"/>
+
+          <!-- tape spool wheels (the two iconic circles you can see through the window) -->
+          <g>
+            <!-- left wheel -->
+            <circle cx="370" cy="600" r="42" fill="#0A0A0A"/>
+            <circle cx="370" cy="600" r="38" fill="none" stroke="#3a3a3a" stroke-width="1"/>
+            <!-- spoke teeth -->
+            <g fill="#F5F1EA" opacity="0.85">
+              <rect x="368" y="572" width="4" height="12" rx="1"/>
+              <rect x="368" y="616" width="4" height="12" rx="1"/>
+              <rect x="342" y="598" width="12" height="4" rx="1"/>
+              <rect x="386" y="598" width="12" height="4" rx="1"/>
+              <rect x="349" y="580" width="4" height="10" rx="1" transform="rotate(-45 351 585)"/>
+              <rect x="389" y="580" width="4" height="10" rx="1" transform="rotate(45 391 585)"/>
+              <rect x="349" y="610" width="4" height="10" rx="1" transform="rotate(45 351 615)"/>
+              <rect x="389" y="610" width="4" height="10" rx="1" transform="rotate(-45 391 615)"/>
+            </g>
+            <circle cx="370" cy="600" r="8" fill="#1a1a1a"/>
+
+            <!-- tape strip between wheels -->
+            <rect x="370" y="638" width="260" height="12" fill="#5a4030" opacity="0.85"/>
+            <!-- bottom shadow on tape -->
+            <rect x="370" y="648" width="260" height="2" fill="#000" opacity="0.4"/>
+
+            <!-- right wheel -->
+            <circle cx="630" cy="600" r="42" fill="#0A0A0A"/>
+            <circle cx="630" cy="600" r="38" fill="none" stroke="#3a3a3a" stroke-width="1"/>
+            <g fill="#F5F1EA" opacity="0.85">
+              <rect x="628" y="572" width="4" height="12" rx="1"/>
+              <rect x="628" y="616" width="4" height="12" rx="1"/>
+              <rect x="602" y="598" width="12" height="4" rx="1"/>
+              <rect x="646" y="598" width="12" height="4" rx="1"/>
+              <rect x="609" y="580" width="4" height="10" rx="1" transform="rotate(-45 611 585)"/>
+              <rect x="649" y="580" width="4" height="10" rx="1" transform="rotate(45 651 585)"/>
+              <rect x="609" y="610" width="4" height="10" rx="1" transform="rotate(45 611 615)"/>
+              <rect x="649" y="610" width="4" height="10" rx="1" transform="rotate(-45 651 615)"/>
+            </g>
+            <circle cx="630" cy="600" r="8" fill="#1a1a1a"/>
+          </g>
+
+          <!-- bottom screws -->
+          <circle cx="160" cy="690" r="6" fill="#0A0A0A" stroke="#3a3a3a" stroke-width="1"/>
+          <circle cx="840" cy="690" r="6" fill="#0A0A0A" stroke="#3a3a3a" stroke-width="1"/>
+
+          <!-- bottom edge highlight -->
+          <rect x="110" y="700" width="780" height="2" fill="#fff" opacity="0.05"/>
+        </g>
+
+      </svg>
+    </div>
+
+    <!-- ============= Charlie Puth Cassette ============= -->
+    <div class="cassette-card">
+      <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="chGrainC">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/>
+            <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0"/>
+            <feComposite in2="SourceGraphic" operator="in"/>
+          </filter>
+          <linearGradient id="chBodyG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8a5538"/>
+            <stop offset="50%" stop-color="#6B4530"/>
+            <stop offset="100%" stop-color="#4a2f1f"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="1000" height="1000" fill="#F5A623"/>
+        <rect width="1000" height="1000" filter="url(#chGrainC)"/>
+
+        <rect x="80" y="200" width="840" height="600" fill="#6B4530" opacity="0.08" rx="8" transform="rotate(-2 500 500)"/>
+
+        <g transform="rotate(-3 500 500)">
+
+          <rect x="115" y="290" width="780" height="430" rx="14" fill="#000" opacity="0.3"/>
+          <rect x="110" y="280" width="780" height="430" rx="14" fill="url(#chBodyG)"/>
+          <rect x="110" y="280" width="780" height="430" rx="14" fill="url(#chBodyG)" filter="url(#chGrainC)"/>
+          <rect x="110" y="280" width="780" height="22" rx="14" fill="#fff" opacity="0.1"/>
+
+          <!-- label -->
+          <rect x="160" y="320" width="680" height="200" rx="3" fill="#F5F1EA"/>
+          <rect x="160" y="320" width="680" height="200" rx="3" fill="#F5F1EA" filter="url(#chGrainC)"/>
+          <rect x="160" y="320" width="680" height="32" fill="#6B4530"/>
+          <text x="500" y="343" text-anchor="middle" font-family="JetBrains Mono" font-size="14" letter-spacing="3" fill="#F5F1EA">SIDE A · 60 MIN · CURRENT</text>
+
+          <text x="500" y="432" text-anchor="middle" font-family="Permanent Marker, cursive" font-size="68" fill="#0A0A0A">Charlie Puth</text>
+          <text x="500" y="478" text-anchor="middle" font-family="Permanent Marker, cursive" font-size="22" fill="#E94E1B">— the melody guy</text>
+          <text x="500" y="500" text-anchor="middle" font-family="Permanent Marker, cursive" font-size="14" fill="#8A867F">for when nothing else fits</text>
+
+          <!-- TAPE WINDOW -->
+          <rect x="280" y="540" width="440" height="120" rx="6" fill="#F5F1EA" opacity="0.18"/>
+          <rect x="280" y="540" width="440" height="120" rx="6" fill="none" stroke="#F5F1EA" stroke-width="1.5" opacity="0.4"/>
+
+          <g>
+            <circle cx="370" cy="600" r="42" fill="#3a2520"/>
+            <circle cx="370" cy="600" r="38" fill="none" stroke="#6B4530" stroke-width="1"/>
+            <g fill="#F5F1EA" opacity="0.85">
+              <rect x="368" y="572" width="4" height="12" rx="1"/>
+              <rect x="368" y="616" width="4" height="12" rx="1"/>
+              <rect x="342" y="598" width="12" height="4" rx="1"/>
+              <rect x="386" y="598" width="12" height="4" rx="1"/>
+              <rect x="349" y="580" width="4" height="10" rx="1" transform="rotate(-45 351 585)"/>
+              <rect x="389" y="580" width="4" height="10" rx="1" transform="rotate(45 391 585)"/>
+              <rect x="349" y="610" width="4" height="10" rx="1" transform="rotate(45 351 615)"/>
+              <rect x="389" y="610" width="4" height="10" rx="1" transform="rotate(-45 391 615)"/>
+            </g>
+            <circle cx="370" cy="600" r="8" fill="#1a1a1a"/>
+
+            <rect x="370" y="638" width="260" height="12" fill="#3a2010" opacity="0.9"/>
+            <rect x="370" y="648" width="260" height="2" fill="#000" opacity="0.4"/>
+
+            <circle cx="630" cy="600" r="42" fill="#3a2520"/>
+            <circle cx="630" cy="600" r="38" fill="none" stroke="#6B4530" stroke-width="1"/>
+            <g fill="#F5F1EA" opacity="0.85">
+              <rect x="628" y="572" width="4" height="12" rx="1"/>
+              <rect x="628" y="616" width="4" height="12" rx="1"/>
+              <rect x="602" y="598" width="12" height="4" rx="1"/>
+              <rect x="646" y="598" width="12" height="4" rx="1"/>
+              <rect x="609" y="580" width="4" height="10" rx="1" transform="rotate(-45 611 585)"/>
+              <rect x="649" y="580" width="4" height="10" rx="1" transform="rotate(45 651 585)"/>
+              <rect x="609" y="610" width="4" height="10" rx="1" transform="rotate(45 611 615)"/>
+              <rect x="649" y="610" width="4" height="10" rx="1" transform="rotate(-45 651 615)"/>
+            </g>
+            <circle cx="630" cy="600" r="8" fill="#1a1a1a"/>
+          </g>
+
+          <circle cx="160" cy="690" r="6" fill="#3a2520" stroke="#8a5538" stroke-width="1"/>
+          <circle cx="840" cy="690" r="6" fill="#3a2520" stroke="#8a5538" stroke-width="1"/>
+          <rect x="110" y="700" width="780" height="2" fill="#fff" opacity="0.06"/>
+        </g>
+
+      </svg>
+    </div>
+
+    <!-- ============= Maroon 5 Cassette ============= -->
+    <div class="cassette-card">
+      <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="m5GrainC">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/>
+            <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0"/>
+            <feComposite in2="SourceGraphic" operator="in"/>
+          </filter>
+          <linearGradient id="m5BodyG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#F5E0CC"/>
+            <stop offset="50%" stop-color="#E9B89A"/>
+            <stop offset="100%" stop-color="#C97852"/>
+          </linearGradient>
+        </defs>
+
+        <rect width="1000" height="1000" fill="#6B4530"/>
+        <rect width="1000" height="1000" filter="url(#m5GrainC)"/>
+
+        <rect x="80" y="200" width="840" height="600" fill="#F5F1EA" opacity="0.06" rx="8" transform="rotate(-2 500 500)"/>
+
+        <g transform="rotate(-3 500 500)">
+
+          <rect x="115" y="290" width="780" height="430" rx="14" fill="#000" opacity="0.3"/>
+          <rect x="110" y="280" width="780" height="430" rx="14" fill="url(#m5BodyG)"/>
+          <rect x="110" y="280" width="780" height="430" rx="14" fill="url(#m5BodyG)" filter="url(#m5GrainC)"/>
+          <rect x="110" y="280" width="780" height="22" rx="14" fill="#fff" opacity="0.3"/>
+
+          <!-- label -->
+          <rect x="160" y="320" width="680" height="200" rx="3" fill="#F5F1EA"/>
+          <rect x="160" y="320" width="680" height="200" rx="3" fill="#F5F1EA" filter="url(#m5GrainC)"/>
+          <rect x="160" y="320" width="680" height="32" fill="#E94E1B"/>
+          <text x="500" y="343" text-anchor="middle" font-family="JetBrains Mono" font-size="14" letter-spacing="3" fill="#F5F1EA">SIDE A · 90 MIN · FOREVER</text>
+
+          <text x="500" y="430" text-anchor="middle" font-family="Permanent Marker, cursive" font-size="78" fill="#0A0A0A">Maroon 5</text>
+          <text x="500" y="478" text-anchor="middle" font-family="Permanent Marker, cursive" font-size="22" fill="#E94E1B">— since high school</text>
+          <text x="500" y="500" text-anchor="middle" font-family="Permanent Marker, cursive" font-size="14" fill="#8A867F">design-the-website soundtrack</text>
+
+          <rect x="280" y="540" width="440" height="120" rx="6" fill="#F5F1EA" opacity="0.5"/>
+          <rect x="280" y="540" width="440" height="120" rx="6" fill="none" stroke="#0A0A0A" stroke-width="1.5" opacity="0.3"/>
+
+          <g>
+            <circle cx="370" cy="600" r="42" fill="#3a3a3a"/>
+            <circle cx="370" cy="600" r="38" fill="none" stroke="#5a5a5a" stroke-width="1"/>
+            <g fill="#F5F1EA" opacity="0.95">
+              <rect x="368" y="572" width="4" height="12" rx="1"/>
+              <rect x="368" y="616" width="4" height="12" rx="1"/>
+              <rect x="342" y="598" width="12" height="4" rx="1"/>
+              <rect x="386" y="598" width="12" height="4" rx="1"/>
+              <rect x="349" y="580" width="4" height="10" rx="1" transform="rotate(-45 351 585)"/>
+              <rect x="389" y="580" width="4" height="10" rx="1" transform="rotate(45 391 585)"/>
+              <rect x="349" y="610" width="4" height="10" rx="1" transform="rotate(45 351 615)"/>
+              <rect x="389" y="610" width="4" height="10" rx="1" transform="rotate(-45 391 615)"/>
+            </g>
+            <circle cx="370" cy="600" r="8" fill="#1a1a1a"/>
+
+            <rect x="370" y="638" width="260" height="12" fill="#5a4030" opacity="0.85"/>
+            <rect x="370" y="648" width="260" height="2" fill="#000" opacity="0.4"/>
+
+            <circle cx="630" cy="600" r="42" fill="#3a3a3a"/>
+            <circle cx="630" cy="600" r="38" fill="none" stroke="#5a5a5a" stroke-width="1"/>
+            <g fill="#F5F1EA" opacity="0.95">
+              <rect x="628" y="572" width="4" height="12" rx="1"/>
+              <rect x="628" y="616" width="4" height="12" rx="1"/>
+              <rect x="602" y="598" width="12" height="4" rx="1"/>
+              <rect x="646" y="598" width="12" height="4" rx="1"/>
+              <rect x="609" y="580" width="4" height="10" rx="1" transform="rotate(-45 611 585)"/>
+              <rect x="649" y="580" width="4" height="10" rx="1" transform="rotate(45 651 585)"/>
+              <rect x="609" y="610" width="4" height="10" rx="1" transform="rotate(45 611 615)"/>
+              <rect x="649" y="610" width="4" height="10" rx="1" transform="rotate(-45 651 615)"/>
+            </g>
+            <circle cx="630" cy="600" r="8" fill="#1a1a1a"/>
+          </g>
+
+          <circle cx="160" cy="690" r="6" fill="#3a3a3a" stroke="#5a5a5a" stroke-width="1"/>
+          <circle cx="840" cy="690" r="6" fill="#3a3a3a" stroke="#5a5a5a" stroke-width="1"/>
+          <rect x="110" y="700" width="780" height="2" fill="#fff" opacity="0.4"/>
+        </g>
+
+      </svg>
+    </div>
+
+  </div>
+
+  <p class="note"><strong>What makes the cassettes work:</strong> the metaphor is mixtape — these are <em>tapes you would have made yourself</em>. The label has your handwritten artist name in marker, a small subtitle that's a personal opinion ("the melody guy", "since high school"), and a tiny note at the bottom that's basically a love letter ("recorded from vinyl, w/ love"). The mono header text on the label feels like the standard cassette format. The spool wheels are visible through the window so it reads as <em>a tape</em>, not a generic box.</p>
+</div>
+
+<!-- ======================== In-wall preview ======================== -->
+<div class="section">
+  <div class="section-title">In the wall · at tile size, with caption overlay</div>
+  <div class="preview-row">
+
+    <div class="preview-tile sz-m">
+      <div class="photo-fake">PHOTO TILE</div>
+      <div class="preview-caption">
+        <span class="tag">NYC · ongoing</span>
+        <span class="text">Lower Manhattan from the water. <em>Still manifesting</em> a life there.</span>
+      </div>
+    </div>
+
+    <!-- MJ at tile size -->
+    <div class="preview-tile sz-s">
+      <svg viewBox="100 200 800 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <filter id="mjGrainPreview">
+            <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2"/>
+            <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0"/>
+            <feComposite in2="SourceGraphic" operator="in"/>
+          </filter>
+          <linearGradient id="mjBodyP" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#252525"/>
+            <stop offset="100%" stop-color="#0A0A0A"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="1000" height="1000" fill="#1E3A5F"/>
+        <g transform="rotate(-3 500 500)">
+          <rect x="110" y="280" width="780" height="430" rx="14" fill="url(#mjBodyP)"/>
+          <rect x="110" y="280" width="780" height="22" rx="14" fill="#fff" opacity="0.07"/>
+          <rect x="160" y="320" width="680" height="200" rx="3" fill="#F5F1EA"/>
+          <rect x="160" y="320" width="680" height="32" fill="#E94E1B"/>
+          <text x="500" y="343" text-anchor="middle" font-family="JetBrains Mono" font-size="14" letter-spacing="3" fill="#F5F1EA">SIDE A · 90 MIN · 1982</text>
+          <text x="500" y="430" text-anchor="middle" font-family="Permanent Marker, cursive" font-size="62" fill="#0A0A0A">Michael Jackson</text>
+          <text x="500" y="478" text-anchor="middle" font-family="Permanent Marker, cursive" font-size="22" fill="#E94E1B">— the essentials</text>
+          <rect x="280" y="540" width="440" height="120" rx="6" fill="#F5F1EA" opacity="0.12"/>
+          <rect x="280" y="540" width="440" height="120" rx="6" fill="none" stroke="#F5F1EA" stroke-width="1.5" opacity="0.3"/>
+          <circle cx="370" cy="600" r="42" fill="#0A0A0A"/>
+          <circle cx="370" cy="600" r="8" fill="#1a1a1a"/>
+          <rect x="370" y="638" width="260" height="12" fill="#5a4030" opacity="0.85"/>
+          <circle cx="630" cy="600" r="42" fill="#0A0A0A"/>
+          <circle cx="630" cy="600" r="8" fill="#1a1a1a"/>
+        </g>
+      </svg>
+      <div class="preview-caption">
+        <span class="tag">Listening · always</span>
+        <span class="text">MJ on loop. <em>Every era</em>, every mood.</span>
+      </div>
+    </div>
+
+    <!-- Charlie at tile size -->
+    <div class="preview-tile sz-s">
+      <svg viewBox="100 200 800 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="chBodyP" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#8a5538"/>
+            <stop offset="100%" stop-color="#4a2f1f"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="1000" height="1000" fill="#F5A623"/>
+        <g transform="rotate(-3 500 500)">
+          <rect x="110" y="280" width="780" height="430" rx="14" fill="url(#chBodyP)"/>
+          <rect x="110" y="280" width="780" height="22" rx="14" fill="#fff" opacity="0.1"/>
+          <rect x="160" y="320" width="680" height="200" rx="3" fill="#F5F1EA"/>
+          <rect x="160" y="320" width="680" height="32" fill="#6B4530"/>
+          <text x="500" y="343" text-anchor="middle" font-family="JetBrains Mono" font-size="14" letter-spacing="3" fill="#F5F1EA">SIDE A · 60 MIN · CURRENT</text>
+          <text x="500" y="432" text-anchor="middle" font-family="Permanent Marker, cursive" font-size="68" fill="#0A0A0A">Charlie Puth</text>
+          <text x="500" y="478" text-anchor="middle" font-family="Permanent Marker, cursive" font-size="22" fill="#E94E1B">— the melody guy</text>
+          <rect x="280" y="540" width="440" height="120" rx="6" fill="#F5F1EA" opacity="0.18"/>
+          <circle cx="370" cy="600" r="42" fill="#3a2520"/>
+          <circle cx="370" cy="600" r="8" fill="#1a1a1a"/>
+          <rect x="370" y="638" width="260" height="12" fill="#3a2010" opacity="0.9"/>
+          <circle cx="630" cy="600" r="42" fill="#3a2520"/>
+          <circle cx="630" cy="600" r="8" fill="#1a1a1a"/>
+        </g>
+      </svg>
+      <div class="preview-caption">
+        <span class="tag">Listening · current</span>
+        <span class="text">Charlie Puth. <em>That ear for melody</em> — I keep going back.</span>
+      </div>
+    </div>
+
+    <!-- Maroon 5 at tile size -->
+    <div class="preview-tile sz-s">
+      <svg viewBox="100 200 800 600" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="m5BodyP" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#F5E0CC"/>
+            <stop offset="100%" stop-color="#C97852"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="1000" height="1000" fill="#6B4530"/>
+        <g transform="rotate(-3 500 500)">
+          <rect x="110" y="280" width="780" height="430" rx="14" fill="url(#m5BodyP)"/>
+          <rect x="110" y="280" width="780" height="22" rx="14" fill="#fff" opacity="0.3"/>
+          <rect x="160" y="320" width="680" height="200" rx="3" fill="#F5F1EA"/>
+          <rect x="160" y="320" width="680" height="32" fill="#E94E1B"/>
+          <text x="500" y="343" text-anchor="middle" font-family="JetBrains Mono" font-size="14" letter-spacing="3" fill="#F5F1EA">SIDE A · 90 MIN · FOREVER</text>
+          <text x="500" y="430" text-anchor="middle" font-family="Permanent Marker, cursive" font-size="78" fill="#0A0A0A">Maroon 5</text>
+          <text x="500" y="478" text-anchor="middle" font-family="Permanent Marker, cursive" font-size="22" fill="#E94E1B">— since high school</text>
+          <rect x="280" y="540" width="440" height="120" rx="6" fill="#F5F1EA" opacity="0.5"/>
+          <circle cx="370" cy="600" r="42" fill="#3a3a3a"/>
+          <circle cx="370" cy="600" r="8" fill="#1a1a1a"/>
+          <rect x="370" y="638" width="260" height="12" fill="#5a4030" opacity="0.85"/>
+          <circle cx="630" cy="600" r="42" fill="#3a3a3a"/>
+          <circle cx="630" cy="600" r="8" fill="#1a1a1a"/>
+        </g>
+      </svg>
+      <div class="preview-caption">
+        <span class="tag">Listening · forever</span>
+        <span class="text">Maroon 5 since forever. <em>The album I designed</em> my first website to.</span>
+      </div>
+    </div>
+
+  </div>
+  <p class="note">At tile size the cassettes still read clearly because the handwritten marker text and the cassette body shape are the strongest signals. Even cropped tight, you immediately get "this is a tape with a name on it."</p>
+</div>
+
+</body>
+</html>

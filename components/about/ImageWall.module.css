@@ -43,7 +43,8 @@
   flex-shrink: 0;
 }
 
-/* Each tile is a focusable <button>; reset the native button chrome. */
+/* Each tile is a focusable <div role="img">; no native chrome to reset, but we
+   keep these resets so the element stays neutral if the markup ever changes. */
 .item {
   position: relative;
   flex-shrink: 0;
@@ -58,7 +59,7 @@
   overflow: hidden;
   height: 175px;
   transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
-  cursor: pointer;
+  cursor: inherit; /* follow the wall's grab / grabbing, not a misleading pointer */
 }
 .szS {
   width: 175px;
@@ -68,6 +69,9 @@
 }
 .szL {
   width: 290px;
+}
+.szXL {
+  width: 380px;
 }
 .item:hover,
 .item:focus-visible {
@@ -88,20 +92,52 @@
   overflow: hidden;
 }
 .img svg,
-.img img {
+.img img,
+.img video {
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
+  object-position: center;
   transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
   filter: brightness(0.88) saturate(0.85);
+  /* The media must never start a native drag/selection — the wall owns the
+     pointer so a grab scrolls the strip instead of dragging a ghost image. */
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 .item:hover .img svg,
 .item:hover .img img,
+.item:hover .img video,
 .item:focus-visible .img svg,
-.item:focus-visible .img img {
+.item:focus-visible .img img,
+.item:focus-visible .img video {
   filter: brightness(1) saturate(1);
   transform: scale(1.08);
+}
+
+/* "▶ Video" pill — top-left, mirrors the caption's mono micro-label styling so
+   the one motion tile reads as intentional rather than a broken image. */
+.playBadge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  border-radius: 100px;
+  background: rgba(245, 241, 234, 0.92);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: none;
 }
 
 /* dark gradient at the bottom so captions stay legible over any photo */
@@ -245,8 +281,12 @@
   .szL {
     width: 215px;
   }
+  .szXL {
+    width: 280px;
+  }
   .item:active .img svg,
-  .item:active .img img {
+  .item:active .img img,
+  .item:active .img video {
     filter: brightness(1) saturate(1);
     transform: scale(1.08);
   }

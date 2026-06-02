@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" role="img" aria-label="The Design of Everyday Things by Don Norman — book cover">
+  <defs>
+    <filter id="dnGrain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" result="n"/>
+      <feColorMatrix in="n" type="saturate" values="0"/>
+    </filter>
+  </defs>
+  <rect width="1000" height="1000" fill="#F5F1EA"/>
+  <rect width="1000" height="1000" filter="url(#dnGrain)" opacity="0.06"/>
+  <g transform="rotate(4 500 500)">
+    <!-- drop shadow -->
+    <rect x="298" y="234" width="440" height="566" rx="4" fill="#0A0A0A" opacity="0.16"/>
+    <!-- cover -->
+    <rect x="280" y="216" width="440" height="566" rx="4" fill="#F5F1EA"/>
+    <!-- spine -->
+    <rect x="280" y="216" width="22" height="566" rx="2" fill="#E7DFCF"/>
+    <line x1="302" y1="216" x2="302" y2="782" stroke="#0A0A0A" stroke-opacity="0.2" stroke-width="1.5"/>
+    <!-- cover rule -->
+    <rect x="324" y="246" width="368" height="506" fill="none" stroke="#0A0A0A" stroke-opacity="0.45" stroke-width="1.5"/>
+    <!-- title -->
+    <text x="348" y="318" font-family="Instrument Serif, Georgia, serif" font-style="italic" font-size="43" fill="#0A0A0A">The Design of</text>
+    <text x="348" y="368" font-family="Instrument Serif, Georgia, serif" font-style="italic" font-size="43"><tspan fill="#E94E1B">Everyday</tspan> <tspan fill="#0A0A0A">Things</tspan></text>
+    <!-- symbolic "Norman door" with its handle -->
+    <g stroke="#0A0A0A" stroke-width="3.5" fill="none" stroke-linecap="round">
+      <rect x="452" y="452" width="96" height="178" rx="3"/>
+      <circle cx="468" cy="541" r="7.5" fill="#0A0A0A" stroke="none"/>
+      <line x1="464" y1="541" x2="503" y2="541"/>
+    </g>
+    <!-- author -->
+    <text x="348" y="712" font-family="ui-monospace, 'JetBrains Mono', monospace" font-size="20" letter-spacing="4" fill="#0A0A0A">DON NORMAN</text>
+    <!-- made-up publisher mark -->
+    <text x="348" y="754" font-family="ui-monospace, 'JetBrains Mono', monospace" font-size="12" letter-spacing="3" fill="#0A0A0A" opacity="0.55">BASIC BOOKS · REV. ED.</text>
+  </g>
+</svg>

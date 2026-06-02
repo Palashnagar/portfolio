@@ -1,92 +1,138 @@
 "use client";
 
-// "Things I love" full-bleed draggable image wall (port of
-// design-reference/about-wall-final.html). Tiles in vertical pairs auto-scroll
-// left; drag with momentum that eases back to the base speed; seamless wrap via a
-// duplicated track. Permanent two-line captions (tag + serif sentence with an
-// italic-orange accent). Keyboard-navigable (Tab/Arrows center the focused tile
-// and pause the drift); prefers-reduced-motion drops the autoscroll; touch gets
-// a denser layout. Hides the global cursor over the wall via the shared events.
+// "Things I love" full-bleed draggable wall (port of
+// design-reference/about-wall-final.html) — real photos, three cassette-tape
+// SVGs, two book-cover SVGs, and one autoplaying video. Tiles in vertical pairs
+// auto-scroll left; drag with momentum easing back to base; seamless wrap via a
+// duplicated track. Always-on two-line captions. Keyboard-navigable (Tab/Arrows
+// center the focused tile + pause the drift); reduced-motion drops the autoscroll
+// AND video autoplay; touch gets a denser layout. The global cursor hides over
+// the wall via the shared events; the video pauses when scrolled offscreen.
 
 import { useEffect, useRef } from "react";
 import styles from "./ImageWall.module.css";
 
-// TODO: Palash replaces these with his real photos and voice captions.
-// Each item may also take `image: "/about/<name>.jpg"`; until then a color-block
-// placeholder is generated. The captions below are placeholder VOICE — rewrite
-// before production.
-const ITEMS: { tag: string; caption: string; image?: string }[] = [
-  { tag: "Kyoto · 2024", caption: "The trip that made me <em>start journaling</em>." },
-  { tag: "Listening", caption: "<em>Tame Impala</em> on every redesign." },
-  { tag: "Reading", caption: "Murakami — I read <em>Norwegian Wood</em> twice." },
-  { tag: "Iceland · 2023", caption: "Where I learned silence has <em>a texture</em>." },
-  { tag: "Listening", caption: "Frank Ocean. Especially <em>Pyramids</em>." },
-  { tag: "Hobby", caption: "Cooking dal until my mom <em>approves</em>." },
-  { tag: "Mumbai · home", caption: "Where I figured out <em>what I want to make</em>." },
-  { tag: "Watching", caption: "<em>The Bear</em> — the kitchen, the chaos, the love." },
-  { tag: "Hobby", caption: "Film cameras. <em>One shot per moment</em>." },
-  { tag: "Reading", caption: "Don Norman — <em>the book that ruined doors</em> for me." },
-  { tag: "Watching", caption: "<em>Past Lives</em>. Still thinking about it." },
-  { tag: "Lisbon · 2025", caption: "A whole city built around <em>azulejo tiles</em>." },
-  { tag: "Listening", caption: "<em>Anderson .Paak</em> for any 2 a.m. crit night." },
-  { tag: "Hobby", caption: "Long bike rides. <em>No destination</em>." },
-  { tag: "Goa · 2024", caption: "Where I read <em>three books in four days</em>." },
-  { tag: "Hobby", caption: "Pottery. Mostly <em>terrible</em>. Still going." },
-  { tag: "Reading", caption: "Letterboxd more than <em>any social app</em>." },
-  { tag: "Listening", caption: "Lo-fi for deep work. <em>Sorry, not sorry</em>." },
+interface WallItem {
+  tag: string;
+  caption: string; // may include <em> for the italic-orange accent
+  image?: string; // photo (.jpg, has @1x/@2x variants) or illustration (.svg)
+  type?: "video";
+  video?: string;
+  poster?: string;
+  size?: "sm" | "md" | "lg" | "xl"; // tile width override (else the rhythm below)
+  focus?: string; // object-position for cover-cropped photos, e.g. "50% 35%"
+}
+
+// Real content. Order intentionally mixes places / music / books / food / video
+// so the wall feels varied as it drifts. SVGs are the hand-built cassette + book
+// illustrations; .jpg items have @1x (480w) / @2x (720w) variants in /public/about.
+const ITEMS: WallItem[] = [
+  { tag: "NYC · ongoing", caption: "Lower Manhattan from the water. <em>Still manifesting</em> a life there.", image: "/about/nyc-skyline-night.jpg" },
+  { tag: "Listening · always", caption: "MJ on loop. <em>Every era</em>, every mood.", image: "/about/mj.svg", size: "sm" },
+  { tag: "Sri Lanka · 2024", caption: "First time on a board. <em>Mostly falling</em>, fully grinning.", image: "/about/sri-lanka-surf.jpg" },
+  { tag: "Eating · NYC", caption: "Apollo Bagels. <em>Worth</em> the line every time.", image: "/about/apollo-bagels.jpg" },
+  { tag: "Reading · the classic", caption: "Don Norman. <em>The book that ruined doors</em> for me.", image: "/about/don-norman.svg" },
+  { tag: "Rochester · winter", caption: "Christmas market in ROC. <em>Cold hands</em>, warm spiced everything.", image: "/about/roc-winter-market.jpg", size: "sm", focus: "50% 58%" },
+  { tag: "Lake Placid · spring break", caption: "A whole spring break in the Adirondacks. <em>I came back rearranged</em>.", image: "/about/lake-placid-chapel.jpg" },
+  { tag: "Listening · current", caption: "Charlie Puth. <em>That ear for melody</em> — I keep going back.", image: "/about/charlie-puth.svg", size: "sm" },
+  { tag: "Vern's · ROC", caption: "Vern's, again. <em>I can't pretend</em> I'm here for anything but the pizza.", image: "/about/verns.jpg" },
+  { tag: "NYC · 2024", caption: "First time at Summit. The whole city, <em>all at once</em>.", image: "/about/summit.jpg" },
+  { tag: "Lake Placid · still", caption: "The lake, frozen flat. <em>Making memories</em> with a camera between us.", image: "/about/lake-placid-frozen.jpg", size: "xl" },
+  { tag: "Reading · currently", caption: "<em>The Black Swan.</em> Taleb is <em>ruining</em> my optimism in the best way.", image: "/about/black-swan.svg" },
+  { tag: "Sri Lanka · with the boys", caption: "Three best friends, one beach. <em>I'll remember this one.</em>", image: "/about/sri-lanka-friends.jpg", size: "lg", focus: "50% 40%" },
+  { tag: "NYC · Roosevelt tram", caption: "The East River from a window. <em>Always looking south.</em>", image: "/about/east-river.jpg" },
+  { tag: "Listening · forever", caption: "Maroon 5 since forever. <em>The album I designed</em> my first website to.", image: "/about/maroon5.svg", size: "sm" },
+  { tag: "NYC · November", caption: "Late November in midtown. <em>The city in soft holiday mode.</em>", image: "/about/empire-state-night.jpg" },
+  { tag: "Climbing · regular thing", caption: "Indoor bouldering. <em>Falling productively</em>, on purpose.", image: "/about/bouldering.jpg", size: "sm", focus: "50% 32%" },
+  { tag: "Ritual · every morning", caption: "A good bowl. <em>That's the whole start</em> of the day.", image: "/about/breakfast-bowl.jpg" },
+  { tag: "Niagara · Maid of the Mist", caption: "A bird, a rainbow, and <em>one perfect frame</em>.", image: "/about/niagara-rainbow.jpg", size: "lg", focus: "50% 42%" },
+  { tag: "Rochester · first time on ice", caption: "First time skating. <em>Smoother than I deserved.</em>", type: "video", video: "/about/ice-skating.mp4", poster: "/about/ice-skating-poster.jpg" },
 ];
 
-const COLORS = [
-  "#E94E1B", "#1E3A5F", "#F5A623", "#2D5F3F", "#6B4530", "#8E5C8B",
-  "#3A6B5C", "#C97852", "#3D4A5C", "#A56A45", "#5B7B8C", "#7A4A3A",
-];
-
-// No two adjacent tiles share a size, for visual rhythm.
+// Default rhythm for items without an explicit `size`: no two adjacent tiles
+// share a width. Items can override via `size` (e.g. landscapes → "xl",
+// portraits → "sm" so the subject isn't cropped by a wide tile).
 const SIZE = ["szM", "szS", "szL", "szS", "szM", "szL", "szM", "szL", "szS"] as const;
 
-// Color-block placeholder until a real photo is supplied. `copy` keeps gradient
-// ids unique across the duplicated track.
-function placeholderSvg(idx: number, copy: number): string {
-  const c = COLORS[idx % COLORS.length];
-  const v = idx % 4;
-  let pattern: string;
-  if (v === 0) {
-    pattern = `<rect width='400' height='400' fill='${c}'/><circle cx='200' cy='200' r='95' fill='rgba(255,255,255,0.16)'/><circle cx='200' cy='200' r='52' fill='rgba(0,0,0,0.18)'/>`;
-  } else if (v === 1) {
-    pattern = `<rect width='400' height='400' fill='${c}'/><rect x='0' y='210' width='400' height='190' fill='rgba(0,0,0,0.22)'/><rect x='0' y='270' width='400' height='2' fill='rgba(255,255,255,0.3)'/>`;
-  } else if (v === 2) {
-    const id = `gx${copy}_${idx}`;
-    pattern = `<defs><linearGradient id='${id}' x1='0' y1='0' x2='1' y2='1'><stop offset='0%' stop-color='${c}'/><stop offset='100%' stop-color='#0A0A0A'/></linearGradient></defs><rect width='400' height='400' fill='url(%23${id})'/>`;
-  } else {
-    pattern = `<rect width='400' height='400' fill='${c}'/><polygon points='200,80 320,320 80,320' fill='rgba(255,255,255,0.16)'/>`;
+const SIZE_CLASS: Record<NonNullable<WallItem["size"]>, string> = {
+  sm: styles.szS,
+  md: styles.szM,
+  lg: styles.szL,
+  xl: styles.szXL,
+};
+
+const cleanCaption = (c: string) => c.replace(/<\/?em>/g, "");
+
+function TileMedia({ item }: { item: WallItem }) {
+  if (item.type === "video") {
+    // No `autoplay` attr — play/pause is driven by the IntersectionObserver in
+    // the effect (and stays paused → poster under reduced motion).
+    return (
+      <>
+        <video
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          poster={item.poster}
+          aria-hidden="true"
+          draggable={false}
+          data-wall-video
+        >
+          <source src={item.video} type="video/mp4" />
+        </video>
+        <span className={styles.playBadge} aria-hidden="true">
+          ▶ Video
+        </span>
+      </>
+    );
   }
-  return `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400' preserveAspectRatio='xMidYMid slice'>${pattern}</svg>`;
+  const src = item.image!;
+  if (src.endsWith(".svg")) {
+    // Illustrations scale natively — no srcset. draggable=false stops the browser
+    // from starting a native image-drag when you grab the wall.
+    // eslint-disable-next-line @next/next/no-img-element
+    return <img src={src} alt="" loading="lazy" decoding="async" draggable={false} />;
+  }
+  const base = src.replace(/\.jpg$/, "");
+  // eslint-disable-next-line @next/next/no-img-element
+  return (
+    <img
+      src={`${base}@2x.jpg`}
+      srcSet={`${base}@1x.jpg 480w, ${base}@2x.jpg 720w`}
+      sizes="(max-width: 700px) 215px, 380px"
+      alt=""
+      loading="lazy"
+      decoding="async"
+      draggable={false}
+      style={item.focus ? { objectPosition: item.focus } : undefined}
+    />
+  );
 }
 
 function Tile({ idx, copy }: { idx: number; copy: number }) {
   const item = ITEMS[idx];
   const dup = copy === 1; // second copy is decorative (for the seamless loop)
+  const sizeClass = item.size ? SIZE_CLASS[item.size] : styles[SIZE[idx % SIZE.length]];
   return (
-    <button
-      type="button"
-      className={`${styles.item} ${styles[SIZE[idx % SIZE.length]]}`}
+    // Non-clickable, but focusable for keyboard nav: an image labelled by its
+    // caption (no fake button). The inner media is decorative (alt="").
+    <div
+      className={`${styles.item} ${sizeClass}`}
       data-tile={dup ? "dup" : "real"}
+      role="img"
+      aria-label={dup ? undefined : `${item.tag} — ${cleanCaption(item.caption)}`}
       tabIndex={dup ? -1 : 0}
       aria-hidden={dup || undefined}
     >
       <span className={styles.img}>
-        {item.image ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={item.image} alt="" loading="lazy" width={400} height={400} />
-        ) : (
-          <span dangerouslySetInnerHTML={{ __html: placeholderSvg(idx, copy) }} />
-        )}
+        <TileMedia item={item} />
       </span>
-      <span className={styles.caption}>
+      <span className={styles.caption} aria-hidden="true">
         <span className={styles.tag}>{item.tag}</span>
         <span dangerouslySetInnerHTML={{ __html: item.caption }} />
       </span>
-    </button>
+    </div>
   );
 }
 
@@ -174,7 +220,7 @@ export function ImageWall() {
 
     // Keyboard: focusing a tile pauses the drift and centers it; arrows move focus.
     const tiles = Array.from(
-      wall.querySelectorAll<HTMLButtonElement>('[data-tile="real"]')
+      wall.querySelectorAll<HTMLElement>('[data-tile="real"]')
     );
     const centerOn = (tile: HTMLElement) => {
       const wr = wall.getBoundingClientRect();
@@ -186,8 +232,8 @@ export function ImageWall() {
       if (isDragging) return; // a pointer drag isn't keyboard navigation
       const t = e.target as HTMLElement | null;
       if (!t?.matches?.('[data-tile="real"]')) return;
-      // Only KEYBOARD focus pauses + centers. A mouse press also focuses the
-      // button, but focus-visible is false for that — so clicks/drags don't pause.
+      // Only KEYBOARD focus pauses + centers; a mouse press that focuses the tile
+      // shouldn't (focus-visible is false for that).
       let keyboard = true;
       try {
         keyboard = t.matches(":focus-visible");
@@ -208,7 +254,7 @@ export function ImageWall() {
     };
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
-      const i = tiles.indexOf(document.activeElement as HTMLButtonElement);
+      const i = tiles.indexOf(document.activeElement as HTMLElement);
       if (i === -1) return;
       e.preventDefault();
       const ni = e.key === "ArrowRight" ? Math.min(tiles.length - 1, i + 1) : Math.max(0, i - 1);
@@ -217,6 +263,25 @@ export function ImageWall() {
     wall.addEventListener("focusin", onFocusIn);
     wall.addEventListener("focusout", onFocusOut);
     wall.addEventListener("keydown", onKey);
+
+    // Video: play only while on-screen; never autoplay under reduced motion.
+    const videos = Array.from(
+      wall.querySelectorAll<HTMLVideoElement>("video[data-wall-video]")
+    );
+    let io: IntersectionObserver | null = null;
+    if (videos.length && !reduced) {
+      io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const v = entry.target as HTMLVideoElement;
+            if (entry.isIntersecting) v.play().catch(() => {});
+            else v.pause();
+          });
+        },
+        { threshold: 0 }
+      );
+      videos.forEach((v) => io!.observe(v));
+    }
 
     let raf = 0;
     const loop = () => {
@@ -264,11 +329,12 @@ export function ImageWall() {
       wall.removeEventListener("focusin", onFocusIn);
       wall.removeEventListener("focusout", onFocusOut);
       wall.removeEventListener("keydown", onKey);
+      io?.disconnect();
       window.dispatchEvent(new Event("customCursor:show"));
     };
   }, []);
 
-  // 9 vertical pairs from 18 items; the track renders two copies for the loop.
+  // 10 vertical pairs from 20 items; the track renders two copies for the loop.
   const pairs: number[][] = [];
   for (let i = 0; i < ITEMS.length; i += 2) pairs.push([i, i + 1]);
 

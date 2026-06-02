@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" role="img" aria-label="The Black Swan by Nassim Nicholas Taleb — book cover">
+  <defs>
+    <filter id="bsGrain" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" result="n"/>
+      <feColorMatrix in="n" type="saturate" values="0"/>
+    </filter>
+  </defs>
+  <rect width="1000" height="1000" fill="#0A0A0A"/>
+  <rect width="1000" height="1000" filter="url(#bsGrain)" opacity="0.08"/>
+  <g transform="rotate(4 500 500)">
+    <!-- subtle lift: a faint lighter halo so the black cover reads on black -->
+    <rect x="294" y="230" width="448" height="574" rx="4" fill="#F5F1EA" opacity="0.05"/>
+    <!-- cover -->
+    <rect x="280" y="216" width="440" height="566" rx="4" fill="#0A0A0A"/>
+    <rect x="280" y="216" width="440" height="566" rx="4" fill="none" stroke="#F5F1EA" stroke-opacity="0.5" stroke-width="1.5"/>
+    <!-- spine -->
+    <rect x="280" y="216" width="22" height="566" rx="2" fill="#1C1C1C"/>
+    <line x1="302" y1="216" x2="302" y2="782" stroke="#F5F1EA" stroke-opacity="0.25" stroke-width="1.5"/>
+    <!-- cover rule -->
+    <rect x="324" y="246" width="368" height="506" fill="none" stroke="#F5F1EA" stroke-opacity="0.3" stroke-width="1.5"/>
+    <!-- title -->
+    <text x="348" y="320" font-family="Instrument Serif, Georgia, serif" font-style="italic" font-size="48" fill="#F5F1EA">The Black</text>
+    <text x="348" y="378" font-family="Instrument Serif, Georgia, serif" font-style="italic" font-size="48" fill="#E94E1B">Swan</text>
+    <!-- stylized swan silhouette -->
+    <g>
+      <ellipse cx="505" cy="582" rx="78" ry="40" fill="#F5F1EA"/>
+      <path d="M 548 560 C 582 512, 560 452, 512 446" fill="none" stroke="#F5F1EA" stroke-width="15" stroke-linecap="round"/>
+      <circle cx="508" cy="445" r="12" fill="#F5F1EA"/>
+      <path d="M 498 444 l -18 5 l 16 8 z" fill="#E94E1B"/>
+      <path d="M 458 582 q 40 -26 92 -6" fill="none" stroke="#0A0A0A" stroke-opacity="0.35" stroke-width="3"/>
+    </g>
+    <!-- author -->
+    <text x="348" y="712" font-family="ui-monospace, 'JetBrains Mono', monospace" font-size="17" letter-spacing="3" fill="#F5F1EA">NASSIM NICHOLAS TALEB</text>
+    <!-- made-up publisher mark -->
+    <text x="348" y="754" font-family="ui-monospace, 'JetBrains Mono', monospace" font-size="12" letter-spacing="3" fill="#F5F1EA" opacity="0.5">PENGUIN · 2nd ed.</text>
+  </g>
+</svg>

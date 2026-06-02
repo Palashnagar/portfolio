@@ -1,0 +1,522 @@
+/* Résumé — ported verbatim from design-reference/resume.html, with the standalone
+   file's font @import and inline-SVG grain removed: this page uses the portfolio's
+   global fonts (var(--font-display|body|mono)), color tokens, and the site-wide
+   <Grain/> overlay. Layout, spacing, type scale, and the print/responsive blocks
+   match the reference exactly. The one sanctioned deviation is --rmeta: the
+   reference's --muted (#8A867F) on cream is only ~2.9:1, which fails WCAG AA for
+   the small meta text, so meta uses a slightly darker warm gray (~4.7:1). */
+
+.page {
+  /* darker cream backdrop (reference body bg) so the sheet reads as a floating
+     card with its shadow; the global cream page sits behind this. */
+  --hair: rgba(10, 10, 10, 0.12);
+  --soft: rgba(10, 10, 10, 0.04);
+  --rmeta: #6b6862; /* AA-legible meta (darker than --muted) */
+  min-height: 100vh;
+  background: #e5e0d6;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  /* generous top padding clears the site's fixed nav; sides/bottom match ref */
+  padding: 80px 20px 48px;
+  line-height: 1.5;
+}
+
+/* The sheet — A4-ish proportion, centered */
+.sheet {
+  width: 100%;
+  max-width: 820px;
+  background: var(--bg);
+  position: relative;
+  padding: 64px 64px 48px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+
+/* ============ HEADER ============ */
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--ink);
+  margin-bottom: 32px;
+}
+.mastheadLeft {
+  max-width: 62%;
+}
+.name {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 58px;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.name em {
+  color: var(--accent);
+  font-style: italic;
+}
+.role {
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.role .dot {
+  color: var(--accent);
+  margin: 0 8px;
+}
+.summary {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink);
+  max-width: 52ch;
+}
+.summary em {
+  font-family: var(--font-display);
+  font-style: italic;
+}
+
+.mastheadRight {
+  text-align: right;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--ink);
+  padding-top: 6px;
+}
+.avail {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+.avail::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.mastheadRight a {
+  color: var(--ink);
+  text-decoration: none;
+  display: block;
+}
+.mastheadRight a:hover {
+  color: var(--accent);
+}
+.mastheadRight .loc {
+  color: var(--rmeta);
+  margin-top: 8px;
+}
+
+/* ============ LAYOUT ============ */
+.bodyGrid {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 44px;
+}
+
+/* section label */
+.secLabel {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--rmeta);
+  margin-bottom: 18px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--hair);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.secLabel .idx {
+  color: var(--accent);
+}
+
+.block {
+  margin-bottom: 32px;
+}
+.block:last-child {
+  margin-bottom: 0;
+}
+
+/* ============ SKILLS (left column) ============ */
+.skillGroup {
+  margin-bottom: 20px;
+}
+.skillGroup h3 {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+/* lists in the body carry no markers/indent — experience, education, projects,
+   and skill chips are all semantic <ul>/<li> but render as the reference's blocks */
+.bodyGrid ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.chip {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  padding: 4px 9px;
+  border: 1px solid var(--hair);
+  border-radius: 100px;
+  color: var(--ink);
+  background: var(--soft);
+}
+
+/* education in left column */
+.eduItem {
+  margin-bottom: 18px;
+}
+.eduItem .deg {
+  font-family: var(--font-display);
+  font-size: 18px;
+  line-height: 1.15;
+  margin-bottom: 3px;
+}
+.eduItem .school {
+  font-size: 12px;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.eduItem .eduMeta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  color: var(--rmeta);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+/* ============ EXPERIENCE (right column) ============ */
+.job {
+  margin-bottom: 26px;
+}
+.jobHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 3px;
+}
+.jobCo {
+  font-family: var(--font-display);
+  font-size: 21px;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.jobYears {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--rmeta);
+  white-space: nowrap;
+}
+.jobRole {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  margin-bottom: 10px;
+  letter-spacing: 0.02em;
+}
+.jobRole .kind {
+  color: var(--rmeta);
+  font-weight: 400;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-left: 8px;
+}
+.job ul {
+  list-style: none;
+}
+.job li {
+  font-size: 12.5px;
+  line-height: 1.5;
+  padding-left: 16px;
+  position: relative;
+  margin-bottom: 7px;
+  color: var(--ink);
+}
+.job li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.5;
+}
+
+/* ============ PROJECTS (right column) ============ */
+.proj {
+  margin-bottom: 18px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--hair);
+}
+.proj:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.projHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 5px;
+  gap: 12px;
+}
+.projName {
+  font-family: var(--font-display);
+  font-size: 18px;
+  line-height: 1.1;
+}
+.projMetric {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--accent);
+  white-space: nowrap;
+}
+.projDesc {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--ink);
+  opacity: 0.85;
+  margin-bottom: 7px;
+}
+.projTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.projTag {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.05em;
+  color: var(--rmeta);
+}
+.projTag::after {
+  content: "·";
+  margin-left: 5px;
+  color: var(--hair);
+}
+.projTag:last-child::after {
+  content: "";
+}
+
+/* ============ FOOTER (inside the sheet) ============ */
+.foot {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--ink);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rmeta);
+}
+.foot .accent {
+  color: var(--accent);
+}
+
+/* ============ DOWNLOAD CONTROL (screen only) ============ */
+.downloadBtn {
+  position: fixed;
+  bottom: 28px;
+  left: 28px; /* bottom-left so it clears the global back-to-top (bottom-right) */
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 18px;
+  border: 0;
+  border-radius: 100px;
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(10, 10, 10, 0.22);
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+.downloadBtn:hover {
+  background: var(--accent);
+  transform: translateY(-1px);
+}
+.downloadBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* ============ PRINT — only the sheet, exactly one A4 page ============ */
+@media print {
+  /* Hide all site chrome regardless of how it's positioned/classed: blank
+     everything, then re-show only the résumé sheet. The global footer is
+     display:none'd as well so its flow space can't push to a 2nd page. */
+  :global(body *) {
+    visibility: hidden !important;
+  }
+  :global(footer) {
+    display: none !important;
+  }
+  .sheet,
+  .sheet * {
+    visibility: visible !important;
+  }
+  :global(html),
+  :global(body) {
+    background: #fff !important;
+  }
+  .page {
+    min-height: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    display: block !important;
+  }
+  .sheet {
+    box-shadow: none !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 26px 40px !important;
+  }
+  .downloadBtn {
+    display: none !important;
+  }
+
+  /* Tighten vertical rhythm + trim a few type sizes for paper so the longer
+     summary and all four project metrics land on a single A4 page. Calibrated
+     by measuring the real layout at 794px (A4 @96dpi): the sheet comes to
+     ~1077px of the 1123px page (~46px headroom). Screen spacing is untouched —
+     these rules only apply when printing. */
+  .name {
+    font-size: 48px !important;
+  }
+  .masthead {
+    padding-bottom: 14px !important;
+    margin-bottom: 16px !important;
+  }
+  .summary {
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+  }
+  .block {
+    margin-bottom: 13px !important;
+  }
+  .secLabel {
+    margin-bottom: 10px !important;
+    padding-bottom: 5px !important;
+  }
+  .skillGroup {
+    margin-bottom: 10px !important;
+  }
+  .skillGroup h3 {
+    margin-bottom: 6px !important;
+  }
+  .eduItem {
+    margin-bottom: 10px !important;
+  }
+  .eduItem .deg {
+    font-size: 16px !important;
+  }
+  .job {
+    margin-bottom: 11px !important;
+  }
+  .jobCo {
+    font-size: 19px !important;
+  }
+  .jobRole {
+    margin-bottom: 6px !important;
+  }
+  .job li {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+    margin-bottom: 4px !important;
+  }
+  .proj {
+    margin-bottom: 9px !important;
+    padding-bottom: 9px !important;
+  }
+  .projName {
+    font-size: 16px !important;
+  }
+  .projDesc {
+    font-size: 11.5px !important;
+    line-height: 1.35 !important;
+    margin-bottom: 4px !important;
+  }
+  .foot {
+    margin-top: 14px !important;
+    padding-top: 10px !important;
+  }
+}
+/* exact color reproduction so cream + orange print rather than stripping to white */
+:global(html) {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+@page {
+  margin: 0;
+  size: A4;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 720px) {
+  .page {
+    padding: 72px 12px 40px;
+  }
+  .sheet {
+    padding: 36px 28px;
+  }
+  .masthead {
+    flex-direction: column;
+    gap: 18px;
+  }
+  .mastheadLeft {
+    max-width: 100%;
+  }
+  .mastheadRight {
+    text-align: left;
+  }
+  .name {
+    font-size: 44px;
+  }
+  .bodyGrid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  .downloadBtn {
+    bottom: 16px;
+    left: 16px;
+    padding: 9px 15px;
+    font-size: 10px;
+  }
+}

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Palash Nagar — UX/Product Designer · Résumé</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F1EA;
+    --ink: #0A0A0A;
+    --accent: #E94E1B;
+    --muted: #8A867F;
+    --hair: rgba(10,10,10,0.12);
+    --soft: rgba(10,10,10,0.04);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    background: #E5E0D6;
+    color: var(--ink);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    padding: 40px 20px;
+    line-height: 1.5;
+  }
+
+  /* The sheet — A4-ish proportion, centered */
+  .sheet {
+    max-width: 820px;
+    margin: 0 auto;
+    background: var(--bg);
+    position: relative;
+    padding: 64px 64px 48px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.12);
+    overflow: hidden;
+  }
+  /* grain */
+  .sheet::before {
+    content: '';
+    position: absolute; inset: 0;
+    pointer-events: none;
+    opacity: 0.15;
+    mix-blend-mode: multiply;
+    z-index: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/></svg>");
+  }
+  .sheet > * { position: relative; z-index: 1; }
+
+  /* ============ HEADER ============ */
+  .masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--ink);
+    margin-bottom: 32px;
+  }
+  .masthead-left { max-width: 62%; }
+  .name {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: 58px;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .name em { color: var(--accent); font-style: italic; }
+  .role {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: 16px;
+  }
+  .role .dot { color: var(--accent); margin: 0 8px; }
+  .summary {
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--ink);
+    max-width: 52ch;
+  }
+  .summary em { font-family: 'Instrument Serif', serif; font-style: italic; }
+
+  .masthead-right {
+    text-align: right;
+    font-size: 11px;
+    line-height: 1.7;
+    color: var(--ink);
+    padding-top: 6px;
+  }
+  .avail {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+  .avail::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .masthead-right a { color: var(--ink); text-decoration: none; display: block; }
+  .masthead-right a:hover { color: var(--accent); }
+  .masthead-right .loc { color: var(--muted); margin-top: 8px; }
+
+  /* ============ LAYOUT ============ */
+  .body-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 44px;
+  }
+
+  /* section label */
+  .sec-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--hair);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sec-label .idx { color: var(--accent); }
+
+  .block { margin-bottom: 32px; }
+  .block:last-child { margin-bottom: 0; }
+
+  /* ============ SKILLS (left column) ============ */
+  .skill-group { margin-bottom: 20px; }
+  .skill-group h4 {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 10px;
+    color: var(--ink);
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    padding: 4px 9px;
+    border: 1px solid var(--hair);
+    border-radius: 100px;
+    color: var(--ink);
+    background: var(--soft);
+  }
+
+  /* education in left column */
+  .edu-item { margin-bottom: 18px; }
+  .edu-item .deg {
+    font-family: 'Instrument Serif', serif;
+    font-size: 18px;
+    line-height: 1.15;
+    margin-bottom: 3px;
+  }
+  .edu-item .school { font-size: 12px; color: var(--ink); margin-bottom: 4px; }
+  .edu-item .edu-meta {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  /* ============ EXPERIENCE (right column) ============ */
+  .job { margin-bottom: 26px; }
+  .job-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 3px;
+  }
+  .job-co {
+    font-family: 'Instrument Serif', serif;
+    font-size: 21px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .job-years {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .job-role {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 10px;
+    letter-spacing: 0.02em;
+  }
+  .job-role .kind {
+    color: var(--muted);
+    font-weight: 400;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-left: 8px;
+  }
+  .job ul { list-style: none; }
+  .job li {
+    font-size: 12.5px;
+    line-height: 1.5;
+    padding-left: 16px;
+    position: relative;
+    margin-bottom: 7px;
+    color: var(--ink);
+  }
+  .job li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px;
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.5;
+  }
+
+  /* ============ PROJECTS (right column) ============ */
+  .proj { margin-bottom: 18px; padding-bottom: 18px; border-bottom: 1px solid var(--hair); }
+  .proj:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .proj-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+  .proj-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 18px;
+    line-height: 1.1;
+  }
+  .proj-metric {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .proj-desc { font-size: 12px; line-height: 1.45; color: var(--ink); opacity: 0.85; margin-bottom: 7px; }
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+  .proj-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+  }
+  .proj-tag::after { content: '·'; margin-left: 5px; color: var(--hair); }
+  .proj-tag:last-child::after { content: ''; }
+
+  /* ============ FOOTER ============ */
+  .foot {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--ink);
+    display: flex;
+    justify-content: space-between;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .foot .accent { color: var(--accent); }
+
+  /* ============ PRINT ============ */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .sheet { box-shadow: none; max-width: 100%; padding: 40px; }
+    @page { margin: 0; size: A4; }
+  }
+
+  @media (max-width: 720px) {
+    .sheet { padding: 36px 28px; }
+    .masthead { flex-direction: column; gap: 18px; }
+    .masthead-left { max-width: 100%; }
+    .masthead-right { text-align: left; }
+    .name { font-size: 44px; }
+    .body-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div class="masthead-left">
+      <h1 class="name">Palash <em>Nagar</em></h1>
+      <div class="role">UX / Product Designer <span class="dot">·</span> Interaction &amp; Motion</div>
+      <p class="summary">MS Human-Computer Interaction candidate crafting user-centered digital products with 2+ years of experience. I turn research into interactions — and interactions into <em>moments that feel right</em>.</p>
+    </div>
+    <div class="masthead-right">
+      <span class="avail">Open to opportunities</span>
+      <a href="mailto:nagar.palash683@gmail.com">nagar.palash683@gmail.com</a>
+      <a href="https://www.linkedin.com/in/palashnagar/">linkedin.com/in/palashnagar</a>
+      <a href="https://palashnagar15.framer.website/">palashnagar.com</a>
+      <span class="loc">Rochester, NY</span>
+    </div>
+  </header>
+
+  <!-- ============ BODY ============ -->
+  <div class="body-grid">
+
+    <!-- LEFT COLUMN -->
+    <aside>
+      <div class="block">
+        <div class="sec-label"><span class="idx">01</span> Skills</div>
+
+        <div class="skill-group">
+          <h4>Design</h4>
+          <div class="chips">
+            <span class="chip">Figma</span>
+            <span class="chip">Framer</span>
+            <span class="chip">Adobe XD</span>
+            <span class="chip">Sketch</span>
+            <span class="chip">Spline</span>
+            <span class="chip">After Effects</span>
+            <span class="chip">Miro</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h4>Research</h4>
+          <div class="chips">
+            <span class="chip">Usability Testing</span>
+            <span class="chip">User Interviews</span>
+            <span class="chip">Journey Mapping</span>
+            <span class="chip">Heuristic Eval</span>
+            <span class="chip">A/B Testing</span>
+            <span class="chip">Card Sorting</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <h4>Dev &amp; Systems</h4>
+          <div class="chips">
+            <span class="chip">HTML / CSS</span>
+            <span class="chip">Design Systems</span>
+            <span class="chip">WCAG / A11y</span>
+            <span class="chip">Motion Design</span>
+            <span class="chip">Interaction Design</span>
+            <span class="chip">Prototyping</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="sec-label"><span class="idx">02</span> Education</div>
+
+        <div class="edu-item">
+          <div class="deg">MS Human-Computer Interaction</div>
+          <div class="school">Rochester Institute of Technology</div>
+          <div class="edu-meta">
+            <span>2024 — Present</span>
+            <span>Rochester, NY</span>
+          </div>
+        </div>
+
+        <div class="edu-item">
+          <div class="deg">BS Information Technology</div>
+          <div class="school">Bharati Vidyapeeth Deemed University</div>
+          <div class="edu-meta">
+            <span>2019 — 2023</span>
+            <span>Navi Mumbai, India</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT COLUMN -->
+    <main>
+      <div class="block">
+        <div class="sec-label"><span class="idx">03</span> Experience</div>
+
+        <div class="job">
+          <div class="job-head">
+            <span class="job-co">Netlink Pvt. Ltd</span>
+            <span class="job-years">2023 — 2024</span>
+          </div>
+          <div class="job-role">UX Designer <span class="kind">Full-time</span></div>
+          <ul>
+            <li>Designed user flows, wireframes, and responsive high-fidelity UI in Figma using design tokens, variables, and reusable component libraries.</li>
+            <li>Conducted moderated usability testing and user interviews, applying IA, visual hierarchy, and interaction design to simplify complex workflows.</li>
+            <li>Partnered with PMs and engineers across agile sprints, delivering precise handoff via Figma Dev Mode and annotated specs.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="job-head">
+            <span class="job-co">Code Clause</span>
+            <span class="job-years">2022</span>
+          </div>
+          <div class="job-role">UX Design Intern <span class="kind">Internship</span></div>
+          <ul>
+            <li>Created UI mockups and interactive prototypes for web and mobile platforms from scratch.</li>
+            <li>Iterated designs through rapid feedback loops based on stakeholder and usability insights.</li>
+            <li>Participated in design critiques, refining craft and communication of design decisions.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="block">
+        <div class="sec-label"><span class="idx">04</span> Selected Projects</div>
+
+        <div class="proj">
+          <div class="proj-head">
+            <span class="proj-name">RIT MyCourses Redesign</span>
+            <span class="proj-metric">+25% engagement</span>
+          </div>
+          <p class="proj-desc">End-to-end UX redesign with 30+ screens, user research, and journey mapping for the student learning portal.</p>
+          <div class="proj-tags">
+            <span class="proj-tag">Figma</span>
+            <span class="proj-tag">Research</span>
+            <span class="proj-tag">Prototyping</span>
+          </div>
+        </div>
+
+        <div class="proj">
+          <div class="proj-head">
+            <span class="proj-name">RIT Athletics App</span>
+            <span class="proj-metric">+20% engagement</span>
+          </div>
+          <p class="proj-desc">Redesigned mobile UX for improved content discovery and fan experience with cleaner information architecture.</p>
+          <div class="proj-tags">
+            <span class="proj-tag">Mobile UX</span>
+            <span class="proj-tag">IA</span>
+            <span class="proj-tag">Framer</span>
+          </div>
+        </div>
+
+        <div class="proj">
+          <div class="proj-head">
+            <span class="proj-name">RoomieMatch App</span>
+          </div>
+          <p class="proj-desc">Trust-focused UX design for a roommate matching platform. Interactive prototypes validated through user testing.</p>
+          <div class="proj-tags">
+            <span class="proj-tag">Research</span>
+            <span class="proj-tag">Prototyping</span>
+            <span class="proj-tag">Mobile</span>
+          </div>
+        </div>
+
+        <div class="proj">
+          <div class="proj-head">
+            <span class="proj-name">AI Interaction Explorations</span>
+          </div>
+          <p class="proj-desc">Motion-based prototypes using Spline and Framer exploring AI-assisted design workflows with Claude and Figma MCP.</p>
+          <div class="proj-tags">
+            <span class="proj-tag">Framer</span>
+            <span class="proj-tag">Spline</span>
+            <span class="proj-tag">Motion</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="foot">
+    <span>Palash Nagar · UX / Product Designer</span>
+    <span><span class="accent">2026</span> · palashnagar.com</span>
+  </footer>
+
+</div>
+
+</body>
+</html>

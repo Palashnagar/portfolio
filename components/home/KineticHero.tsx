@@ -103,7 +103,7 @@ export default function KineticHero() {
       const mx = mouseX.current;
       const my = mouseY.current;
 
-      restingCenters.current.forEach(({ el, cx, cy, accent }) => {
+      restingCenters.current.forEach(({ el, cx, cy }) => {
         const t = letterTransform({ x: cx, y: cy }, { x: mx, y: my }, RADIUS);
 
         if (
@@ -113,15 +113,8 @@ export default function KineticHero() {
           t.rot === 0
         ) {
           el.style.transform = "";
-          // Only clear fontStyle on non-accent letters
-          if (!accent) el.style.fontStyle = "";
         } else {
           el.style.transform = `translate(${t.tx}px, ${t.ty}px) scale(${t.scale}) rotate(${t.rot}deg)`;
-          // Accent letters keep their italic permanently; non-accent letters get
-          // italic applied by proximity only
-          if (!accent) {
-            el.style.fontStyle = t.italic ? "italic" : "";
-          }
         }
       });
 

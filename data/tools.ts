@@ -4,7 +4,7 @@ export interface ToolGroup {
 }
 
 export const toolkit: ToolGroup[] = [
-  { group: "Design", items: ["Figma", "Framer", "Procreate", "Illustrator"] },
+  { group: "Design", items: ["Figma", "Framer", "Adobe XD", "Spline", "Procreate", "Illustrator"] },
   { group: "Research", items: ["Maze", "Dovetail", "Notion", "Otter"] },
-  { group: "Build", items: ["Arduino", "HTML / CSS", "React (basics)", "Cursor"] },
+  { group: "Build", items: ["HTML / CSS", "React (basics)", "Cursor", "Claude Code"] },
 ];

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { loadCaseStudy, listCaseStudySlugs } from "@/lib/mdx";
@@ -16,6 +17,22 @@ import { Figure } from "@/components/case-study/Figure";
 import { Outcome } from "@/components/case-study/Outcome";
 import { NextProject } from "@/components/case-study/NextProject";
 import { Todo } from "@/components/case-study/Todo";
+import { FigmaHeroButton, FigmaOnePager } from "@/components/case-study/FigmaOnePager";
+import {
+  CsSection,
+  Caption,
+  ProblemGrid,
+  ProblemCard,
+  StatRow,
+  Stat,
+  BarChart,
+  IntentGrid,
+  Intent,
+  Pillar,
+  VideoEmbed,
+  Reveal,
+  Takeaway,
+} from "@/components/case-study/MyCoursesSections";
 
 export async function generateStaticParams() {
   const slugs = await listCaseStudySlugs();
@@ -52,6 +69,20 @@ const mdxComponents = {
   Figure,
   Outcome,
   Todo,
+  // MyCourses layout kit (used only by mycourses.mdx)
+  CsSection,
+  Caption,
+  ProblemGrid,
+  ProblemCard,
+  StatRow,
+  Stat,
+  BarChart,
+  IntentGrid,
+  Intent,
+  Pillar,
+  VideoEmbed,
+  Reveal,
+  Takeaway,
 };
 
 export default async function CaseStudyPage({
@@ -64,6 +95,22 @@ export default async function CaseStudyPage({
   if (!cs) notFound();
 
   const fm = cs.frontmatter;
+  // The scroll-choreographed Figma button + split hero media are MyCourses-only.
+  const isMyCourses = slug === "mycourses";
+
+  const heroMedia = isMyCourses ? (
+    // Self-contained mockup (tablet + brand gradient) — shown whole at its natural
+    // aspect, no extra frame. next/image optimizes the heavy source PNG.
+    <Image
+      src="/case-studies/mycourses/hero-tablet.png"
+      alt="The redesigned MyCourses dashboard, shown on a tablet."
+      width={1860}
+      height={1520}
+      sizes="(max-width: 768px) 92vw, 46vw"
+      priority
+      style={{ width: "100%", height: "auto", borderRadius: 12 }}
+    />
+  ) : undefined;
 
   return (
     <>
@@ -74,7 +121,10 @@ export default async function CaseStudyPage({
         duration={fm.duration}
         team={fm.team}
         outcome={fm.tagline}
-      />
+        media={heroMedia}
+      >
+        {isMyCourses && <FigmaHeroButton />}
+      </Hero>
 
       <article>
         <MDXRemote
@@ -83,6 +133,8 @@ export default async function CaseStudyPage({
           options={{ blockJS: false }}
         />
       </article>
+
+      {isMyCourses && <FigmaOnePager />}
 
       <NextProject currentSlug={slug} />
     </>

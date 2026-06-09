@@ -1,0 +1,99 @@
+/* MyCourses-only: the scroll-choreographed Figma one-pager button + closing CTA.
+   The button visual is a 1:1 match of the reference .btn (primary) built only
+   from existing global tokens/fonts — no new font, weight, or hex. */
+
+.figmaBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 18px;
+  border-radius: 100px;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  /* Only the hover colors transition. The traveling transform is driven frame
+     by frame by the rAF loop, so a CSS transition on transform would lag the
+     scroll and cause the bounce/settle — keep transform off the transition. */
+  transition:
+    background 0.25s,
+    border-color 0.25s;
+}
+.figmaBtn:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.figmaBtn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* hero static instance — sits under the tagline, left-aligned */
+.heroBtnRow {
+  margin-top: 28px;
+}
+
+/* the single traveling instance: fixed, driven purely by transform/opacity/filter.
+   display is controlled inline by the controller (none on SSR / no-JS / reduced /
+   mobile; inline-flex only in desktop-motion mode), so it never shows a stray
+   top-left button before JS. */
+.traveler {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  /* scale from the left edge so shrinking on the rail keeps it pinned in the
+     left margin (not drifting inward over the content). */
+  transform-origin: left center;
+  will-change: transform, opacity, filter;
+}
+
+/* closing CTA — centered; the slot holds the static closing button, which both
+   serves as the no-JS / fallback link AND (hidden) as the phase-3 rest anchor,
+   so the section reserves the button's height. */
+.closing {
+  border-top: 1px solid var(--line);
+  padding: 90px 6vw;
+  text-align: center;
+}
+.closingInner {
+  margin: 0 auto;
+  max-width: 1100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.closingH {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: clamp(34px, 5vw, 52px);
+  line-height: 1.05;
+  letter-spacing: -0.015em;
+}
+.closingH em {
+  font-style: italic;
+  color: var(--accent);
+}
+.closingSub {
+  margin-top: 14px;
+  font-size: 15px;
+  color: var(--muted);
+}
+.closingSlot {
+  margin-top: 30px;
+  display: inline-flex;
+}
+
+/* Hard guard: never reveal the fixed traveler under reduced motion or on small
+   screens — the static hero + closing buttons are the experience there. */
+@media (prefers-reduced-motion: reduce), (max-width: 767px) {
+  .traveler {
+    display: none !important;
+  }
+}

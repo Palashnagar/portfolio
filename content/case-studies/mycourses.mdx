@@ -9,126 +9,131 @@ tools:
   - Figma
   - Framer
   - Maze
-cover: /case-studies/mycourses/pulled-03.png
+cover: /case-studies/mycourses/pulled-06.png
 ---
 
-<Figure
-  src="/case-studies/mycourses/pulled-03.png"
-  alt="The redesigned RIT MyCourses dashboard shown on a tablet."
-  caption="MyCourses 2.0 — a calmer home for what's due, what's done, and who can help."
-  aspect="16/10"
+<CsSection num="01" label="The Problem" title={<>One platform, shouting equally loud about <em>everything</em>.</>}>
+
+MyCourses is the academic backbone of RIT — yet students hit stress, confusion, and friction when using it to manage assignments, deadlines, and collaboration. The interface gives a parking notice and a final-project deadline the same weight, so the things that matter slip through the cracks.
+
+Rather than redesign the entire system, I focused on the moments that matter most: <em>checking what's due, submitting with confidence, and collaborating without leaving the platform.</em> When I mapped what students ran into, four problems kept surfacing:
+
+<ProblemGrid>
+<ProblemCard title="Cognitive overload">Information-dense interface with poor hierarchy created mental fatigue and made critical course materials hard to locate.</ProblemCard>
+<ProblemCard title="Scattered assignments">Deadlines lived across email, Discord, printed handouts, and the portal — with no single source of truth.</ProblemCard>
+<ProblemCard title="Poor deadline visibility">Upcoming deadlines lacked prominence, leading to missed submissions and last-minute scrambles.</ProblemCard>
+<ProblemCard title="Limited collaboration">No way for students to connect with classmates or collaborate during studies and discussions.</ProblemCard>
+</ProblemGrid>
+
+<Caption>The four problems that framed the redesign — drawn from interviews and survey responses.</Caption>
+
+</CsSection>
+
+<CsSection num="02" label="The Research" title={<>Students weren't failing the work. They were failing to <em>trust the system</em>.</>}>
+
+I ran a survey of 15 students alongside interviews and affinity mapping. Two findings reframed the whole project:
+
+<StatRow>
+<Stat value="27%">found it "very easy" to see upcoming assignment deadlines. The rest were guessing.</Stat>
+<Stat value="60%">checked MyCourses multiple times just to confirm an assignment actually submitted — they didn't trust it to reassure them.</Stat>
+</StatRow>
+
+The pattern underneath both numbers was <strong>submission anxiety</strong> — a quiet, constant tax on every student. When I asked what frustrated them most about submitting, one answer dominated:
+
+<BarChart
+  title="What frustrates you most about submitting assignments?"
+  sub="15 responses · select all that apply"
+  rows={[
+    { label: "File downloads instead of showing a preview", pct: 80 },
+    { label: "Lack of clear confirmation after submitting", pct: 33 },
+    { label: "The process feels slow / too many clicks", pct: 33 },
+    { label: "No easy way to replace or update a file", pct: 20 },
+  ]}
 />
 
-<Problem title="One platform, shouting equally loud about everything.">
+<Caption>Rebuilt from the survey data in the portfolio palette.</Caption>
 
-RIT's learning platform, MyCourses, is where students live during the semester — alongside email, Discord, printed handouts, and group chats. The interface gives a parking notice and a final-project deadline the same weight, so the things that matter slip through the cracks.
+</CsSection>
 
-When I mapped what students were running into, four problems kept surfacing:
+<CsSection num="03" label="The Strategy" title={<>Design around <em>intent</em>, not features.</>}>
 
-<Figure
-  src="/case-studies/mycourses/pulled-04.png"
-  alt="Four problem areas mapped around a central node: cognitive overload, scattered assignments, poor deadline visibility, and limited collaboration."
-  caption="The four problems that framed the redesign — drawn from interviews and survey responses."
-  aspect="16/9"
+Instead of adding complexity, I structured the experience around what a student is actually trying to do when they open MyCourses. It's almost always one of three things — so every decision had to serve one of them with minimal friction.
+
+<IntentGrid>
+<Intent numeral="i." title="Check what's due">See the real workload at a glance — what's due, what's in progress, what's done.</Intent>
+<Intent numeral="ii." title="Submit with confidence">Upload, preview, confirm — and never wonder whether it actually went through.</Intent>
+<Intent numeral="iii." title="Coordinate with others">Discuss, share drafts, and give feedback without leaving the platform.</Intent>
+</IntentGrid>
+
+</CsSection>
+
+<CsSection num="04" label="The Solution" title={<>Three moves that turn a repository into a <em>workspace</em>.</>}>
+
+<Pillar
+  num="01 — Unified Assignment Hub"
+  title="What's due, in one calm view."
+  lead="Rather than scattering assignments across courses and tabs, a single view shows everything at a glance — so students understand their workload without digging through pages."
+  points={[
+    "What's due, in progress, and already submitted",
+    "Deadlines surfaced by urgency, not buried",
+    "A calendar that makes the week legible",
+  ]}
+  media={[
+    { src: "calendar.svg", alt: "A month calendar with the week's due assignments and deadlines surfaced." },
+  ]}
 />
 
-<Evidence source="MyCourses student survey">
-Submitting work feels more stressful than it should be.
-</Evidence>
-
-I scoped the work to the assignments-and-collaboration flow — the part that touches everyone, every week — rather than the entire LMS.
-
-</Problem>
-
-<Research title="What students actually told me." methods={["Semi-structured interviews", "Student survey", "Affinity mapping"]}>
-
-I interviewed RIT students across CS, Design, and Engineering, then ran a screener survey and built an affinity map from the responses to find the patterns worth designing against.
-
-{/* TODO: the survey artifact (pulled-05) shows ~13–15 responses per question; an earlier draft of this study claimed an "82-respondent survey." Confirm the real interview and survey sample sizes with Palash before citing specific figures publicly. */}
-
-<Figure
-  src="/case-studies/mycourses/pulled-05.png"
-  alt="Survey charts on deadline visibility, submission confidence, and grade visibility, with verbatim student quotes."
-  caption="Survey signal and verbatim student voices."
-  aspect="16/10"
+<Pillar
+  flip
+  num="02 — Submission Feedback That Builds Trust"
+  title="Turning submission into a reassuring moment."
+  lead="Students were anxious after submitting because they were never fully sure it went through. The redesign makes every step legible and reversible."
+  points={[
+    "File preview before you commit",
+    "Clear confirmation with a timestamp",
+    "Undo within 5 seconds, and easy file replacement",
+  ]}
+  media={[
+    { src: "submit-work.svg", alt: "The submit-your-work card with drag-and-drop upload, a file list, and a submit button." },
+  ]}
 />
 
-Three insights became the design's north star:
-
-<Insight number="01" title="Notifications cause more anxiety than they resolve.">
-  Students described phantom-buzzing — the platform treats every event as equally urgent, so none of them land.
-  <Evidence source="MyCourses student survey">
-    I keep checking MyCourses because I'm never sure if I submitted something correctly.
-  </Evidence>
-</Insight>
-
-<Insight number="02" title="Students lean on classmates more than the platform.">
-  When in doubt, "I'll check with a friend" beat opening MyCourses — collaboration was happening everywhere except inside the product.
-  {/* TODO: an earlier draft cited a specific "4:1" ratio here — unverified, so stated qualitatively. Confirm with Palash. */}
-</Insight>
-
-<Insight number="03" title={'"Done" is invisible — there is no closure.'}>
-  Submitting an assignment produced no real acknowledgement, so students re-checked compulsively to be sure it went through.
-  <Evidence source="MyCourses student survey">
-    I just want one place that tells me what's due and how behind I am.
-  </Evidence>
-</Insight>
-
-</Research>
-
-<Constraints title="What I committed to — and what I deliberately ignored.">
-
-I framed the work as one question: **how might we turn anxious assignment-hunting into a calm, shared rhythm?** Three principles held me to it:
-
-1. **Calm by default.** No surface should add anxiety; many should remove it.
-2. **Make "done" feel done.** Closure matters more than features.
-3. **Design for the friend group, not the lone student.**
-
-The direction I deliberately killed was "filter-everything" — handing students granular notification controls. It tested poorly: people wanted *less* to think about, not more dials to tune. I caught it a wireframe later than I should have, which taught me to validate the scary flows earlier instead of the comfortable ones.
-
-</Constraints>
-
-<Solution title="One calm home, three jobs done.">
-
-The redesign centers on a single dashboard that answers *what's due, what's done, and who can help* without switching tabs. Each surface maps back to a research insight.
-
-<Screen
-  src="/case-studies/mycourses/pulled-06.png"
-  alt="Redesigned MyCourses dashboard with a what's-due panel, progress, a daily quest list, and a course grid."
-  insight="Notifications cause anxiety and deadlines are hard to see."
-  decision="A calm dashboard that surfaces what's due next and overall progress on one screen — no digging, no equal-weight noise."
-  caption="The redesigned dashboard: what's due, progress, and courses at a glance."
-  aspect="4/5"
+<Pillar
+  num="03 — Collaboration Where Work Happens"
+  title="Coordination, built into the flow."
+  lead="Group chats, shared files, and feedback designed directly into the assignment flow — instead of switching to WhatsApp, email, or Google Docs, it all lives where the work does."
+  points={[
+    "Discuss assignments with classmates",
+    "Share drafts and leave feedback",
+    "Find peers in the same course",
+  ]}
+  media={[
+    { src: "friends-peers.svg", alt: "A Friends and Peers panel for collaborating on coursework with classmates." },
+  ]}
 />
 
-<Screen
-  src="/case-studies/mycourses/pulled-08.png"
-  alt="A Friends and Peers panel beside a list of classmates who are currently online."
-  insight="Students lean on classmates more than the platform."
-  decision="Bring peers into the product itself — see who's online and reachable for the same class, so the side-channel becomes a feature."
-  caption="Friends & Peers — collaboration as a first-class surface."
-  aspect="4/3"
-/>
+</CsSection>
 
-<Screen
-  src="/case-studies/mycourses/pulled-07.png"
-  alt="A drag-and-drop submit-your-work card and a success state confirming an assignment was submitted."
-  insight={'"Done" was invisible.'}
-  decision="A clear submit flow and an unmistakable success state — closure you can actually feel, so students stop re-checking."
-  caption="Submission and a celebratory 'done' state."
-  aspect="4/3"
-/>
+<CsSection num="05" label="In Motion" title={<>See the flow in <em>motion</em>.</>}>
 
-</Solution>
+A walkthrough of the redesigned experience — from opening the hub to submitting with confidence.
 
-<Outcome title="A second usability round — and what I'd do next.">
+<VideoEmbed src="mycourses-demo.mp4" label="MyCourses 2.0 walkthrough — opening the hub and submitting an assignment." />
 
-I ran a second usability round with students who hadn't seen earlier iterations, each completing three core tasks: submit an assignment, check on a group, and triage a busy week. Confidence in submission, time lost switching between tools, and perceived ease all moved in the right direction.
+<Caption>The redesigned flow, start to finish.</Caption>
 
-<Todo>second-round usability figures (confidence, platform-switching, SUS) — confirm exact values</Todo>
+</CsSection>
 
-{/* TODO: an earlier draft cited "2× confidence in submission, 3× less platform switching, and an SUS of 8/10 up from 5.1" across 8 participants. These specific figures are unverified — confirm or replace with Palash before publishing. */}
+<CsSection num="06" label="The Final Experience" title={<>From a passive repository to an <em>active workspace</em>.</>}>
 
-If I did it again, I'd validate the collaboration flow earlier. I shipped the calm-dashboard work first because it felt most urgent, but group sync was the harder design problem and I avoided it for a week because it felt scary. The lesson I carry forward: **research signal should outweigh a designer's gut about what feels "ready" to design.**
+The redesigned MyCourses reduces uncertainty around deadlines, eliminates guesswork during submissions, and supports collaboration without fragmentation — all in one calm, legible home.
 
-</Outcome>
+<Reveal src="pulled-06.png" alt="The full redesigned MyCourses dashboard — AI assistant, progress, daily quest, friends and peers, and a course grid." />
+
+</CsSection>
+
+<CsSection num="07" label="What It Taught Me">
+
+<Takeaway>Good design isn't about making systems more powerful. It's about making them feel more understandable — keeping the user in mind and designing so even a complex platform like an LMS can feel calm and supportive.</Takeaway>
+
+</CsSection>

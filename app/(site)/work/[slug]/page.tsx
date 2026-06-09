@@ -18,6 +18,7 @@ import { Outcome } from "@/components/case-study/Outcome";
 import { NextProject } from "@/components/case-study/NextProject";
 import { Todo } from "@/components/case-study/Todo";
 import { FigmaHeroButton, FigmaOnePager } from "@/components/case-study/FigmaOnePager";
+import { PrototypeHeroButton, PrototypeButton } from "@/components/case-study/PrototypeButton";
 import {
   CsSection,
   Caption,
@@ -33,6 +34,25 @@ import {
   Reveal,
   Takeaway,
 } from "@/components/case-study/MyCoursesSections";
+import {
+  CsSection as RmCsSection,
+  Caption as RmCaption,
+  ProblemGrid as RmProblemGrid,
+  ProblemCard as RmProblemCard,
+  Pullquote,
+  Chips,
+  InsightBand,
+  Persona,
+  Hmw,
+  Bets,
+  Bet,
+  LeftOut,
+  IdSplit,
+  DesignDecisions,
+  Decision,
+  Gallery,
+  Takeaway as RmTakeaway,
+} from "@/components/case-study/RoomieMatchSections";
 
 export async function generateStaticParams() {
   const slugs = await listCaseStudySlugs();
@@ -85,6 +105,45 @@ const mdxComponents = {
   Takeaway,
 };
 
+// RoomieMatch uses its own self-contained kit. Several names overlap with the
+// MyCourses kit (CsSection, ProblemGrid, ProblemCard, Caption, Takeaway) but the
+// implementations differ (3-col problem grid, titled takeaway), so RoomieMatch
+// gets its own component map rather than sharing one object.
+const roomieComponents = {
+  CsSection: RmCsSection,
+  Caption: RmCaption,
+  ProblemGrid: RmProblemGrid,
+  ProblemCard: RmProblemCard,
+  Pullquote,
+  Chips,
+  InsightBand,
+  Persona,
+  Hmw,
+  Bets,
+  Bet,
+  LeftOut,
+  IdSplit,
+  DesignDecisions,
+  Decision,
+  Gallery,
+  Takeaway: RmTakeaway,
+};
+
+// RoomieMatch Figma prototype + the traveling-button copy. The button lands in
+// the closing CTA; the Next-Project section below it stays put.
+const ROOMIE_PROTO = {
+  url: "https://www.figma.com/proto/0yEU63sc4AIuayEqT7dpYF/IXD-idea-pitch-RoomieMatch?page-id=283%3A246&node-id=584-4599&viewport=576%2C308%2C0.15&t=6Qzlmuaae1FyDpNl-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=584%3A4599",
+  heroLabel: "View prototype ↗",
+  closeLabel: "Open the prototype ↗",
+  ariaLabel: "View prototype",
+  closeHeading: (
+    <>
+      Want to <em>try it</em>?
+    </>
+  ),
+  closeSub: "The full interactive flow lives in the Figma prototype.",
+};
+
 export default async function CaseStudyPage({
   params,
 }: {
@@ -95,8 +154,10 @@ export default async function CaseStudyPage({
   if (!cs) notFound();
 
   const fm = cs.frontmatter;
-  // The scroll-choreographed Figma button + split hero media are MyCourses-only.
+  // The scroll-choreographed prototype button + split hero media are opt-in per
+  // case study (currently MyCourses + RoomieMatch).
   const isMyCourses = slug === "mycourses";
+  const isRoomieMatch = slug === "roomiematch";
 
   const heroMedia = isMyCourses ? (
     // Self-contained mockup (tablet + brand gradient) — shown whole at its natural
@@ -106,6 +167,18 @@ export default async function CaseStudyPage({
       alt="The redesigned MyCourses dashboard, shown on a tablet."
       width={1860}
       height={1520}
+      sizes="(max-width: 768px) 92vw, 46vw"
+      priority
+      style={{ width: "100%", height: "auto", borderRadius: 12 }}
+    />
+  ) : isRoomieMatch ? (
+    // Phone mockups on cream (NOT the dark-purple full-bleed banner). Purple lives
+    // only inside the app screens; the page chrome stays cream/ink/orange.
+    <Image
+      src="/case-studies/roomiematch/hero.png"
+      alt="RoomieMatch shown on three phones — the lifestyle onboarding step, a swipe-to-match card, and the community listings."
+      width={1600}
+      height={1095}
       sizes="(max-width: 768px) 92vw, 46vw"
       priority
       style={{ width: "100%", height: "auto", borderRadius: 12 }}
@@ -124,17 +197,21 @@ export default async function CaseStudyPage({
         media={heroMedia}
       >
         {isMyCourses && <FigmaHeroButton />}
+        {isRoomieMatch && (
+          <PrototypeHeroButton url={ROOMIE_PROTO.url} heroLabel={ROOMIE_PROTO.heroLabel} />
+        )}
       </Hero>
 
       <article>
         <MDXRemote
           source={cs.body}
-          components={mdxComponents}
+          components={isRoomieMatch ? roomieComponents : mdxComponents}
           options={{ blockJS: false }}
         />
       </article>
 
       {isMyCourses && <FigmaOnePager />}
+      {isRoomieMatch && <PrototypeButton {...ROOMIE_PROTO} />}
 
       <NextProject currentSlug={slug} />
     </>

@@ -53,6 +53,21 @@ import {
   Gallery,
   Takeaway as RmTakeaway,
 } from "@/components/case-study/RoomieMatchSections";
+import {
+  CsSection as RaCsSection,
+  Caption as RaCaption,
+  ImageFrame,
+  Findings,
+  Finding,
+  Chips as RaChips,
+  PersonaGrid,
+  PersonaCard,
+  JourneyMap,
+  Bets as RaBets,
+  Bet as RaBet,
+  LeftOut as RaLeftOut,
+  Takeaway as RaTakeaway,
+} from "@/components/case-study/RitAthleticsSections";
 
 export async function generateStaticParams() {
   const slugs = await listCaseStudySlugs();
@@ -144,6 +159,41 @@ const ROOMIE_PROTO = {
   closeSub: "The full interactive flow lives in the Figma prototype.",
 };
 
+// RIT Athletics uses its own self-contained kit (numbered findings, persona
+// cards, a real journey-map table, image frames). Names overlap with the other
+// kits, so it gets its own component map.
+const ritComponents = {
+  CsSection: RaCsSection,
+  Caption: RaCaption,
+  ImageFrame,
+  Findings,
+  Finding,
+  Chips: RaChips,
+  PersonaGrid,
+  PersonaCard,
+  JourneyMap,
+  Bets: RaBets,
+  Bet: RaBet,
+  LeftOut: RaLeftOut,
+  Takeaway: RaTakeaway,
+};
+
+// RIT Athletics ships to a Google Slides deck (not Figma). Same traveling-button
+// behavior; the button lands in the closing CTA and the Next-Project section
+// (RIT EATS) stays put below it.
+const RIT_DECK = {
+  url: "https://docs.google.com/presentation/d/1LAgeFbZh4RXJFcRqzZfiWBLMYVkDib7QpaEPtDv256o/edit?usp=sharing",
+  heroLabel: "View the deck ↗",
+  closeLabel: "View the deck ↗",
+  ariaLabel: "View the deck",
+  closeHeading: (
+    <>
+      Want the <em>full walkthrough</em>?
+    </>
+  ),
+  closeSub: "Every screen and decision lives in the case-study deck.",
+};
+
 export default async function CaseStudyPage({
   params,
 }: {
@@ -154,10 +204,11 @@ export default async function CaseStudyPage({
   if (!cs) notFound();
 
   const fm = cs.frontmatter;
-  // The scroll-choreographed prototype button + split hero media are opt-in per
-  // case study (currently MyCourses + RoomieMatch).
+  // The scroll-choreographed deck/prototype button + split hero media are opt-in
+  // per case study (currently MyCourses + RoomieMatch + RIT Athletics).
   const isMyCourses = slug === "mycourses";
   const isRoomieMatch = slug === "roomiematch";
+  const isRitAthletics = slug === "rit-athletics";
 
   const heroMedia = isMyCourses ? (
     // Self-contained mockup (tablet + brand gradient) — shown whole at its natural
@@ -183,6 +234,18 @@ export default async function CaseStudyPage({
       priority
       style={{ width: "100%", height: "auto", borderRadius: 12 }}
     />
+  ) : isRitAthletics ? (
+    // Live-game scoreboard phones on cream (the gray studio backdrop was
+    // flood-filled to the page cream) — not the old gray pedestal hero.
+    <Image
+      src="/case-studies/rit-athletics/hero.png"
+      alt="The redesigned RIT Athletics live-game view on two phones — a roster with RIT Tigers leading Boston University 3–2, and a live play-by-play commentary feed."
+      width={1500}
+      height={1077}
+      sizes="(max-width: 768px) 92vw, 46vw"
+      priority
+      style={{ width: "100%", height: "auto", borderRadius: 12 }}
+    />
   ) : undefined;
 
   return (
@@ -200,18 +263,24 @@ export default async function CaseStudyPage({
         {isRoomieMatch && (
           <PrototypeHeroButton url={ROOMIE_PROTO.url} heroLabel={ROOMIE_PROTO.heroLabel} />
         )}
+        {isRitAthletics && (
+          <PrototypeHeroButton url={RIT_DECK.url} heroLabel={RIT_DECK.heroLabel} />
+        )}
       </Hero>
 
       <article>
         <MDXRemote
           source={cs.body}
-          components={isRoomieMatch ? roomieComponents : mdxComponents}
+          components={
+            isRoomieMatch ? roomieComponents : isRitAthletics ? ritComponents : mdxComponents
+          }
           options={{ blockJS: false }}
         />
       </article>
 
       {isMyCourses && <FigmaOnePager />}
       {isRoomieMatch && <PrototypeButton {...ROOMIE_PROTO} />}
+      {isRitAthletics && <PrototypeButton {...RIT_DECK} />}
 
       <NextProject currentSlug={slug} />
     </>

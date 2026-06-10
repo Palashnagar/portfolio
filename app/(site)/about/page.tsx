@@ -103,7 +103,12 @@ export default function AboutPage() {
                 Hi, I&apos;m Palash Nagar — a UX designer and HCI graduate student who believes
                 thoughtful interaction design can turn everyday frustrations into{" "}
                 <em
-                  style={{ fontFamily: "var(--font-display)", fontStyle: "italic", fontSize: "1.08em" }}
+                  style={{
+                    fontFamily: "var(--font-display)",
+                    fontStyle: "italic",
+                    fontSize: "1.08em",
+                    color: "var(--accent)",
+                  }}
                 >
                   smooth experiences.
                 </em>{" "}

@@ -200,7 +200,8 @@ export default function ResumePage() {
               <h2 className={styles.secLabel} id="resume-projects">
                 <span className={styles.idx}>04</span> Selected Projects
               </h2>
-              {/* TODO: Palash fills real metrics (the N placeholders below). */}
+              {/* RoomieMatch = 15 users (per case study); motion prototypes = 4.
+                  TODO: confirm the +25% / +20% engagement figures with real data. */}
               <ul>
                 <li className={styles.proj}>
                   <div className={styles.projHead}>
@@ -237,7 +238,7 @@ export default function ResumePage() {
                 <li className={styles.proj}>
                   <div className={styles.projHead}>
                     <h3 className={styles.projName}>RoomieMatch App</h3>
-                    <span className={styles.projMetric}>validated with N users</span>
+                    <span className={styles.projMetric}>validated with 15 users</span>
                   </div>
                   <p className={styles.projDesc}>
                     Trust-focused UX design for a roommate matching platform. Interactive prototypes
@@ -253,7 +254,7 @@ export default function ResumePage() {
                 <li className={styles.proj}>
                   <div className={styles.projHead}>
                     <h3 className={styles.projName}>AI Interaction Explorations</h3>
-                    <span className={styles.projMetric}>N motion prototypes</span>
+                    <span className={styles.projMetric}>4 motion prototypes</span>
                   </div>
                   <p className={styles.projDesc}>
                     Motion-based prototypes using Spline and Framer exploring AI-assisted design

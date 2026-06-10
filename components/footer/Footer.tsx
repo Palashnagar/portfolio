@@ -8,8 +8,8 @@ const socialLinks = [
 
 const siteLinks = [
   { href: "/work", label: "Work" },
-  { href: "/explorations", label: "Explorations" },
   { href: "/about", label: "About" },
+  { href: "/explorations", label: "Explorations" },
   { href: "/resume", label: "Resume" },
   { href: "/contact", label: "Contact" },
 ];

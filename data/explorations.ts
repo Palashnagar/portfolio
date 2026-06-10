@@ -1,10 +1,10 @@
 // Explorations — the "in between" work that doesn't fit a case study. Powers
 // /explorations (components/explorations/ExplorationsGrid.tsx).
 //
-// TODO: Palash replaces these placeholders with real explorations. Each item
-// ships with a bespoke placeholder SVG in `art`; for real content set
-// `thumbnail` to an image URL (rendered as a lazy <img>) and `href` to the real
-// destination (Lottie demo, Figma file, PDF, etc.).
+// These are real side projects, each linking to its full write-up on the older
+// site. `art` holds an on-brand placeholder SVG; to show the real design set
+// `thumbnail` to an image URL (rendered as a lazy <img>) once exports are dropped
+// into /public.
 
 export type ExplorationType =
   | "animation"
@@ -29,111 +29,47 @@ export interface Exploration {
 
 export const explorations: Exploration[] = [
   {
-    id: "orbit-study",
-    type: "animation",
-    feature: true,
-    title: "Orbit study, <em>iteration 03</em>",
-    description:
-      "Spring-physics easing on a planetary loading state. Tuning damping until the bounce stops feeling robotic. Built in Rive, exported as Lottie.",
-    date: "May 2026",
-    badge: "Animation · loop",
-    meta: "0:08 loop",
-    href: "#",
-    art: `<svg viewBox="0 0 800 500" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="g-feat" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#E94E1B"/><stop offset="1" stop-color="#1A0F08"/></linearGradient></defs><rect width="800" height="500" fill="url(#g-feat)"/><circle cx="500" cy="250" r="120" fill="rgba(255,255,255,0.18)"/><circle cx="500" cy="250" r="60" fill="rgba(0,0,0,0.25)"/><text x="160" y="280" fill="rgba(255,255,255,0.92)" font-family="Instrument Serif" font-style="italic" font-size="48">orbit study</text></svg>`,
-  },
-  {
-    id: "banking-onboarding",
-    type: "mockup",
-    title: "Banking app <em>onboarding</em>",
-    description: "A 3-screen flow I built for a workshop critique.",
-    date: "Apr 2026",
-    href: "#",
-    art: `<svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><rect width="400" height="400" fill="#2D5F3F"/><rect x="60" y="60" width="280" height="60" rx="4" fill="rgba(255,255,255,0.15)"/><rect x="60" y="140" width="200" height="14" rx="2" fill="rgba(255,255,255,0.25)"/><rect x="60" y="166" width="160" height="14" rx="2" fill="rgba(255,255,255,0.15)"/><rect x="60" y="220" width="280" height="120" rx="4" fill="rgba(0,0,0,0.2)"/></svg>`,
-  },
-  {
-    id: "meditation-splash",
-    type: "mockup",
-    title: "Meditation app <em>splash</em>",
-    description: "Color study for a calmer first-launch.",
-    date: "Apr 2026",
-    href: "#",
-    art: `<svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><rect width="400" height="400" fill="#1E3A5F"/><circle cx="200" cy="170" r="60" fill="rgba(255,255,255,0.18)"/><rect x="100" y="260" width="200" height="14" rx="2" fill="rgba(255,255,255,0.3)"/><rect x="120" y="284" width="160" height="10" rx="2" fill="rgba(255,255,255,0.15)"/><rect x="80" y="320" width="240" height="40" rx="20" fill="#E94E1B"/></svg>`,
-  },
-  {
-    id: "thermal-referral",
+    id: "ar-education",
     type: "research",
-    title: "Thermal referral illusions in <em>wearables</em>",
+    title: "Children &amp; <em>educational AR</em>",
     description:
-      "Working paper from my HCI capstone exploring how off-target heat sensations can map to spatial UI. Currently under review for CHI 2026.",
-    date: "Mar 2026",
+      "A qualitative study of how children aged 5–10 experience educational AR — observations and interviews toward more inclusive, child-centered design.",
+    date: "May 2025",
     badge: "Research · paper",
-    href: "#",
-    art: `<svg viewBox="0 0 800 380" preserveAspectRatio="xMidYMid slice"><rect width="800" height="380" fill="#5B7B8C"/><rect x="60" y="60" width="320" height="260" rx="2" fill="#F5F1EA"/><rect x="80" y="84" width="170" height="6" fill="#0A0A0A"/><rect x="80" y="100" width="220" height="3" fill="#8A867F"/><rect x="80" y="108" width="200" height="3" fill="#8A867F"/><rect x="80" y="124" width="240" height="3" fill="#8A867F"/><rect x="80" y="132" width="190" height="3" fill="#8A867F"/><rect x="80" y="148" width="220" height="3" fill="#8A867F"/><rect x="80" y="160" width="160" height="3" fill="#8A867F"/><rect x="80" y="200" width="240" height="80" rx="2" fill="rgba(10,10,10,0.1)"/><text x="440" y="180" fill="#F5F1EA" font-family="Instrument Serif" font-style="italic" font-size="36">thermal illusions</text><text x="440" y="220" fill="rgba(245,241,234,0.7)" font-family="Bricolage Grotesque" font-size="13" letter-spacing="2">CHI 2026 SUBMISSION</text></svg>`,
+    href: "https://acrobat.adobe.com/id/urn:aaid:sc:AP:d2f36c35-bfc6-4de8-99af-d72549e72fdb",
+    art: `<svg viewBox="0 0 840 400" preserveAspectRatio="xMidYMid slice"><rect width="840" height="400" fill="#1E3A5F"/><rect x="56" y="58" width="300" height="284" rx="3" fill="#F5F1EA"/><rect x="80" y="84" width="150" height="7" fill="#0A0A0A"/><rect x="80" y="108" width="240" height="3" fill="#8A867F"/><rect x="80" y="118" width="220" height="3" fill="#8A867F"/><rect x="80" y="128" width="244" height="3" fill="#8A867F"/><rect x="80" y="138" width="180" height="3" fill="#8A867F"/><rect x="80" y="172" width="244" height="92" rx="2" fill="rgba(10,10,10,0.08)"/><g stroke="#E94E1B" stroke-width="3" fill="none"><path d="M624 150 l58 -33 l58 33 v68 l-58 33 l-58 -33 z"/><path d="M624 150 l58 33 l58 -33 M682 183 v68"/></g><text x="430" y="200" fill="#F5F1EA" font-family="Instrument Serif" font-style="italic" font-size="38">children &amp; AR</text><text x="430" y="236" fill="rgba(245,241,234,0.7)" font-family="Bricolage Grotesque" font-size="12" letter-spacing="2">QUALITATIVE STUDY · 2025</text></svg>`,
   },
   {
-    id: "loading-dots",
+    id: "motion-design",
     type: "animation",
-    title: "Loading dots, <em>rethought</em>",
-    description: "Wave-staggered easing instead of the usual scale-up.",
-    date: "Feb 2026",
-    meta: "0:04 loop",
-    href: "#",
-    art: `<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><rect width="400" height="300" fill="#0A0A0A"/><line x1="0" y1="150" x2="400" y2="150" stroke="#E94E1B" stroke-width="1" stroke-dasharray="4 6"/><circle cx="80" cy="150" r="14" fill="#E94E1B"/><circle cx="200" cy="150" r="20" fill="#E94E1B" opacity="0.7"/><circle cx="320" cy="150" r="14" fill="#E94E1B" opacity="0.4"/></svg>`,
-  },
-  {
-    id: "broken-grid",
-    type: "exploration",
-    title: "Is the grid <em>over</em>?",
-    description: "A long thread on broken-grid layouts I keep saving.",
-    date: "Jan 2026",
-    href: "#",
-    art: `<svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><rect width="400" height="400" fill="#F5A623"/><polygon points="200,80 320,320 80,320" fill="rgba(255,255,255,0.18)"/><text x="200" y="220" text-anchor="middle" fill="#1A1407" font-family="Instrument Serif" font-style="italic" font-size="32">grid?</text></svg>`,
-  },
-  {
-    id: "card-layouts",
-    type: "sketch",
-    title: "Card layouts, <em>wireframed</em>",
-    description: "Three days of trying to find the right one.",
-    date: "Dec 2025",
-    href: "#",
-    art: `<svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><rect width="400" height="400" fill="#FAFAF6"/><rect x="80" y="80" width="240" height="80" fill="none" stroke="#0A0A0A" stroke-width="1.5"/><circle cx="120" cy="120" r="20" fill="none" stroke="#0A0A0A" stroke-width="1.5"/><line x1="160" y1="110" x2="280" y2="110" stroke="#0A0A0A" stroke-width="1.5"/><line x1="160" y1="130" x2="240" y2="130" stroke="#0A0A0A" stroke-width="1.5"/><rect x="80" y="180" width="240" height="140" fill="none" stroke="#0A0A0A" stroke-width="1.5"/><text x="200" y="370" text-anchor="middle" fill="#8A867F" font-family="Instrument Serif" font-style="italic" font-size="14">notebook page 47</text></svg>`,
-  },
-  {
-    id: "travel-booking",
-    type: "mockup",
-    title: "Travel app <em>booking flow</em>",
-    description: "Simplifying a 9-step process into 3.",
-    date: "Nov 2025",
-    href: "#",
-    art: `<svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><rect width="400" height="400" fill="#6B4530"/><circle cx="200" cy="160" r="55" fill="rgba(255,255,255,0.18)"/><rect x="80" y="240" width="240" height="14" rx="2" fill="rgba(255,255,255,0.3)"/><rect x="100" y="266" width="200" height="10" rx="2" fill="rgba(255,255,255,0.18)"/><rect x="80" y="310" width="100" height="40" rx="20" fill="rgba(255,255,255,0.25)"/><rect x="200" y="310" width="120" height="40" rx="20" fill="#E94E1B"/></svg>`,
-  },
-  {
-    id: "perceived-speed",
-    type: "research",
-    title: "Designing for <em>perceived speed</em>",
+    title: "UI <em>motion design</em>",
     description:
-      "Literature review on loading-state psychology and the gap between actual and perceived performance.",
-    date: "Oct 2025",
-    badge: "Research · lit review",
-    href: "#",
-    art: `<svg viewBox="0 0 800 380" preserveAspectRatio="xMidYMid slice"><rect width="800" height="380" fill="#3D4A5C"/><rect x="80" y="50" width="280" height="280" rx="2" fill="#F5F1EA"/><rect x="100" y="80" width="140" height="6" fill="#0A0A0A"/><rect x="100" y="100" width="220" height="3" fill="#8A867F"/><rect x="100" y="108" width="200" height="3" fill="#8A867F"/><rect x="100" y="124" width="240" height="3" fill="#8A867F"/><rect x="100" y="132" width="190" height="3" fill="#8A867F"/><text x="440" y="180" fill="#F5F1EA" font-family="Instrument Serif" font-style="italic" font-size="32">perceived speed</text><text x="440" y="220" fill="rgba(245,241,234,0.7)" font-family="Bricolage Grotesque" font-size="12" letter-spacing="2">GRADUATE SEMINAR · 2025</text></svg>`,
+      "A user-centered UI animation concept — transitions and micro-interactions built with Figma's smart-animate to bring an interface to life.",
+    date: "2024",
+    meta: "Figma prototype",
+    href: "https://www.figma.com/proto/2sgtcAwrMHdhWIOz55CFsG/Untitled?page-id=0%3A1&node-id=11-689&viewport=-854%2C681%2C0.11&t=Y7kJqt4tI4ekkdZ9-1&scaling=scale-down&content-scaling=fixed",
+    art: `<svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice"><rect width="400" height="300" fill="#0A0A0A"/><path d="M40 232 Q 140 50 200 160 T 362 88" fill="none" stroke="#E94E1B" stroke-width="2" stroke-dasharray="3 7"/><circle cx="120" cy="150" r="10" fill="#E94E1B" opacity="0.35"/><circle cx="200" cy="160" r="16" fill="#E94E1B" opacity="0.65"/><circle cx="288" cy="118" r="23" fill="#E94E1B"/><text x="40" y="62" fill="rgba(245,241,234,0.92)" font-family="Instrument Serif" font-style="italic" font-size="32">motion</text></svg>`,
   },
   {
-    id: "color-by-motion",
-    type: "exploration",
-    title: "Color shift, <em>by motion</em>",
-    description: "What happens when a hue rotates as a button moves.",
-    date: "Sep 2025",
-    href: "#",
-    art: `<svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><rect width="400" height="400" fill="#8E5C8B"/><circle cx="200" cy="200" r="120" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-dasharray="4 8"/><circle cx="200" cy="200" r="60" fill="rgba(255,255,255,0.2)"/><text x="200" y="208" text-anchor="middle" fill="#F5F1EA" font-family="Instrument Serif" font-style="italic" font-size="22">color×motion</text></svg>`,
+    id: "hinge-eval",
+    type: "research",
+    title: "Heuristic eval of <em>Hinge</em>",
+    description:
+      "A heuristic evaluation of the Hinge dating app against Nielsen's 10 usability heuristics — interface strengths, usability issues, and recommendations.",
+    date: "May 2023",
+    badge: "Research · evaluation",
+    href: "https://medium.com/@nagar.palash683/heuristic-evaluation-of-hinge-afe52dbd3b75",
+    art: `<svg viewBox="0 0 840 400" preserveAspectRatio="xMidYMid slice"><rect width="840" height="400" fill="#5B7B8C"/><rect x="64" y="50" width="168" height="300" rx="20" fill="#F5F1EA"/><rect x="64" y="50" width="168" height="96" rx="20" fill="#0A0A0A"/><rect x="64" y="120" width="168" height="26" fill="#0A0A0A"/><circle cx="104" cy="98" r="16" fill="#E94E1B"/><rect x="86" y="176" width="124" height="9" rx="2" fill="#0A0A0A"/><rect x="86" y="196" width="96" height="6" rx="2" fill="#8A867F"/><rect x="86" y="212" width="110" height="6" rx="2" fill="#8A867F"/><g font-family="Bricolage Grotesque" font-size="13" font-weight="700"><circle cx="272" cy="120" r="13" fill="#E94E1B"/><text x="272" y="125" text-anchor="middle" fill="#F5F1EA">1</text><circle cx="272" cy="200" r="13" fill="#E94E1B"/><text x="272" y="205" text-anchor="middle" fill="#F5F1EA">2</text><circle cx="272" cy="280" r="13" fill="#E94E1B"/><text x="272" y="285" text-anchor="middle" fill="#F5F1EA">3</text></g><text x="342" y="200" fill="#F5F1EA" font-family="Instrument Serif" font-style="italic" font-size="38">heuristic eval</text><text x="342" y="236" fill="rgba(245,241,234,0.8)" font-family="Bricolage Grotesque" font-size="12" letter-spacing="2">NIELSEN'S 10 HEURISTICS</text></svg>`,
   },
   {
-    id: "easing-by-hand",
-    type: "sketch",
-    title: "Easing curve, <em>by hand</em>",
-    description: "Notes from a motion design workshop.",
-    date: "Aug 2025",
-    href: "#",
-    art: `<svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><rect width="400" height="400" fill="#FAFAF6"/><path d="M 60 320 Q 120 100 200 220 T 340 80" fill="none" stroke="#0A0A0A" stroke-width="1.5"/><circle cx="120" cy="180" r="6" fill="#E94E1B"/><circle cx="240" cy="200" r="6" fill="#E94E1B"/><text x="200" y="370" text-anchor="middle" fill="#8A867F" font-family="Instrument Serif" font-style="italic" font-size="14">easing curve sketch</text></svg>`,
+    id: "nike-mockups",
+    type: "mockup",
+    title: "Nike Jordan <em>mockups</em>",
+    description:
+      "A self-initiated Nike Jordan UI concept — a bold, immersive way to showcase sneakers across mobile and web.",
+    date: "2023",
+    badge: "Mockup · concept",
+    href: "https://www.figma.com/proto/fdOnDExp2waKee7gJoqJMr/Jordon-first-UI-design-palash?page-id=0%3A1&node-id=408-120&viewport=-349%2C221%2C0.15&t=QUabrgj6d7M93lTL-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=408%3A120",
+    art: `<svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice"><rect width="400" height="400" fill="#0A0A0A"/><rect x="56" y="74" width="288" height="172" rx="6" fill="#171717"/><path d="M104 206 Q 196 118 304 150 Q 220 152 126 214 Z" fill="#E94E1B"/><rect x="56" y="280" width="172" height="14" rx="2" fill="rgba(245,241,234,0.92)"/><rect x="56" y="306" width="120" height="10" rx="2" fill="rgba(245,241,234,0.4)"/><rect x="252" y="278" width="92" height="42" rx="21" fill="#E94E1B"/><text x="56" y="56" fill="#F5F1EA" font-family="Instrument Serif" font-style="italic" font-size="26">Jordan UI</text></svg>`,
   },
 ];

@@ -39,6 +39,9 @@ export function ExplorationsGrid() {
     counts[e.type] += 1;
   });
 
+  // Only surface chips for categories that actually have items (plus "All").
+  const visibleFilters = FILTERS.filter((f) => f.key === "all" || counts[f.key] > 0);
+
   const visible = filter === "all" ? explorations.length : counts[filter];
   const gridClass = [
     styles.grid,
@@ -53,7 +56,7 @@ export function ExplorationsGrid() {
       <div className={styles.filterRow}>
         <div className={styles.filterBar}>
           <span className={styles.label}>Filter</span>
-          {FILTERS.map((f) => (
+          {visibleFilters.map((f) => (
             <button
               key={f.key}
               type="button"
@@ -75,10 +78,12 @@ export function ExplorationsGrid() {
       <div className={gridClass}>
         {explorations.map((e) => {
           const hidden = filter !== "all" && e.type !== filter;
+          const external = /^https?:\/\//.test(e.href);
           return (
             <a
               key={e.id}
               href={e.href}
+              {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               data-cursor="card"
               data-type={e.type}
               data-feature={e.feature ? "true" : undefined}

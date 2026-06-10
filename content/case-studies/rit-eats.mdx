@@ -98,24 +98,26 @@ The prototype is a two-sided product: the same app serves the student placing an
 </Pillars>
 
 <ImageFrame
-  slotFile="riteats-user-screens.png"
-  slot="User flow: home / restaurant / dish customization / cart & checkout / live order tracking"
+  webp="riteats-user-flow.webp"
+  src="riteats-user-flow.png"
+  width={1498}
+  height={701}
+  alt="RIT EATS user-side flow diagram: login via RIT ID, then Home (locations, cart, search & filters → select food → customization → checkout → payment, notifications), Browse, Past Orders (in progress → live tracking → order status; past foods → receipt → reorder; customer support), and Profile (account review, accessibility, wallet, settings)."
   caption="The user side — from browsing campus dining to tracking a delivery in real time."
 />
 
-<IdSplit
-  media={{ slotFile: "riteats-delivery-screens.png", slot: "Delivery-personnel side: assigned orders, start delivery + map, shift/availability" }}
-  insight="A delivery service only works if the person delivering has tools too — design just the customer side and the operation stalls."
-  decision="Build a dedicated delivery-personnel experience alongside the user app, so orders, routing, shifts, and issues all live in one coherent system."
+A delivery service only works if the person delivering has tools too — design just the customer side and the operation stalls. So we built a dedicated delivery-personnel experience alongside the user app, where orders, routing, shifts, and issues all live in one coherent system.
+
+<ImageFrame
+  webp="riteats-delivery-flow.webp"
+  src="riteats-delivery-flow.png"
+  width={1498}
+  height={847}
+  alt="RIT EATS delivery-personnel flow diagram: login via Kronos ID, then Home (orders assigned → order details pre-delivery → start delivery → map view → order details post-delivery, notifications, day and date), Browse (search by order ID → delivery information), Past Orders, and Profile (profile details, settings, edit profile)."
+  caption="The delivery-personnel side — assigned orders, start-delivery with map guidance, shift, and order history."
 />
 
 On the visual side, going from lo-fi to hi-fi meant making the product feel unmistakably RIT: the official palette applied across buttons, backgrounds, and accents, a clear icon set, accessible type and contrast, and depth through shadows and layering to guide focus. The result is the branded, cart-driven interface the title slide previews.
-
-<ImageFrame
-  slotFile="riteats-account-accessibility.png"
-  slot="Account & accessibility: wallet, support, and the accessibility tools (text size, theme, contrast, language)"
-  caption="Accessibility was designed in, not bolted on — adjustable text, contrast, themes, and language across the account experience."
-/>
 
 </CsSection>
 

@@ -1,6 +1,6 @@
 ---
 title: RIT EATS
-tagline: Campus food ordering, redesigned.
+tagline: Campus food delivery, built for a Rochester winter.
 role: Website Designer
 year: 2024
 team: Team Athens
@@ -9,72 +9,122 @@ tools:
 cover: /case-studies/rit-eats/pulled-03.png
 ---
 
-{/* NOTE: This is the sparsest of the four case studies — the only genuine
-asset that survived the import is pulled-03 (the title slide). The earlier
-draft carried invented stats ("22 minutes", "under six taps") borrowed from a
-reference mockup; those are intentionally omitted here. Everything not visible
-in the title slide is flagged with a Todo until Palash supplies the real
-material. duration is omitted from frontmatter for the same reason — the Hero
-meta row filters empty values, so no fabricated timeline appears. */}
+{/* NOTE: duration is intentionally omitted — the real project timeline isn't
+documented. The Hero meta row filters out empty values, so no fabricated
+"X weeks" appears. Every figure on this page (20,500 students, ~7,500 on/near
+campus, 12 interviews, 75 surveys, 49%, 56%, 20+ campuses) is from the Team
+Athens case study; no invented metrics. The three content-screen slots render
+styled placeholders until the real RIT EATS screens are supplied. */}
 
-<Figure
-  src="/case-studies/rit-eats/pulled-03.png"
-  alt="RIT EATS title slide: the RITEATS wordmark beside a repeated 'Tigers gotta eat' motif, a phone showing a food-ordering app with a burger, credited to Team Athens, 2024."
-  caption="RIT EATS — a campus food-ordering concept by Team Athens. This title slide is the one asset that survived the import; the screens behind it still need to come from Palash."
-  aspect="16/9"
+<CsSection num="01" label="The Problem" title={<>Tigers gotta eat — even in a <em>Rochester winter</em>.</>}>
+
+RIT is home to more than 20,500 students — including roughly 3,000 international students from over 100 countries — plus thousands of faculty and staff, and a campus full of dining options. The catch is how you get to them. The RIT Dining app lets you order ahead, but the only way to actually receive your food is to show up at the counter and pick it up.
+
+Now add a Rochester winter: 70 to 120 inches of snow a year and an average temperature around 28°F. For the roughly 7,500 people who live on or near campus, "just go grab it" stops being realistic for months at a time. There's no doorstep delivery — so the gap sits exactly between RIT's dining and a student's comfort.
+
+<ProblemGrid>
+<ProblemCard title="Pickup only, no delivery">You can order ahead, but you still have to walk to the counter to collect it — there's no way to have it brought to you.</ProblemCard>
+<ProblemCard title="Rochester winters make it worse">Months of heavy snow and freezing temperatures turn a quick food run into a real barrier for everyone living on or near campus.</ProblemCard>
+<ProblemCard title="Demand spikes when it's hardest">The want is there exactly when the weather is worst — but the option to order in and stay warm simply doesn't exist.</ProblemCard>
+</ProblemGrid>
+
+Secondary research backed up what the weather suggested:
+
+<StatBand>
+<Stat big="49%" src="Slagen, 2023">of people are more likely to order delivery during bad weather.</Stat>
+<Stat big="56%" src="Slagen, 2023">want to pre-schedule food delivery before a storm hits.</Stat>
+<Stat big="20+" src="Charney 2023 · M2 Presswire 2022">campuses already run delivery (e.g. Starship robots at UW–Madison; BYPPO at UF).</Stat>
+</StatBand>
+
+</CsSection>
+
+<CsSection num="02" label="Research" title={<>Who we talked to — and what the snow <em>revealed</em>.</>}>
+
+<Chips items={["12 interviews", "75 surveys", "Contextual inquiry", "Observation", "Pilot study"]} />
+
+We didn't want to assume the demand — we went and measured it. The team ran **12 interviews and 75 surveys** across the RIT community, plus contextual inquiry and on-site observation at three of the busiest dining locations: Brick City Cafe, Cantina, and The Commons. The interviews deliberately spanned both sides of the counter — students who order, and the people who fulfil: three student dining employees, two on-demand service staff, an RIT Dining manager, an IT admin, and four students who live on and off campus.
+
+We dug into the things that actually shape a delivery service: where people live (dorms versus nearby apartments like Apex, Province, and Park Point), how often they order, whether they order solo or in groups, their budgets and preferred payment methods, how fast they expect food to arrive, and where they'd want it dropped.
+
+<InsightBand>The operational path for delivery <em>half-existed already</em> — the missing pieces were a delivery role and an interface to run it.</InsightBand>
+
+A pilot study made that concrete. Observing the "on-demand" servers — the people who hand out pickup orders — showed they had spare capacity and could act as the coordination point for handing orders to a delivery person. And interviewing a Brick City Cafe employee pinned the timing: assembling an order takes about 5–10 minutes before it goes into a hot box. So the kitchen flow was ready; what RIT Dining lacked was the delivery layer on top of it — and that's where the design focused.
+
+</CsSection>
+
+<CsSection num="03" label="Constraints & Decisions" title="A delivery layer, not a new app.">
+
+RIT EATS was a team project — six of us in Team Athens, built for a graduate HCI course. The biggest framing decision came early: rather than invent a standalone food app, we designed delivery as an extension of the infrastructure RIT already runs, so it could plug into RIT Dining and the RIT Mobile app instead of competing with them.
+
+<RoleNote>I was the <strong>Website Designer</strong> on Team Athens — I owned the brand and visual side: the RITEATS identity, the "Tigers gotta eat" motif and burger-forward direction in the title slide, and applying RIT's official palette and visual system across the hi-fi designs. The research and the broader product were a team effort. <em>(Palash — confirm this is the right line. If you also designed specific app screens or ran part of the research, tell me and I'll credit it precisely.)</em></RoleNote>
+
+Before settling on a direction, the team weighed three ways to actually move food across campus:
+
+<Directions>
+<Direction n="01" title="In-app delivery to your location" chosen>Add delivery into the existing RIT Mobile app, fulfilled by student workers split into on-foot, cyclist, and driver roles depending on distance and weather.</Direction>
+<Direction n="02" title="Partner with a third party">Collaborate with an existing campus-delivery service like BYPPO (used at the University of Florida) and lean on their logistics.</Direction>
+<Direction n="03" title="Deliver to a nearest hotbox">Drop orders into a per-building hotbox unlocked by a QR code, with a scale to track contents — lower staffing, more hardware.</Direction>
+</Directions>
+
+<LeftOut>The heavy operational layer — real routing, the hotbox hardware, third-party contract terms, and the ordering back-end. We designed the in-app experience and the new delivery role around it, and assumed those services could be stood up, because the goal was to prove the experience, not to build RIT's logistics.</LeftOut>
+
+</CsSection>
+
+<CsSection num="04" label="The Solution" title="Order on one side, deliver on the other.">
+
+The prototype is a two-sided product: the same app serves the student placing an order and the student employee delivering it. That's what makes the service actually run, instead of just looking good on the ordering screen.
+
+<Pillars>
+<Pillar
+  side="User side"
+  title="Order & track"
+  items={[
+    "Browse campus spots — Brick City Cafe, Ritz, Cantina — with dish detail, customization, and allergen flags",
+    "Cart and checkout with Dining Dollars, Tiger Bucks, Apple Pay, or card",
+    "Real-time order tracking with status and the delivery person's name and contact",
+    "Profile, wallet and transactions, customer support, and accessibility tools (text size, theme, contrast, language)",
+  ]}
+/>
+<Pillar
+  side="Delivery side"
+  title="Pick up & deliver"
+  items={[
+    "See assigned orders and start a delivery with map guidance",
+    "Contact the customer for drop-off instructions, then confirm delivered",
+    "Manage shift timing and availability",
+    "Report issues and review delivery history and ratings",
+  ]}
+/>
+</Pillars>
+
+<ImageFrame
+  slotFile="riteats-user-screens.png"
+  slot="User flow: home / restaurant / dish customization / cart & checkout / live order tracking"
+  caption="The user side — from browsing campus dining to tracking a delivery in real time."
 />
 
-<Problem title="Tigers gotta eat — so why is campus ordering still a chore?">
-
-RIT EATS started from a premise anyone on campus recognizes: students are hungry, time is short, and ordering food around classes is more friction than it should be. Team Athens took that on in 2024 as **RIT EATS** — a campus food-ordering concept with its own identity, the *"Tigers gotta eat"* line, and the burger-forward branding in the title slide above.
-
-That premise is as far as the surviving material goes. The specific problem the team set out to solve — what students do today, where it breaks down, and the baseline the design had to beat — isn't documented in anything that made it into this rebuild.
-
-<Todo>the real problem statement — what ordering on campus looks like today, the specific friction RIT EATS targeted, and any baseline numbers or observations the team started from. (The earlier draft's "22 minutes / under six taps" figures were invented and have been removed.)</Todo>
-
-</Problem>
-
-<Research title="A team project — and an open question about what was learned.">
-
-RIT EATS was built by **Team Athens**, with Palash credited as **Website Designer**. That credit is a real signal about scope — it points to the marketing site and product identity rather than the full ordering app — but the boundary between what the team produced together and what Palash owned individually isn't recorded here.
-
-The research behind the concept is similarly undocumented: there's no surviving record of who the team talked to, what they observed about campus ordering, or which findings shaped the direction.
-
-<Todo>the research story — any interviews, surveys, or campus observations behind RIT EATS, how many students took part, and which insights drove the design. Also: a clear line on what Palash designed as Website Designer versus what the rest of Team Athens owned.</Todo>
-
-</Research>
-
-<Constraints title="What we know about the brief — and what we don't.">
-
-Two things are firm. RIT EATS was a **team effort under the Team Athens banner**, and Palash's role was **Website Designer** — so the work sat closer to the brand, landing experience, and identity than to the ordering back-end. The title slide also fixes the visual direction: a confident orange-and-dark identity, the *"Tigers gotta eat"* tagline, and food-first imagery.
-
-What shaped the work beyond that — the constraints the team designed around, the decisions they made deliberately, and what they chose to leave out — isn't captured in the surviving material.
-
-<Todo>the real constraints and decisions — the scope Team Athens set, any platform or timeline limits, and the specific calls Palash made on the website/identity side and why.</Todo>
-
-</Constraints>
-
-<Solution title="The identity is here. The screens aren't — yet.">
-
-What's genuinely visible is the product's face: the **RITEATS** wordmark, the *"Tigers gotta eat"* motif, and a food-ordering interface previewed on the phone in the title slide — a branded header, a hero dish, and a cart-driven layout.
-
-The actual screens Palash designed — the website, the ordering flow, whatever surfaces Team Athens shipped — didn't survive the import as usable assets. Rather than reconstruct or fake them, the walkthrough below is left as a placeholder until the real files come back.
-
-<Screen
-  alt="RIT EATS — website / ordering screens (to be supplied by Palash)"
-  insight="The title slide proves the identity and the food-ordering premise, but not the flows behind it."
-  decision="Hold the screen walkthrough until the genuine designs are available, rather than invent UI that wasn't built."
-  caption="Placeholder — the real RIT EATS screens still need to come from Palash."
+<IdSplit
+  media={{ slotFile: "riteats-delivery-screens.png", slot: "Delivery-personnel side: assigned orders, start delivery + map, shift/availability" }}
+  insight="A delivery service only works if the person delivering has tools too — design just the customer side and the operation stalls."
+  decision="Build a dedicated delivery-personnel experience alongside the user app, so orders, routing, shifts, and issues all live in one coherent system."
 />
 
-<Todo>the actual RIT EATS designs — website pages and/or app screens — wired in from the genuine source files, with a short note on what each one does and the decision behind it.</Todo>
+On the visual side, going from lo-fi to hi-fi meant making the product feel unmistakably RIT: the official palette applied across buttons, backgrounds, and accents, a clear icon set, accessible type and contrast, and depth through shadows and layering to guide focus. The result is the branded, cart-driven interface the title slide previews.
 
-</Solution>
+<ImageFrame
+  slotFile="riteats-account-accessibility.png"
+  slot="Account & accessibility: wallet, support, and the accessibility tools (text size, theme, contrast, language)"
+  caption="Accessibility was designed in, not bolted on — adjustable text, contrast, themes, and language across the account experience."
+/>
 
-<Outcome title="A real project that needs its story back.">
+</CsSection>
 
-RIT EATS is a genuine 2024 Team Athens project with a finished identity and a clear premise — *Tigers gotta eat* — but most of its story didn't survive into this rebuild. Rather than pad it with invented metrics or reconstructed screens, this page holds the shape of the case study and marks every gap, ready to fill the moment Palash supplies the material.
+<CsSection num="05" label="Outcome & Next" title={<>A working concept — and where I'd <em>take it next</em>.</>}>
 
-<Todo>how RIT EATS landed — whether it shipped or stayed a concept, any response or results, what Palash took away from the team project, and where he'd take it next.</Todo>
+RIT EATS is a graduate-course concept that Team Athens carried from a real, locally-grounded problem all the way to a hi-fi, interactive prototype — complete with a usability-test script written to put it in front of both students and delivery staff. It's a concept, not a shipped product: we designed the experience and the new delivery role, and assumed the logistics services behind it could be built.
 
-</Outcome>
+Where I'd take it next is the half we deliberately left out: run the usability sessions we scripted, then design the operational layer for real — routing, the hot-box-versus-driver trade-off, and the hand-off between the kitchen and the delivery person. The business case is already there: done well, delivery turns bad-weather demand into orders RIT Dining would otherwise lose, and into student jobs.
+
+<Takeaway>How to design within a real institution's brand and systems, on a team — and that a service is only as good as the side of it nobody sees: the people fulfilling the order.</Takeaway>
+
+</CsSection>

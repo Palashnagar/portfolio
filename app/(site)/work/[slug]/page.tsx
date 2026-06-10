@@ -68,6 +68,25 @@ import {
   LeftOut as RaLeftOut,
   Takeaway as RaTakeaway,
 } from "@/components/case-study/RitAthleticsSections";
+import {
+  CsSection as EatsCsSection,
+  Caption as EatsCaption,
+  RoleNote,
+  ProblemGrid as EatsProblemGrid,
+  ProblemCard as EatsProblemCard,
+  StatBand,
+  Stat as EatsStat,
+  Chips as EatsChips,
+  InsightBand as EatsInsightBand,
+  Directions,
+  Direction,
+  LeftOut as EatsLeftOut,
+  Pillars,
+  Pillar as EatsPillar,
+  ImageFrame as EatsImageFrame,
+  IdSplit as EatsIdSplit,
+  Takeaway as EatsTakeaway,
+} from "@/components/case-study/RitEatsSections";
 
 export async function generateStaticParams() {
   const slugs = await listCaseStudySlugs();
@@ -194,6 +213,43 @@ const RIT_DECK = {
   closeSub: "Every screen and decision lives in the case-study deck.",
 };
 
+// RIT EATS uses its own self-contained kit (stat band, directions list, two-sided
+// pillars, role note). Names overlap with the other kits, so it gets its own map.
+const ritEatsComponents = {
+  CsSection: EatsCsSection,
+  Caption: EatsCaption,
+  RoleNote,
+  ProblemGrid: EatsProblemGrid,
+  ProblemCard: EatsProblemCard,
+  StatBand,
+  Stat: EatsStat,
+  Chips: EatsChips,
+  InsightBand: EatsInsightBand,
+  Directions,
+  Direction,
+  LeftOut: EatsLeftOut,
+  Pillars,
+  Pillar: EatsPillar,
+  ImageFrame: EatsImageFrame,
+  IdSplit: EatsIdSplit,
+  Takeaway: EatsTakeaway,
+};
+
+// RIT EATS links to the Team Athens Figma prototype. Same traveling-button
+// behavior; lands in the closing CTA, Next Project (MyCourses 2.0) stays below.
+const RIT_EATS_PROTO = {
+  url: "https://www.figma.com/proto/pctLeYEMbOrLog27bP3pCs/620---Prototype?node-id=420-2&t=h0P5XmvQ8eh8Ec0z-1",
+  heroLabel: "View prototype ↗",
+  closeLabel: "Open the prototype ↗",
+  ariaLabel: "View prototype",
+  closeHeading: (
+    <>
+      Want to <em>try it</em>?
+    </>
+  ),
+  closeSub: "The full two-sided flow lives in the Figma prototype.",
+};
+
 export default async function CaseStudyPage({
   params,
 }: {
@@ -209,6 +265,7 @@ export default async function CaseStudyPage({
   const isMyCourses = slug === "mycourses";
   const isRoomieMatch = slug === "roomiematch";
   const isRitAthletics = slug === "rit-athletics";
+  const isRitEats = slug === "rit-eats";
 
   const heroMedia = isMyCourses ? (
     // Self-contained mockup (tablet + brand gradient) — shown whole at its natural
@@ -246,6 +303,18 @@ export default async function CaseStudyPage({
       priority
       style={{ width: "100%", height: "auto", borderRadius: 12 }}
     />
+  ) : isRitEats ? (
+    // The existing RITEATS title slide — a dark branded asset framed on cream like
+    // a poster (not a full-bleed band). next/image optimizes the heavy source.
+    <Image
+      src="/case-studies/rit-eats/hero.png"
+      alt="The RITEATS title slide — the RITEATS wordmark, a repeated 'Tigers gotta eat' motif, and a phone showing the burger-forward ordering app, credited to Team Athens, 2024."
+      width={1800}
+      height={1018}
+      sizes="(max-width: 768px) 92vw, 46vw"
+      priority
+      style={{ width: "100%", height: "auto", borderRadius: 12 }}
+    />
   ) : undefined;
 
   return (
@@ -266,13 +335,22 @@ export default async function CaseStudyPage({
         {isRitAthletics && (
           <PrototypeHeroButton url={RIT_DECK.url} heroLabel={RIT_DECK.heroLabel} />
         )}
+        {isRitEats && (
+          <PrototypeHeroButton url={RIT_EATS_PROTO.url} heroLabel={RIT_EATS_PROTO.heroLabel} />
+        )}
       </Hero>
 
       <article>
         <MDXRemote
           source={cs.body}
           components={
-            isRoomieMatch ? roomieComponents : isRitAthletics ? ritComponents : mdxComponents
+            isRoomieMatch
+              ? roomieComponents
+              : isRitAthletics
+                ? ritComponents
+                : isRitEats
+                  ? ritEatsComponents
+                  : mdxComponents
           }
           options={{ blockJS: false }}
         />
@@ -281,6 +359,7 @@ export default async function CaseStudyPage({
       {isMyCourses && <FigmaOnePager />}
       {isRoomieMatch && <PrototypeButton {...ROOMIE_PROTO} />}
       {isRitAthletics && <PrototypeButton {...RIT_DECK} />}
+      {isRitEats && <PrototypeButton {...RIT_EATS_PROTO} />}
 
       <NextProject currentSlug={slug} />
     </>

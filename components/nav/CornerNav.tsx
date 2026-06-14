@@ -32,7 +32,7 @@ export function CornerNav() {
       {/* Top-right: nav links */}
       <nav
         aria-label="Primary navigation"
-        className={`${cornerBase} top-8 right-8 text-right`}
+        className={`reveal-gated ${cornerBase} top-8 right-8 text-right`}
         style={fadeStyle}
       >
         {navLinks.map((link) => (
@@ -48,17 +48,17 @@ export function CornerNav() {
       </nav>
 
       {/* Bottom-left: location + availability */}
-      <div className={`${cornerBase} bottom-8 left-8`} style={fadeStyle}>
+      <div className={`reveal-gated ${cornerBase} bottom-8 left-8`} style={fadeStyle}>
         <div>© 2026 · Rochester, NY</div>
         <div className="mt-0.5 text-[var(--muted)]">Available Dec 2026</div>
       </div>
 
       {/* Bottom-right: contact CTA */}
-      <div className={`${cornerBase} bottom-8 right-8 text-right`} style={fadeStyle}>
+      <div className={`reveal-gated ${cornerBase} bottom-8 right-8 text-right`} style={fadeStyle}>
         <Link
           href="/contact"
           data-cursor="link"
-          className="text-[var(--accent)] hover:opacity-70 transition-opacity duration-150"
+          className="text-[var(--accent-text)] hover:opacity-70 transition-opacity duration-150"
         >
           Get in touch →
         </Link>

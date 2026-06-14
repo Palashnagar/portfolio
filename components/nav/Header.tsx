@@ -22,7 +22,7 @@ export function Header() {
             data-cursor="link"
             className={`ml-[18px] transition-colors duration-150 ${
               link.accent
-                ? "text-[var(--accent)] hover:opacity-70"
+                ? "text-[var(--accent-text)] hover:opacity-70"
                 : "hover:text-[var(--accent)]"
             }`}
           >

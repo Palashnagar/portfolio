@@ -213,11 +213,11 @@ type MediaProps = {
   slot?: string;
 };
 
-export function ImageFrame({ webp, src, alt, width, height, slotFile, slot, caption }: MediaProps & { caption?: ReactNode }) {
+export function ImageFrame({ webp, src, alt, width, height, slotFile, slot, caption, scroll }: MediaProps & { caption?: ReactNode; scroll?: boolean }) {
   return (
     <>
       {src ? (
-        <div className={styles.imgframe}>
+        <div className={`${styles.imgframe}${scroll ? " " + styles.scrollable : ""}`}>
           <Picture webp={webp} src={src} alt={alt ?? ""} width={width} height={height} />
         </div>
       ) : (

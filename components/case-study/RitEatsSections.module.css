@@ -93,7 +93,7 @@
   font-size: 10px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
   white-space: nowrap;
   padding-top: 2px;
 }
@@ -214,7 +214,7 @@
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
   margin-bottom: 16px;
 }
 .insightBand p {
@@ -266,7 +266,7 @@
   font-size: 9px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
   border: 1px solid var(--accent);
   border-radius: 100px;
   padding: 3px 8px;
@@ -319,7 +319,7 @@
   font-size: 10px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
   margin-bottom: 14px;
 }
 .pillar h4 {
@@ -345,7 +345,7 @@
   content: "—";
   position: absolute;
   left: 0;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 /* image frame — hugs a real image; sized placeholder when pending */
@@ -361,6 +361,20 @@
   display: block;
   width: 100%;
   height: auto;
+}
+/* Wide diagrams (set `scroll` on the ImageFrame) stay legible on phones: pan
+   horizontally instead of shrinking to an unreadable thumbnail. Desktop keeps
+   the fit-to-width default. */
+@media (max-width: 720px) {
+  .imgframe.scrollable {
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  .imgframe.scrollable img {
+    width: 720px;
+    max-width: none;
+  }
 }
 .imgframe.slotWide {
   aspect-ratio: 16 / 8;
@@ -382,7 +396,7 @@
   color: var(--muted);
 }
 .slotFile {
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 11px;
 }
 
@@ -422,7 +436,7 @@
   color: var(--muted);
 }
 .kDecision {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .idBlock p {
   font-size: 16px;
@@ -444,7 +458,7 @@
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
   margin-bottom: 18px;
 }
 .takeaway p {

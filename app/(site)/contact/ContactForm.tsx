@@ -50,7 +50,7 @@ export function ContactForm() {
         style={{ padding: "120px 6vw" }}
         aria-live="polite"
       >
-        <div className="mb-6 text-[11px] uppercase tracking-[0.2em] text-accent">Message sent</div>
+        <div className="mb-6 text-[11px] uppercase tracking-[0.2em] text-accent-text">Message sent</div>
         <h1
           className="text-ink"
           style={{
@@ -73,7 +73,7 @@ export function ContactForm() {
     <>
       <header style={{ padding: "140px 6vw 40px" }}>
         <div className="mx-auto max-w-content">
-          <div className="mb-6 text-[11px] uppercase tracking-[0.2em] text-accent">Contact</div>
+          <div className="mb-6 text-[11px] uppercase tracking-[0.2em] text-accent-text">Contact</div>
           <h1
             className="max-w-[16ch] text-ink"
             style={{
@@ -126,7 +126,7 @@ export function ContactForm() {
             <div
               role="alert"
               aria-live="polite"
-              className="rounded-lg border border-accent/40 bg-accent/5 p-4 text-accent"
+              className="rounded-lg border border-accent/40 bg-accent/5 p-4 text-accent-text"
             >
               <ul className="list-inside list-disc text-[14px]">
                 {errors.map((er, i) => (
@@ -153,7 +153,7 @@ export function ContactForm() {
 
             <p className="text-[14px] text-muted">
               Prefer email?{" "}
-              <a className="text-ink underline transition-colors hover:text-accent" href="mailto:nagar.palash683@gmail.com">
+              <a className="text-ink underline transition-colors hover:text-accent-text" href="mailto:nagar.palash683@gmail.com">
                 nagar.palash683@gmail.com
               </a>
             </p>

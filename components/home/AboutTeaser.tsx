@@ -73,8 +73,8 @@ export default function AboutTeaser() {
           <Link
             href="/about"
             data-cursor="link"
-            className="mt-8 inline-block text-[13px] uppercase tracking-[0.15em] text-accent"
-            style={{ borderBottom: "1px solid var(--accent)", paddingBottom: "4px" }}
+            className="mt-8 inline-block text-[13px] uppercase tracking-[0.15em] text-accent-text"
+            style={{ borderBottom: "1px solid var(--accent-text)", paddingBottom: "4px" }}
           >
             More about me →
           </Link>

@@ -4,7 +4,11 @@
   --color-bg: #F5F1EA;
   --color-ink: #0A0A0A;
   --color-accent: #E94E1B;
-  --color-muted: #8A867F;
+  /* AA-legible orange for small text/links (4.67:1 on cream). The vivid --accent
+     stays for large display words (≥18px clears the 3:1 large-text bar) and fills. */
+  --color-accent-text: #C23E13;
+  /* Darkened from #8A867F (3.22:1, failed AA) to 4.93:1 so muted body/meta text is legible. */
+  --color-muted: #6B6862;
   --color-line: rgba(10, 10, 10, 0.14);
 
   --font-display: var(--font-instrument), serif;
@@ -18,7 +22,7 @@
 }
 
 :root {
-  --bg: #F5F1EA; --ink: #0A0A0A; --accent: #E94E1B; --muted: #8A867F; --line: rgba(10,10,10,0.14);
+  --bg: #F5F1EA; --ink: #0A0A0A; --accent: #E94E1B; --accent-text: #C23E13; --muted: #6B6862; --line: rgba(10,10,10,0.14);
 }
 
 html { scroll-behavior: smooth; background: var(--bg); }
@@ -49,8 +53,8 @@ body.cursor-active, body.cursor-active * { cursor: none; }
 @keyframes dot-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 .dot-pulse { animation: dot-pulse 1.6s ease-in-out infinite; }
 
-@keyframes scroll-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
-.scroll-arrow { animation: scroll-bounce 1.6s ease-in-out infinite; }
+@keyframes scroll-nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(5px); } }
+.scroll-arrow { animation: scroll-nudge 1.8s ease-in-out infinite; }
 
 /* Lenis smooth scroll */
 html.lenis, html.lenis body { height: auto; }

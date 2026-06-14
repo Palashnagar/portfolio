@@ -180,7 +180,7 @@
 }
 .caption em {
   font-style: italic;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .tag {
   display: block;
@@ -225,7 +225,7 @@
 }
 .hint::before {
   content: "\27F7"; /* ⟷ */
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 14px;
 }
 

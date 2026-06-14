@@ -21,7 +21,7 @@ const bricolage = Bricolage_Grotesque({
   display: "swap",
 });
 
-// Mono accent — used ONLY for small technical labels (filter chips, badges,
+// Mono accent: used ONLY for small technical labels (filter chips, badges,
 // meta, counters, read-times). Headlines/body stay serif + grotesque.
 const jetbrains = JetBrains_Mono({
   weight: ["400", "500"],
@@ -33,12 +33,12 @@ const jetbrains = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Palash Nagar — UX Designer & HCI Researcher",
   description:
-    "UX designer and HCI researcher at RIT. Designing interfaces that feel inevitable — from thermal-illusion wearables to software people actually want to use.",
+    "UX designer and HCI researcher at RIT. Designing interfaces that feel inevitable, from thermal-illusion wearables to software people actually want to use.",
   metadataBase: new URL("https://palashnagar.vercel.app"),
   openGraph: {
     title: "Palash Nagar — UX Designer & HCI Researcher",
     description:
-      "Designing interfaces that feel inevitable — from thermal-illusion wearables to software people actually want to use.",
+      "Designing interfaces that feel inevitable, from thermal-illusion wearables to software people actually want to use.",
     type: "website",
   },
 };
@@ -54,6 +54,16 @@ export default function RootLayout({
       className={`${instrument.variable} ${bricolage.variable} ${jetbrains.variable}`}
     >
       <body>
+        {/* No-JS / crawler fallback: the homepage hero + corner nav start at
+            opacity:0 and are revealed by the intro JS. Force them visible when
+            JS is unavailable so the page is never blank without scripts. */}
+        <noscript>
+          <style
+            dangerouslySetInnerHTML={{
+              __html: ".reveal-gated{opacity:1 !important;transform:none !important}",
+            }}
+          />
+        </noscript>
         <Grain />
         <Cursor />
         <ThermalMode />

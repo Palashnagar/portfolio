@@ -20,7 +20,7 @@ export function NextProject({ currentSlug }: { currentSlug: string }) {
           data-cursor="card"
           className="group block no-underline"
         >
-          <p className="text-[11px] uppercase tracking-[0.2em] text-accent">
+          <p className="text-[11px] uppercase tracking-[0.2em] text-accent-text">
             Next project →
           </p>
           <h2

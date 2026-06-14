@@ -137,7 +137,7 @@ export default function KineticHero() {
 
   return (
     <section
-      className="min-h-screen flex flex-col justify-center"
+      className="reveal-gated min-h-screen flex flex-col justify-center"
       style={{
         padding: "0 6vw",
         position: "relative",

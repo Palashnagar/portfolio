@@ -268,12 +268,10 @@
   gap: 6px;
 }
 .playBadge::before {
-  content: "";
-  width: 0;
-  height: 0;
-  border-left: 6px solid var(--accent);
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
+  content: "\25B6"; /* ▶ play glyph — was a CSS border-triangle (read as a side-stripe tell) */
+  font-size: 7px;
+  line-height: 1;
+  color: var(--accent);
 }
 
 /* ── Card text ── */
@@ -288,7 +286,7 @@
   margin-bottom: 6px;
 }
 .meta .type {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .title {
   font-family: var(--font-display);

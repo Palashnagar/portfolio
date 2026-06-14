@@ -66,7 +66,7 @@
   margin-bottom: 16px;
 }
 .role .dot {
-  color: var(--accent);
+  color: var(--accent-text);
   margin: 0 8px;
 }
 .summary {
@@ -95,7 +95,7 @@
   font-size: 10px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
   margin-bottom: 12px;
 }
 .avail::before {
@@ -140,7 +140,7 @@
   gap: 8px;
 }
 .secLabel .idx {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .block {
@@ -235,7 +235,7 @@
 .jobRole {
   font-size: 12px;
   font-weight: 500;
-  color: var(--accent);
+  color: var(--accent-text);
   margin-bottom: 10px;
   letter-spacing: 0.02em;
 }
@@ -297,7 +297,7 @@
 .projMetric {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--accent);
+  color: var(--accent-text);
   white-space: nowrap;
 }
 .projDesc {
@@ -341,7 +341,7 @@
   color: var(--rmeta);
 }
 .foot .accent {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 /* ============ DOWNLOAD CONTROL (screen only) ============ */

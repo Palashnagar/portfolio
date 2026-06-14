@@ -52,7 +52,7 @@ export function Screen({
         )}
         {decision && (
           <>
-            <p className="mt-5 text-[11px] uppercase tracking-[0.2em] text-accent">Decision</p>
+            <p className="mt-5 text-[11px] uppercase tracking-[0.2em] text-accent-text">Decision</p>
             <p className="mt-1 text-[16px] leading-relaxed text-ink">{decision}</p>
           </>
         )}

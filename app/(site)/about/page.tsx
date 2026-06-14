@@ -41,7 +41,7 @@ export default function AboutPage() {
       {/* 01 — Hero: text-first, researcher-meets-designer */}
       <header style={{ padding: "140px 6vw 56px" }}>
         <div className="mx-auto max-w-[1100px]">
-          <div className="mb-6 text-[11px] uppercase tracking-[0.2em] text-accent">About</div>
+          <div className="mb-6 text-[11px] uppercase tracking-[0.2em] text-accent-text">About</div>
           <h1
             className="max-w-[18ch] text-ink"
             style={{
@@ -125,7 +125,7 @@ export default function AboutPage() {
             </div>
 
             <blockquote
-              className="mt-10 border-l-2 border-accent pl-6 text-ink"
+              className="mt-10 text-ink"
               style={{
                 fontFamily: "var(--font-display)",
                 fontStyle: "italic",

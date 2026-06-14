@@ -120,8 +120,7 @@
 
 /* ============ pullquote ============ */
 .pullquote {
-  border-left: 3px solid var(--accent);
-  padding: 6px 0 6px 26px;
+  padding: 6px 0;
   margin: 36px 0;
 }
 .pullquote p {
@@ -163,7 +162,7 @@
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
   margin-bottom: 16px;
 }
 .insightBand p {
@@ -178,8 +177,7 @@
 }
 
 .persona {
-  border-left: 3px solid var(--accent);
-  padding: 10px 0 10px 28px;
+  padding: 10px 0;
   margin: 30px 0;
 }
 .persona p {
@@ -294,7 +292,7 @@
   color: var(--muted);
 }
 .kDecision {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 .idBlock p {
   font-size: 16px;
@@ -324,7 +322,7 @@
   font-size: 11px;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
   margin-bottom: 10px;
 }
 .ddItem h4 {
@@ -376,7 +374,7 @@
   color: var(--muted);
 }
 .slotFile {
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 11px;
 }
 
@@ -393,7 +391,7 @@
   font-size: 10px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-text);
   margin-bottom: 18px;
 }
 .takeaway p {

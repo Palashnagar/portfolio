@@ -90,9 +90,9 @@ export function ContactForm() {
 
       <section style={{ padding: "0 6vw 120px" }}>
         <form onSubmit={handleSubmit} className="mx-auto max-w-reading space-y-9">
-          <Field label="Name" name="name" required />
-          <Field label="Email" name="email" type="email" required />
-          <FieldArea label="Message" name="message" required minLength={10} />
+          <Field label="Name" name="name" required placeholder="Your name" />
+          <Field label="Email" name="email" type="email" required placeholder="you@example.com" />
+          <FieldArea label="Message" name="message" required minLength={10} placeholder="A few words about your project, or just say hi." />
 
           <fieldset>
             <legend className="mb-3 text-[11px] uppercase tracking-[0.2em] text-muted">
@@ -169,11 +169,13 @@ function Field({
   name,
   type = "text",
   required,
+  placeholder,
 }: {
   label: string;
   name: string;
   type?: string;
   required?: boolean;
+  placeholder?: string;
 }) {
   return (
     <div>
@@ -185,7 +187,8 @@ function Field({
         name={name}
         type={type}
         required={required}
-        className="w-full border-b border-line bg-transparent py-2 text-[18px] text-ink outline-none transition-colors focus:border-accent"
+        placeholder={placeholder}
+        className="w-full rounded-[6px] border border-line bg-[rgba(10,10,10,0.04)] px-4 py-3 text-[16px] text-ink outline-none transition-colors placeholder:text-muted focus:border-accent focus:bg-transparent"
       />
     </div>
   );
@@ -196,11 +199,13 @@ function FieldArea({
   name,
   required,
   minLength,
+  placeholder,
 }: {
   label: string;
   name: string;
   required?: boolean;
   minLength?: number;
+  placeholder?: string;
 }) {
   return (
     <div>
@@ -212,8 +217,9 @@ function FieldArea({
         name={name}
         required={required}
         minLength={minLength}
+        placeholder={placeholder}
         rows={5}
-        className="w-full resize-none border-b border-line bg-transparent py-2 text-[18px] text-ink outline-none transition-colors focus:border-accent"
+        className="w-full resize-none rounded-[6px] border border-line bg-[rgba(10,10,10,0.04)] px-4 py-3 text-[16px] text-ink outline-none transition-colors placeholder:text-muted focus:border-accent focus:bg-transparent"
       />
     </div>
   );

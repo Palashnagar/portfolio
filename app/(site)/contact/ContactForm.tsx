@@ -6,6 +6,17 @@ import clsx from "clsx";
 
 type State = "idle" | "submitting" | "success" | "error";
 
+// Web3Forms access key — PUBLIC by design (it lives in client markup) and bound to
+// deliver only to the address it was created for, so it is safe in the bundle.
+// Web3Forms blocks server-side calls and sits behind a browser bot-check, so the
+// form posts here directly from the browser. Delivers to nagar.palash683@gmail.com.
+const WEB3FORMS_ACCESS_KEY = "e95f9da5-eeea-48a0-a11c-e2c431dc9532";
+const PROJECT_LABELS: Record<string, string> = {
+  fulltime: "Full-time",
+  freelance: "Freelance / contract",
+  hi: "Just saying hi",
+};
+
 export function ContactForm() {
   const [state, setState] = useState<State>("idle");
   const [errors, setErrors] = useState<string[]>([]);
@@ -16,28 +27,39 @@ export function ContactForm() {
     setErrors([]);
 
     const fd = new FormData(e.currentTarget);
-    const body = {
-      name: String(fd.get("name") ?? ""),
-      email: String(fd.get("email") ?? ""),
-      message: String(fd.get("message") ?? ""),
-      projectType: String(fd.get("projectType") ?? "hi"),
-    };
+    const name = String(fd.get("name") ?? "");
+    const email = String(fd.get("email") ?? "");
+    const message = String(fd.get("message") ?? "");
+    const projectType = String(fd.get("projectType") ?? "hi");
+    const label = PROJECT_LABELS[projectType] ?? projectType;
 
     try {
-      const res = await fetch("/api/contact", {
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(body),
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New portfolio message · ${label} · ${name}`,
+          from_name: "Palash Nagar Portfolio",
+          name,
+          email, // Web3Forms uses this as the reply-to address
+          project_type: label,
+          message,
+          botcheck: Boolean(fd.get("botcheck")), // honeypot: bots tick the hidden box
+        }),
       });
-      const json = await res.json();
-      if (!res.ok && res.status !== 202) {
-        setErrors(json.errors ?? [json.error ?? "Something went wrong."]);
-        setState("error");
-      } else {
+      const json = (await res.json().catch(() => ({}))) as {
+        success?: boolean;
+        message?: string;
+      };
+      if (json.success) {
         setState("success");
+      } else {
+        setErrors([json.message ?? "Something went wrong. Please use the email link below."]);
+        setState("error");
       }
     } catch {
-      setErrors(["Network error. Try the mailto link below."]);
+      setErrors(["Network error. Please use the email link below."]);
       setState("error");
     }
   }
@@ -90,6 +112,15 @@ export function ContactForm() {
 
       <section style={{ padding: "0 6vw 120px" }}>
         <form onSubmit={handleSubmit} className="mx-auto max-w-reading space-y-9">
+          {/* Honeypot — hidden from people; bots that tick it are rejected. */}
+          <input
+            type="checkbox"
+            name="botcheck"
+            tabIndex={-1}
+            autoComplete="off"
+            aria-hidden="true"
+            className="hidden"
+          />
           <Field label="Name" name="name" required placeholder="Your name" />
           <Field label="Email" name="email" type="email" required placeholder="you@example.com" />
           <FieldArea label="Message" name="message" required minLength={10} placeholder="A few words about your project, or just say hi." />

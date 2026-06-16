@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   title: "Palash Nagar — UX Designer & HCI Researcher",
   description:
     "UX designer and HCI researcher at RIT. Designing interfaces that feel inevitable, from thermal-illusion wearables to software people actually want to use.",
-  metadataBase: new URL("https://palashnagar.vercel.app"),
+  metadataBase: new URL("https://palash.design"),
   openGraph: {
     title: "Palash Nagar — UX Designer & HCI Researcher",
     description:

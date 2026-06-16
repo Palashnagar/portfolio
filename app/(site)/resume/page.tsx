@@ -9,10 +9,8 @@ export const metadata: Metadata = {
 };
 
 // Single source of truth for the résumé's website link (masthead + footer).
-// Uses the deployed portfolio domain so it never 404s.
-// TODO: swap to palashnagar.com once the domain is live.
-const RESUME_SITE_URL = "https://palashnagar.vercel.app";
-const RESUME_SITE_LABEL = "palashnagar.vercel.app";
+const RESUME_SITE_URL = "https://palash.design";
+const RESUME_SITE_LABEL = "palash.design";
 
 const DESIGN_SKILLS = ["Figma", "Framer", "Adobe XD", "Sketch", "Spline", "After Effects", "Miro"];
 const RESEARCH_SKILLS = [

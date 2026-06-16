@@ -14,7 +14,7 @@ interface LineData {
 
 const LINES: LineData[] = [
   { text: "DESIGN" },
-  { text: "THAT FEELS", accentWord: "THAT" },
+  { text: "THAT FEELS", accentWord: "FEELS" },
   { text: "INEVITABLE." },
 ];
 

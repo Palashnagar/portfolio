@@ -5,6 +5,7 @@ import { Grain } from "@/components/fx/Grain";
 import { Cursor } from "@/components/fx/Cursor";
 import { SmoothScroll } from "@/components/fx/SmoothScroll";
 import { ThermalMode } from "@/components/fx/ThermalMode";
+import { Analytics } from "@vercel/analytics/next";
 
 const instrument = Instrument_Serif({
   weight: ["400"],
@@ -68,6 +69,7 @@ export default function RootLayout({
         <Cursor />
         <ThermalMode />
         <SmoothScroll>{children}</SmoothScroll>
+        <Analytics />
       </body>
     </html>
   );

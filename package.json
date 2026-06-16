@@ -11,6 +11,7 @@
     "pull-images": "tsx scripts/pull-existing-images.ts"
   },
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.40.0",
     "gray-matter": "^4.0.3",

@@ -24,13 +24,13 @@ export function RidgeSilhouette({
         preserveAspectRatio="none"
         style={{ display: "block", width: "100%", height: "100%" }}
       >
-        {/* Far range — soft and muted */}
+        {/* Far range, soft and muted */}
         <path
           d="M0 150 L 180 112 L 360 142 L 560 96 L 760 138 L 980 92 L 1200 132 L 1420 102 L 1600 130 L 1600 240 L 0 240 Z"
           fill="var(--muted)"
           opacity="0.3"
         />
-        {/* Near range — warm dark, matching the hero's near ridge */}
+        {/* Near range, warm dark, matching the hero's near ridge */}
         <path
           d="M0 200 L 220 150 L 420 186 L 640 134 L 860 182 L 1080 140 L 1320 180 L 1520 150 L 1600 176 L 1600 240 L 0 240 Z"
           fill="#2A2722"

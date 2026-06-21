@@ -2,7 +2,7 @@
 
 // Filterable editorial grid for /explorations (port of
 // design-reference/explorations-final.html). "All" shows the editorial mixed
-// grid; picking a category adds `.uniform` to morph to a tidy 3-col grid — the
+// grid; picking a category adds `.uniform` to morph to a tidy 3-col grid, the
 // DOM is never rebuilt, only classes toggle, so CSS transitions the morph.
 // Chips are real buttons (aria-pressed); cards are links.
 
@@ -113,7 +113,7 @@ export function ExplorationsGrid() {
             </a>
           );
         })}
-        <div className={styles.emptyState}>Nothing here yet — check back soon.</div>
+        <div className={styles.emptyState}>Nothing here yet. Check back soon.</div>
       </div>
     </>
   );

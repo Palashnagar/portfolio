@@ -8,7 +8,7 @@ export interface ExperienceRow {
 
 export const experience: ExperienceRow[] = [
   {
-    year: "2024 — now",
+    year: "2024–now",
     where: "RIT",
     role: "Master's in HCI",
     context: "Capstone: thermal-illusion wearable",
@@ -22,7 +22,7 @@ export const experience: ExperienceRow[] = [
     kind: "work",
   },
   {
-    year: "2023 — 24",
+    year: "2023–24",
     where: "Netlink Software",
     role: "UX Designer (Intern)",
     context: "Enterprise dashboards + design system",

@@ -1,6 +1,6 @@
 "use client";
 
-// Hero ambient scene — a faithful React port of design-reference/hero-F-final.html.
+// Hero ambient scene, a faithful React port of design-reference/hero-F-final.html.
 // Two absolutely-positioned, pointer-events:none layers that live INSIDE the hero
 // section (so they scroll away with it): the inline ambient SVG (warm sun aura +
 // glowing core OUTSIDE the right-dissolve mask; clouds, three parallax ridges with
@@ -16,7 +16,7 @@ import { useEffect, useRef } from "react";
 import styles from "./AmbientScene.module.css";
 import { Bird, type Viewport, type Pointer } from "@/lib/birds";
 
-// Seven birds — sizes, opacities, stroke widths, wing paths and flap timings are
+// Seven birds, sizes, opacities, stroke widths, wing paths and flap timings are
 // verbatim from the reference (.bird, .bird.b … .bird.g).
 const BIRDS = [
   { w: 28, h: 16, sw: 1.6, op: 0.75, d: "M -11 0 q 5.5 -5.5 11 0 q 5.5 -5.5 11 0", dur: "0.55s", delay: "0s" },
@@ -195,7 +195,7 @@ export default function AmbientScene() {
             </linearGradient>
           </defs>
 
-          {/* Warm sun aura (no mask — softly extends across, fades into cream) */}
+          {/* Warm sun aura (no mask, softly extends across, fades into cream) */}
           <rect width="1600" height="900" fill="url(#haSunAura)" />
 
           {/* Sun glow + core (outside mask so they stay crisp on the right) */}
@@ -234,7 +234,7 @@ export default function AmbientScene() {
               <path d="M 980 580 L 992 572 L 1006 582 L 998 592 L 1003 603 L 986 598 Z" fill="#F5F1EA" opacity="0.8" />
             </g>
 
-            {/* NEAR ridges — darkest, in front */}
+            {/* NEAR ridges, darkest, in front */}
             <g className={styles.parallax} data-depth="1">
               <path
                 d="M 320 800 L 460 720 L 580 760 L 710 690 L 840 745 L 970 685 L 1100 735 L 1230 695 L 1360 740 L 1490 715 L 1620 745 L 1650 740 L 1650 900 L 320 900 Z"

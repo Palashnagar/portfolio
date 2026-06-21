@@ -242,7 +242,7 @@ export default function HorizontalWork() {
             ))}
           </motion.div>
 
-          {/* Progress label — inside sticky, scoped to section */}
+          {/* Progress label, inside sticky, scoped to section */}
           <motion.div
             style={{
               position: "absolute",
@@ -256,11 +256,11 @@ export default function HorizontalWork() {
               whiteSpace: "nowrap",
             }}
           >
-            {projects[activeIdx].num} / 04 — {projects[activeIdx].title}{" "}
+            {projects[activeIdx].num} / 04 · {projects[activeIdx].title}{" "}
             {projects[activeIdx].accent}
           </motion.div>
 
-          {/* Progress rail — inside sticky, scoped to section */}
+          {/* Progress rail, inside sticky, scoped to section */}
           <div
             style={{
               position: "absolute",

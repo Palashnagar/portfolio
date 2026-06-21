@@ -1,7 +1,7 @@
 "use client";
 
 // MyCourses-only progressive enhancement: one Figma one-pager button that
-// travels across the page as a pure function of scroll —
+// travels across the page as a pure function of scroll, 
 //   phase 1: inline in the hero (tracks the hero anchor)
 //   phase 1→2: glides to a left-edge rail, vertically centered
 //   phase 2: pinned on the rail through the body
@@ -9,7 +9,7 @@
 //              resolve as the centered closing-CTA button.
 // The static hero + closing <a>s are real links (work with no JS) and double as
 // the measured rest anchors in motion mode (hidden, aria-hidden). Reduced-motion
-// and <768px get the static buttons only — no fixed element, no choreography.
+// and <768px get the static buttons only, no fixed element, no choreography.
 
 import { useEffect, useRef } from "react";
 import styles from "./FigmaOnePager.module.css";
@@ -17,7 +17,7 @@ import styles from "./FigmaOnePager.module.css";
 export const FIGMA_URL =
   "https://www.figma.com/proto/xN9evTe9VsBLSXjRUnuuHm/MyCourses-Design?page-id=1018%3A1859&node-id=1209-14782&viewport=-1120%2C386%2C0.52&t=LbgoYCdB4owtbtON-1&scaling=min-zoom&content-scaling=fixed";
 
-// Static hero instance — rendered into the Hero's children slot for MyCourses.
+// Static hero instance, rendered into the Hero's children slot for MyCourses.
 export function FigmaHeroButton() {
   return (
     <div className={styles.heroBtnRow}>
@@ -192,7 +192,7 @@ export function FigmaOnePager() {
       raf = requestAnimationFrame(frame);
     }
 
-    // Re-read anchor geometry whenever layout shifts — crucial on this page
+    // Re-read anchor geometry whenever layout shifts, crucial on this page
     // because lazy-loaded images + the video grow the document AFTER mount,
     // pushing the closing CTA down. Without this the button would settle on a
     // stale position (e.g. over the video) instead of the closing section.
@@ -255,7 +255,7 @@ export function FigmaOnePager() {
         </div>
       </section>
 
-      {/* The single traveling instance — desktop + motion only. Hidden on SSR /
+      {/* The single traveling instance, desktop + motion only. Hidden on SSR /
           no-JS / reduced-motion / mobile; the controller reveals + drives it. */}
       <a
         ref={travelerRef}

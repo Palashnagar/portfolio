@@ -6,7 +6,7 @@
 // the page (corner nav, footer chrome, hero) may reveal.
 //
 // Crucial timing detail: the homepage's FIRST paint must be the intro's *opening*
-// state (centered name, hidden chrome), never the finished state — otherwise the
+// state (centered name, hidden chrome), never the finished state, otherwise the
 // browser paints the parked/revealed UI from SSR and the intro reverse-animates
 // out of it, colliding with the hero reveal. We therefore seed the initial state
 // from the route (usePathname is SSR-accurate) and keep transitions suppressed
@@ -79,7 +79,7 @@ export function IntroProvider({ children }: { children: React.ReactNode }) {
     try {
       sessionStorage.setItem(STORAGE_KEY, "1");
     } catch {
-      /* sessionStorage unavailable — ignore */
+      /* sessionStorage unavailable, ignore */
     }
   };
 
@@ -104,7 +104,7 @@ export function IntroProvider({ children }: { children: React.ReactNode }) {
     }
 
     if (isHome && motionOk && !played) {
-      // Already in the opening state — enable transitions and run the sequence.
+      // Already in the opening state, enable transitions and run the sequence.
       // Timings verbatim from intro-logo.html.
       setReady(true);
       const at = (fn: () => void, ms: number) => {

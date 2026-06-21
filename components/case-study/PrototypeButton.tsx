@@ -1,6 +1,6 @@
 "use client";
 
-// Generic scroll-choreographed prototype button — one pill that travels across
+// Generic scroll-choreographed prototype button, one pill that travels across
 // the page as a pure function of scroll:
 //   phase 1: inline in the hero (tracks the hero anchor)
 //   phase 1→2: glides to a left-edge rail, vertically centered (quick settle)
@@ -27,7 +27,7 @@ export type PrototypeConfig = {
   closeSub: string;
 };
 
-// Static hero instance — rendered into the Hero's children slot.
+// Static hero instance, rendered into the Hero's children slot.
 export function PrototypeHeroButton({ url, heroLabel }: { url: string; heroLabel: string }) {
   return (
     <div className={styles.heroBtnRow}>
@@ -199,7 +199,7 @@ export function PrototypeButton({ url, heroLabel, closeLabel, ariaLabel, closeHe
       raf = requestAnimationFrame(frame);
     }
 
-    // Re-read anchor geometry whenever layout shifts — lazy images grow the
+    // Re-read anchor geometry whenever layout shifts, lazy images grow the
     // document AFTER mount, pushing the closing CTA down. Without this the button
     // would settle on a stale position instead of the closing section.
     const reMeasure = () => {
@@ -259,7 +259,7 @@ export function PrototypeButton({ url, heroLabel, closeLabel, ariaLabel, closeHe
         </div>
       </section>
 
-      {/* Single traveling instance — desktop + motion only. Hidden on SSR / no-JS /
+      {/* Single traveling instance, desktop + motion only. Hidden on SSR / no-JS /
           reduced-motion / mobile; the controller reveals + drives it. */}
       <a
         ref={travelerRef}

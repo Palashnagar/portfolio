@@ -21,7 +21,7 @@ export function Evidence({
       </blockquote>
       {source && (
         <figcaption className="mt-2 text-[11px] uppercase tracking-[0.15em] text-muted">
-          — {source}
+{source}
         </figcaption>
       )}
     </figure>

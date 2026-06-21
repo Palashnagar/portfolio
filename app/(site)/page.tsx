@@ -7,7 +7,7 @@ import NowStrip from "@/components/home/NowStrip";
 import ContactCta from "@/components/home/ContactCta";
 
 export const metadata: Metadata = {
-  title: "Palash Nagar — UX Designer & HCI Researcher",
+  title: "Palash Nagar, UX Designer & HCI Researcher",
   description:
     "UX designer and HCI researcher at RIT, turning thermal illusions into wearables. Design that feels inevitable.",
 };

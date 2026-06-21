@@ -1,4 +1,4 @@
-// Case-study spine section 4 — Constraints & decisions: what was worked around,
+// Case-study spine section 4, Constraints & decisions: what was worked around,
 // what was deliberately ignored, and why.
 
 import type { ReactNode } from "react";

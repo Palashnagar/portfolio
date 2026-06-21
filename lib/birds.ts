@@ -1,6 +1,6 @@
 // Bird flocking logic for the hero ambient scene (components/home/AmbientScene.tsx).
-// Ported verbatim from design-reference/hero-F-final.html — same steering numbers,
-// same wrap behaviour — but refactored to React idioms: the viewport and pointer
+// Ported verbatim from design-reference/hero-F-final.html, same steering numbers,
+// same wrap behaviour, but refactored to React idioms: the viewport and pointer
 // are injected (no global `window` reads) so the math is pure and unit-testable,
 // and update() RETURNS the transform string instead of mutating a DOM node.
 
@@ -20,7 +20,7 @@ export interface Pointer {
  * The rotation rule is the part that breaks most often: a bird silhouette is
  * symmetric left/right but NOT top/bottom (the wings curve up). So we mirror
  * horizontally with scaleX(-1) when flying left and rotate ONLY by the small
- * banking angle atan2(vy, |vx|) — using |vx| keeps the angle within ±90°, so the
+ * banking angle atan2(vy, |vx|), using |vx| keeps the angle within ±90°, so the
  * bird banks but never flips upside-down.
  */
 export function birdTransform(x: number, y: number, vx: number, vy: number): string {
@@ -57,11 +57,11 @@ export class Bird {
    * Pass `pointer = null` to disable cursor avoidance (touch devices cruise).
    */
   update(vp: Viewport, pointer: Pointer | null): string {
-    // 1. Gentle wandering — soft vertical sin perturbation
+    // 1. Gentle wandering, soft vertical sin perturbation
     this.wanderPhase += this.wanderSpeed;
     this.vy += Math.sin(this.wanderPhase) * 0.025;
 
-    // 2. Cursor avoidance — strong push away when near (quadratic falloff)
+    // 2. Cursor avoidance, strong push away when near (quadratic falloff)
     if (pointer) {
       const dx = this.x - pointer.x;
       const dy = this.y - pointer.y;

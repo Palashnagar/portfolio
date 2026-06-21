@@ -4,7 +4,7 @@ import { ExplorationsGrid } from "@/components/explorations/ExplorationsGrid";
 export const metadata: Metadata = {
   title: "Explorations · Palash Nagar",
   description:
-    "The work that doesn't fit a case study — UI explorations, micro-animations, research notes, mockups, and sketches.",
+    "The work that doesn't fit a case study, UI explorations, micro-animations, research notes, mockups, and sketches.",
 };
 
 export default function ExplorationsPage() {
@@ -32,7 +32,7 @@ export default function ExplorationsPage() {
             <em style={{ fontStyle: "italic", color: "var(--accent)" }}>making</em>, in between.
           </h1>
           <p className="mt-5 max-w-[56ch] text-[17px] leading-[1.55] text-ink">
-            The stuff that doesn&apos;t fit a case study — UI explorations, micro-animations,
+            The stuff that doesn&apos;t fit a case study: UI explorations, micro-animations,
             research notes, mockups, sketches.{" "}
             <em style={{ fontFamily: "var(--font-display)", fontStyle: "italic" }}>
               Less polished, more curious.

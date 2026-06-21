@@ -1,4 +1,4 @@
-// Pure logic for the Konami-code easter egg (thermal mode). No DOM access —
+// Pure logic for the Konami-code easter egg (thermal mode). No DOM access, 
 // the client component (components/fx/ThermalMode.tsx) feeds keydown values in
 // and toggles the theme when isKonamiComplete() returns true. Kept pure so the
 // matching behaviour is unit-testable without a browser.

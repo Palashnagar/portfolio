@@ -9,13 +9,13 @@ tools:
 cover: /case-studies/rit-athletics/pulled-04.png
 ---
 
-{/* NOTE: duration is intentionally omitted — the real project timeline isn't
+{/* NOTE: duration is intentionally omitted, the real project timeline isn't
 documented. The Hero meta row filters out empty values, so no fabricated
 "X weeks" appears. Add it here if Palash confirms the real duration. */}
 
 <CsSection num="01" label="The Problem" title="Following your team shouldn't mean refreshing an app all day.">
 
-RIT Tigers fans already have an athletics app — it just gets in their way. To know whether a game is on, you check the Schedule tab by hand. Marking a team as a favorite sets up the expectation of alerts that never arrive. Scores live on the website, ticketing bounces you to a separate site, and sharing a result means taking a screenshot.
+RIT Tigers fans already have an athletics app. It just gets in their way. To know whether a game is on, you check the Schedule tab by hand. Marking a team as a favorite sets up the expectation of alerts that never arrive. Scores live on the website, ticketing bounces you to a separate site, and sharing a result means taking a screenshot.
 
 I took this on as a redesign: keep what fans recognize, and fix the parts that quietly fail them.
 
@@ -24,16 +24,16 @@ I took this on as a redesign: keep what fans recognize, and fix the parts that q
   src="current-design.jpg"
   width={1600}
   height={847}
-  alt="The current RIT Athletics app — a Women's Hockey schedule, a roster list, and the separate ritathletics.com web view fans jump to for live scores."
-  caption="The current design — what fans use today, including the jump out to the website for live scores."
+  alt="The current RIT Athletics app, a Women's Hockey schedule, a roster list, and the separate ritathletics.com web view fans jump to for live scores."
+  caption="The current design, what fans use today, including the jump out to the website for live scores."
 />
 
 Mapping a fan's path through a single game made the friction concrete: there's no quick search, marking a "Favorite" doesn't trigger notifications, there are no personalized alerts, and the "Watch" tab feels disconnected from the rest. Three findings cut across every fan I looked at:
 
 <Findings>
-<Finding n="01" title="Following a team does nothing.">Marking a team as a favorite sets an expectation of alerts the app never delivers, so people check manually — and still miss the first ten minutes.</Finding>
+<Finding n="01" title="Following a team does nothing.">Marking a team as a favorite sets an expectation of alerts the app never delivers, so people check manually, and still miss the first ten minutes.</Finding>
 <Finding n="02" title="The fans who care most can't go deep.">Stats are shallow and often stale; there's no real player or team depth for the supporters who analyze every game.</Finding>
-<Finding n="03" title="Everything social happens outside the app.">Tickets redirect to a separate site with its own login, and scores have to be screenshotted to share — so the social side lives everywhere except the app.</Finding>
+<Finding n="03" title="Everything social happens outside the app.">Tickets redirect to a separate site with its own login, and scores have to be screenshotted to share, so the social side lives everywhere except the app.</Finding>
 </Findings>
 
 </CsSection>
@@ -45,12 +45,12 @@ Mapping a fan's path through a single game made the friction concrete: there's n
 To understand what fans were missing and what they'd expect from an ideal sports-tracking app, I ran user interviews and contextual interviews with RIT supporters, then grounded the redesign in two personas drawn from what I heard.
 
 <PersonaGrid>
-<PersonaCard name={<>Marcus <em>"The Stat-Tracker"</em> Chen</>} tag="Persona · the analyst">Follows RIT basketball and soccer religiously — he doesn't just watch games, he analyzes them, and gets frustrated when he misses a start time or the data he finds is old.</PersonaCard>
+<PersonaCard name={<>Marcus <em>"The Stat-Tracker"</em> Chen</>} tag="Persona · the analyst">Follows RIT basketball and soccer religiously. He doesn't just watch games, he analyzes them, and gets frustrated when he misses a start time or the data he finds is old.</PersonaCard>
 <PersonaCard name={<>Sarah <em>"The Gameday"</em> Jenkins</>} tag="Persona · the organizer">Organizes her friend group's stadium trips and posts scores to Instagram and Twitter; she values speed over deep stats, and abandons ticket purchases when the app kicks her out to an external site.</PersonaCard>
 </PersonaGrid>
 
 <JourneyMap
-  head="Journey Map 1 — Student trying to stay updated about a match"
+  head="Journey Map 1: Student trying to stay updated about a match"
   columns={["Stage", "User goal", "Actions", "Emotions", "Breakdown"]}
   rows={[
     ["Awareness", "Know when the match is happening", "Opens app → goes to Schedule tab", "Curious", "No quick search feature"],
@@ -60,23 +60,23 @@ To understand what fans were missing and what they'd expect from an ideal sports
   ]}
 />
 
-<Caption>Mapping one common task — staying updated about a match — pinpointed exactly where the current app breaks.</Caption>
+<Caption>Mapping one common task, staying updated about a match, pinpointed exactly where the current app breaks.</Caption>
 
-The map made the friction concrete and pointed straight at the three findings above. The recurring theme across both fans: *they already cared — the app just made caring harder than it needed to be.*
+The map made the friction concrete and pointed straight at the three findings above. The recurring theme across both fans: *they already cared; the app just made caring harder than it needed to be.*
 
 </CsSection>
 
 <CsSection num="03" label="Constraints & Decisions" title="A redesign, not a clean slate.">
 
-Because fans already live in this app, two things bounded the work. I kept RIT's athletic identity — the Tigers orange, the wordmark, the tab structure people already know — and I scoped the redesign to the *staying-updated-about-a-match* journey rather than rebuilding the entire athletics ecosystem. The deliberate decisions:
+Because fans already live in this app, two things bounded the work. I kept RIT's athletic identity (the Tigers orange, the wordmark, the tab structure people already know) and I scoped the redesign to the *staying-updated-about-a-match* journey rather than rebuilding the entire athletics ecosystem. The deliberate decisions:
 
 <Bets>
 <Bet title="Fix notifications at the source.">Make Follow and push alerts obvious on every team page, so "following" finally does what people expect.</Bet>
-<Bet title="Bring the data in-app and keep it live.">Real-time scores, rosters, and player stats — plus streaming and commentary — instead of bouncing fans out to the website.</Bet>
+<Bet title="Bring the data in-app and keep it live.">Real-time scores, rosters, and player stats (plus streaming and commentary) instead of bouncing fans out to the website.</Bet>
 <Bet title="Design for depth without clutter.">Dedicated team and player pages give analysts room to go deep while the casual path stays fast.</Bet>
 </Bets>
 
-<LeftOut>The heavy infrastructure — the ticketing and streaming back-ends. I designed the in-app entry points and assumed those services exist, because the goal was to prove the experience, not to rebuild RIT's plumbing.</LeftOut>
+<LeftOut>The heavy infrastructure, the ticketing and streaming back-ends. I designed the in-app entry points and assumed those services exist, because the goal was to prove the experience, not to rebuild RIT's plumbing.</LeftOut>
 
 </CsSection>
 
@@ -89,30 +89,30 @@ The redesign keeps the parts fans recognize and repairs the ones that quietly fa
   src="three-pillars.jpg"
   width={1900}
   height={920}
-  alt="Five redesigned screens under three headings — integrated streaming and live commentary, consistent real-time data for schedules, rosters, and player stats, and dedicated team and player pages."
+  alt="Five redesigned screens under three headings, integrated streaming and live commentary, consistent real-time data for schedules, rosters, and player stats, and dedicated team and player pages."
   caption="Three pillars: integrated streaming and commentary, real-time schedule and stat data, and dedicated team and player pages."
 />
 
-The single most important fix answers the journey map directly. On every team page, one clear **Follow** control sits beside an obvious switch for push notifications — so the breakdown where favoriting did nothing simply disappears. On match day, that same structure carries live scores and play-by-play commentary, so the fans who used to refresh the Schedule tab can just watch it unfold.
+The single most important fix answers the journey map directly. On every team page, one clear **Follow** control sits beside an obvious switch for push notifications, so the breakdown where favoriting did nothing simply disappears. On match day, that same structure carries live scores and play-by-play commentary, so the fans who used to refresh the Schedule tab can just watch it unfold.
 
 <ImageFrame
   webp="before-after.webp"
   src="before-after.jpg"
   width={1900}
   height={904}
-  alt="Before and after — the current favorite-teams screen beside redesigned team pages with a Follow button, a Following state with a notification bell, Roster, Schedule, and Highlights tabs, and season statistics."
-  caption="Before and after — a team page where Following actually means something, with push notifications one tap away."
+  alt="Before and after, the current favorite-teams screen beside redesigned team pages with a Follow button, a Following state with a notification bell, Roster, Schedule, and Highlights tabs, and season statistics."
+  caption="Before and after, a team page where Following actually means something, with push notifications one tap away."
 />
 
 </CsSection>
 
-<CsSection num="05" label="Outcome & Next" title="A coherent redesign — and the half I'd build next.">
+<CsSection num="05" label="Outcome & Next" title="A coherent redesign, and the half I'd build next.">
 
-RIT Athletics is a redesign concept: a full audit of the current app turned into a coherent set of fixes for the fans who use it most. It taught me how to redesign inside an existing brand and information architecture — improving the experience without throwing away what users already know.
+RIT Athletics is a redesign concept: a full audit of the current app turned into a coherent set of fixes for the fans who use it most. It taught me how to redesign inside an existing brand and information architecture, improving the experience without throwing away what users already know.
 
-It's a concept, not a shipped product, so there are no live engagement metrics yet — the honest next step is real-world validation: watching how fans interact with notifications over time, measuring how quickly they reach the information they came for, and seeing whether following a team actually changes behavior.
+It's a concept, not a shipped product, so there are no live engagement metrics yet; the honest next step is real-world validation: watching how fans interact with notifications over time, measuring how quickly they reach the information they came for, and seeing whether following a team actually changes behavior.
 
-Beyond that, where I'd take it next is *Sarah's half of the story*: the ticketing flow that currently sends fans to a separate login, and the share-a-score moment that today means a screenshot. Those are named, real pains — they just sat outside the staying-updated journey I chose to solve first. And because game day is as much about energy and shared experience as information, I'd explore the social dimensions of attendance, not just the data.
+Beyond that, where I'd take it next is *Sarah's half of the story*: the ticketing flow that currently sends fans to a separate login, and the share-a-score moment that today means a screenshot. Those are named, real pains; they just sat outside the staying-updated journey I chose to solve first. And because game day is as much about energy and shared experience as information, I'd explore the social dimensions of attendance, not just the data.
 
 <Takeaway>Good UX isn't always about adding capability. Sometimes the most meaningful work is removing friction, strengthening the narrative flow of a journey, and helping people feel confident instead of lost.</Takeaway>
 

@@ -41,7 +41,7 @@ function buildLetters(line: LineData): Array<{ char: string; accent: boolean }> 
 
 export default function KineticHero() {
   // During the homepage intro the hero (text + ambient scene) stays hidden, then
-  // fades in once the sequence reveals the page — coordinated via IntroProvider.
+  // fades in once the sequence reveals the page, coordinated via IntroProvider.
   const { playIntro, revealed, ready } = useIntro();
 
   // Refs for all letter spans and their resting centers
@@ -57,7 +57,7 @@ export default function KineticHero() {
 
   // Build flat letter data for ref assignment
   const linesData = LINES.map(buildLetters);
-  // Flat array of {accent} in order — used to pair with DOM refs
+  // Flat array of {accent} in order, used to pair with DOM refs
   const flatAccent: boolean[] = linesData.flatMap((line) => line.map((l) => l.accent));
 
   useEffect(() => {
@@ -146,7 +146,7 @@ export default function KineticHero() {
         transition: ready ? "opacity 0.8s ease 1.4s" : "none",
       }}
     >
-      {/* Ambient mountain scene — behind the hero, scrolls away with it. */}
+      {/* Ambient mountain scene, behind the hero, scrolls away with it. */}
       <AmbientScene />
 
       {/* Headline */}
@@ -205,7 +205,7 @@ export default function KineticHero() {
       >
         I&apos;m a UX designer who loves the overlap between research and
         intuition. These days that also means vibe coding in Framer and
-        co-designing with AI like Claude Code and Codex — without losing{" "}
+        co-designing with AI like Claude Code and Codex, without losing{" "}
         <em
           style={{
             fontFamily: "var(--font-display)",

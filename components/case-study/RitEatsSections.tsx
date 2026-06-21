@@ -1,7 +1,7 @@
 // RIT EATS case-study layout kit. Presentational sections matching
 // design-reference/rit-eats-casestudy.html, built from the site's tokens/fonts
 // (no HTML typefaces/weights/colors). Used only by content/case-studies/rit-eats.mdx.
-// Self-contained — does not import the other case-study kits. Server components
+// Self-contained, does not import the other case-study kits. Server components
 // throughout (the traveling prototype button is its own client component).
 
 import type { ReactNode } from "react";

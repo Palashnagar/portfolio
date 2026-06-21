@@ -1,7 +1,7 @@
 "use client";
 
 // "Things I love" full-bleed draggable wall (port of
-// design-reference/about-wall-final.html) — real photos, three cassette-tape
+// design-reference/about-wall-final.html), real photos, three cassette-tape
 // SVGs, two book-cover SVGs, and one autoplaying video. Tiles in vertical pairs
 // auto-scroll left; drag with momentum easing back to base; seamless wrap via a
 // duplicated track. Always-on two-line captions. Keyboard-navigable (Tab/Arrows
@@ -34,7 +34,7 @@ const ITEMS: WallItem[] = [
   { tag: "Reading · the classic", caption: "Don Norman. <em>The book that ruined doors</em> for me.", image: "/about/don-norman.svg" },
   { tag: "Rochester · winter", caption: "Christmas market in ROC. <em>Cold hands</em>, warm spiced everything.", image: "/about/roc-winter-market.jpg", size: "sm", focus: "50% 58%" },
   { tag: "Lake Placid · spring break", caption: "A whole spring break in the Adirondacks. <em>I came back rearranged</em>.", image: "/about/lake-placid-chapel.jpg" },
-  { tag: "Listening · current", caption: "Charlie Puth. <em>That ear for melody</em> — I keep going back.", image: "/about/charlie-puth.svg", size: "sm" },
+  { tag: "Listening · current", caption: "Charlie Puth. <em>That ear for melody</em>, I keep going back.", image: "/about/charlie-puth.svg", size: "sm" },
   { tag: "Vern's · ROC", caption: "Vern's, again. <em>I can't pretend</em> I'm here for anything but the pizza.", image: "/about/verns.jpg" },
   { tag: "NYC · 2024", caption: "First time at Summit. The whole city, <em>all at once</em>.", image: "/about/summit.jpg" },
   { tag: "Lake Placid · still", caption: "The lake, frozen flat. <em>Making memories</em> with a camera between us.", image: "/about/lake-placid-frozen.jpg", size: "xl" },
@@ -65,7 +65,7 @@ const cleanCaption = (c: string) => c.replace(/<\/?em>/g, "");
 
 function TileMedia({ item }: { item: WallItem }) {
   if (item.type === "video") {
-    // No `autoplay` attr — play/pause is driven by the IntersectionObserver in
+    // No `autoplay` attr, play/pause is driven by the IntersectionObserver in
     // the effect (and stays paused → poster under reduced motion).
     return (
       <>
@@ -89,7 +89,7 @@ function TileMedia({ item }: { item: WallItem }) {
   }
   const src = item.image!;
   if (src.endsWith(".svg")) {
-    // Illustrations scale natively — no srcset. draggable=false stops the browser
+    // Illustrations scale natively, no srcset. draggable=false stops the browser
     // from starting a native image-drag when you grab the wall.
     // eslint-disable-next-line @next/next/no-img-element
     return <img src={src} alt="" loading="lazy" decoding="async" draggable={false} />;
@@ -121,7 +121,7 @@ function Tile({ idx, copy }: { idx: number; copy: number }) {
       className={`${styles.item} ${sizeClass}`}
       data-tile={dup ? "dup" : "real"}
       role="img"
-      aria-label={dup ? undefined : `${item.tag} — ${cleanCaption(item.caption)}`}
+      aria-label={dup ? undefined : `${item.tag}, ${cleanCaption(item.caption)}`}
       tabIndex={dup ? -1 : 0}
       aria-hidden={dup || undefined}
     >
@@ -238,7 +238,7 @@ export function ImageWall() {
       try {
         keyboard = t.matches(":focus-visible");
       } catch {
-        /* :focus-visible unsupported — treat as keyboard */
+        /* :focus-visible unsupported, treat as keyboard */
       }
       if (!keyboard) return;
       paused = true;
@@ -286,7 +286,7 @@ export function ImageWall() {
     let raf = 0;
     const loop = () => {
       if (isDragging) {
-        // Offset is driven directly by the pointer in onMove — highest priority,
+        // Offset is driven directly by the pointer in onMove, highest priority,
         // so neither the keyboard-centering nor the autoscroll fights the drag.
       } else if (paused && hasTarget) {
         offset += (target - offset) * 0.12; // ease focused tile to center
@@ -359,8 +359,8 @@ export function ImageWall() {
         </h2>
         <p className="mt-5 max-w-[56ch] text-[17px] leading-[1.55] text-ink">
           Outside of pixels and prototypes I&apos;m{" "}
-          <em style={{ fontFamily: "var(--font-display)", fontStyle: "italic" }}>collecting moments</em>{" "}
-          — places that humbled me, songs I&apos;ve designed to, books I keep returning to, food
+          <em style={{ fontFamily: "var(--font-display)", fontStyle: "italic" }}>collecting moments</em>:{" "}
+places that humbled me, songs I&apos;ve designed to, books I keep returning to, food
           I&apos;m trying to get right. Drag the wall, or just watch it drift.
         </p>
       </div>
@@ -370,7 +370,7 @@ export function ImageWall() {
           ref={wallRef}
           className={styles.wall}
           role="region"
-          aria-label="Things I love — a draggable image wall"
+          aria-label="Things I love, a draggable image wall"
         >
           <div ref={trackRef} className={styles.track}>
             {[0, 1].map((copy) =>

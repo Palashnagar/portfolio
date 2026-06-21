@@ -1,12 +1,12 @@
-// /work index — distortion grid (anatomy from 04-hover-distortion.html): mono
+// /work index, distortion grid (anatomy from 04-hover-distortion.html): mono
 // eyebrow + serif page title with accent + 2-col WorkGrid driven by
-// data/projects.ts. No <main> here — the (site) layout provides it.
+// data/projects.ts. No <main> here, the (site) layout provides it.
 
 import { projects } from "@/data/projects";
 import { WorkGrid } from "@/components/work/WorkGrid";
 
 export const metadata = {
-  title: "Work — Palash Nagar",
+  title: "Work · Palash Nagar",
   description: "Selected case studies in UX/UI, product design, and HCI research.",
 };
 

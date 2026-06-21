@@ -1,6 +1,6 @@
 "use client";
 
-// The site logo — one morphing element (design-reference/intro-logo.html). The
+// The site logo, one morphing element (design-reference/intro-logo.html). The
 // full "Palash Nagar" and the parked "PN" are the SAME DOM node: P and N are
 // .accent letters, every other letter (and the space) is a .middle letter that
 // collapses to zero width when parked. Phase comes from IntroProvider; the CSS
@@ -47,7 +47,7 @@ export function SiteLogo() {
       className={rootClass}
       role="link"
       tabIndex={0}
-      aria-label="Palash Nagar — home"
+      aria-label="Palash Nagar, home"
       data-cursor="link"
       onClick={activate}
       onKeyDown={onKeyDown}

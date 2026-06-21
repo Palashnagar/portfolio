@@ -3,7 +3,7 @@
 // from Palash` rather than inventing one.
 
 export const now = {
-  building: "ASND — an invite-only network for the creative industry",
-  reading: "Ruined by Design — Mike Monteiro",
+  building: "ASND, an invite-only network for the creative industry",
+  reading: "Ruined by Design, Mike Monteiro",
   available: "Full-time from Dec 2026 · open to relocate",
 };

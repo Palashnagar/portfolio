@@ -1,6 +1,6 @@
 // A solution walkthrough item (lives inside <Solution>): one screen/flow image
 // paired with the insight → decision mapping that justifies it. If no real
-// screenshot is available, renders a <Todo> marker rather than a placeholder —
+// screenshot is available, renders a <Todo> marker rather than a placeholder, 
 // never fabricate a screen.
 
 import Image from "next/image";
@@ -38,7 +38,7 @@ export function Screen({
           />
         ) : (
           <span className="absolute inset-0 flex items-center justify-center p-6 text-center">
-            <Todo>screen image{alt ? ` — ${alt}` : ""}</Todo>
+            <Todo>screen image{alt ? `, ${alt}` : ""}</Todo>
           </span>
         )}
       </div>

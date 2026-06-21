@@ -1,7 +1,7 @@
 // RIT Athletics case-study layout kit. Presentational sections matching
 // design-reference/rit-athletics-casestudy.html, built from the site's
 // tokens/fonts (no HTML typefaces/weights/colors). Used only by
-// content/case-studies/rit-athletics.mdx. Self-contained — does not import the
+// content/case-studies/rit-athletics.mdx. Self-contained, does not import the
 // other case-study kits, so they stay untouched. Server components throughout
 // (the traveling deck button is its own client component).
 

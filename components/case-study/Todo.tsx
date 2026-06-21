@@ -12,7 +12,7 @@ export function Todo({ children }: { children: ReactNode }) {
       className="mx-0.5 inline-flex items-baseline rounded-[2px] border border-accent/40 bg-accent/10 px-2 py-0.5 text-[13px] font-medium text-accent"
       style={{ fontFamily: "var(--font-body)" }}
     >
-      TODO: needs data from Palash — {children}
+      TODO: needs data from Palash, {children}
     </span>
   );
 }

@@ -1,5 +1,5 @@
 // Homepage closer (spec §6, copy from 03-horizontal-scroll outro). Serif line
-// with italic-orange accent + a single magnetic CTA. Server component — the
+// with italic-orange accent + a single magnetic CTA. Server component, the
 // magnetic behaviour lives in the <Magnetic> client primitive.
 
 import Link from "next/link";
@@ -12,7 +12,7 @@ export default function ContactCta() {
       className="relative flex min-h-[78vh] flex-col items-center justify-center overflow-hidden text-center"
       style={{ padding: "96px 6vw 72px", isolation: "isolate" }}
     >
-      {/* Mountain-ridge motif echoing the hero — grounds the closing beat. */}
+      {/* Mountain-ridge motif echoing the hero, grounds the closing beat. */}
       <RidgeSilhouette className="h-[36%]" />
 
       <h2

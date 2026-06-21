@@ -9,9 +9,9 @@ import { toolkit } from "@/data/tools";
 import { beliefs } from "@/data/beliefs";
 
 export const metadata: Metadata = {
-  title: "About — Palash Nagar",
+  title: "About · Palash Nagar",
   description:
-    "Palash Nagar — a UX designer and HCI researcher at RIT turning thermal illusions into calmer wearables. The longer version.",
+    "Palash Nagar, a UX designer and HCI researcher at RIT turning thermal illusions into calmer wearables. The longer version.",
 };
 
 // Shared section header: small-caps eyebrow over a serif title. Mirrors the v2
@@ -38,7 +38,7 @@ function SectionHead({ eyebrow, children }: { eyebrow: string; children: React.R
 export default function AboutPage() {
   return (
     <>
-      {/* 01 — Hero: text-first, researcher-meets-designer */}
+      {/* 01, Hero: text-first, researcher-meets-designer */}
       <header style={{ padding: "140px 6vw 56px" }}>
         <div className="mx-auto max-w-[1100px]">
           <div className="mb-6 text-[11px] uppercase tracking-[0.2em] text-accent-text">About</div>
@@ -51,16 +51,16 @@ export default function AboutPage() {
               letterSpacing: "-0.025em",
             }}
           >
-            I design calm interfaces — and research how they make people{" "}
+            I design calm interfaces, and research how they make people{" "}
             <em style={{ fontStyle: "italic", color: "var(--accent)" }}>feel.</em>
           </h1>
         </div>
       </header>
 
-      {/* 02 — Who: typographic portrait block + bio prose + belief pull-quote */}
+      {/* 02, Who: typographic portrait block + bio prose + belief pull-quote */}
       <section className="border-t border-line" style={{ padding: "80px 6vw" }}>
         <div className="mx-auto grid max-w-[1100px] grid-cols-1 gap-10 md:grid-cols-[1fr_1.5fr] md:gap-16">
-          {/* Portrait — Palash in his graduation suit, via next/image in a
+          {/* Portrait, Palash in his graduation suit, via next/image in a
               bordered, slightly rounded 4/5 frame. "UX · HCI" / "Just Graduated!"
               stay as cream label overlays for editorial continuity. */}
           <div className="relative aspect-[4/5] max-h-[58vh] overflow-hidden rounded-2xl border border-line">
@@ -100,7 +100,7 @@ export default function AboutPage() {
           <div>
             <div className="max-w-[58ch] space-y-6 text-[17px] leading-[1.65] text-ink">
               <p>
-                Hi, I&apos;m Palash Nagar — a UX designer and HCI graduate student who believes
+                Hi, I&apos;m Palash Nagar, a UX designer and HCI graduate student who believes
                 thoughtful interaction design can turn everyday frustrations into{" "}
                 <em
                   style={{
@@ -139,10 +139,10 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* "The rest of me" — full-bleed draggable wall of things Palash loves */}
+      {/* "The rest of me", full-bleed draggable wall of things Palash loves */}
       <ImageWall />
 
-      {/* 03 — What I research: thermal illusions → wearables */}
+      {/* 03, What I research: thermal illusions → wearables */}
       <section className="border-t border-line" style={{ padding: "80px 6vw" }}>
         <div className="mx-auto max-w-[1100px]">
           <SectionHead eyebrow="What I research">
@@ -152,7 +152,7 @@ export default function AboutPage() {
           <div className="mt-8 max-w-[62ch] space-y-6 text-[17px] leading-[1.65] text-ink">
             <p>
               My capstone is a thermal-illusion wearable: a wristband that uses temperature
-              contrast — warm against cool — as a signal channel, instead of the buzz-and-light
+              contrast, warm against cool, as a signal channel, instead of the buzz-and-light
               overload that most notifications rely on. The idea is to let a device tell you
               something without yanking you out of whatever you&apos;re doing.
             </p>
@@ -165,7 +165,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 04 — How I work */}
+      {/* 04, How I work */}
       <section className="border-t border-line" style={{ padding: "80px 6vw" }}>
         <div className="mx-auto max-w-[1100px]">
           <SectionHead eyebrow="How I work">
@@ -173,25 +173,25 @@ export default function AboutPage() {
           </SectionHead>
           <div className="mt-8 max-w-[62ch] space-y-6 text-[17px] leading-[1.65] text-ink">
             <p>
-              I start by listening on purpose — mapping the journey, watching where it quietly
+              I start by listening on purpose, mapping the journey, watching where it quietly
               breaks, and naming the moment a product lets someone down. Only then do I design, and
               the work is usually about taking things away until what&apos;s left feels inevitable.
             </p>
             <p>
               I prototype in Figma, test with real people, and keep iterating until the interface
-              feels calm and legible rather than clever. Subtlety, to me, is a feature — not a
+              feels calm and legible rather than clever. Subtlety, to me, is a feature, not a
               compromise.
             </p>
           </div>
         </div>
       </section>
 
-      {/* 05 — Now strip (reused home component, reads data/now.ts) */}
+      {/* 05, Now strip (reused home component, reads data/now.ts) */}
       <div style={{ paddingTop: 16, paddingBottom: 16 }}>
         <NowStrip />
       </div>
 
-      {/* 06 — Experience */}
+      {/* 06, Experience */}
       <section className="border-t border-line" style={{ padding: "80px 6vw" }}>
         <div className="mx-auto max-w-[1100px]">
           <SectionHead eyebrow="Experience">
@@ -215,7 +215,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 07 — Toolkit */}
+      {/* 07, Toolkit */}
       <section className="border-t border-line" style={{ padding: "80px 6vw" }}>
         <div className="mx-auto max-w-[1100px]">
           <SectionHead eyebrow="Toolkit">
@@ -241,7 +241,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 08 — Beliefs */}
+      {/* 08, Beliefs */}
       <section className="border-t border-line" style={{ padding: "80px 6vw" }}>
         <div className="mx-auto max-w-[1100px]">
           <SectionHead eyebrow="Beliefs">
@@ -274,7 +274,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 09 — Closer */}
+      {/* 09, Closer */}
       <section
         className="flex flex-col items-center justify-center border-t border-line text-center"
         style={{ padding: "120px 6vw" }}

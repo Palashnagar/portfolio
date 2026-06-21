@@ -1,4 +1,4 @@
-// Captioned image for case-study artifacts that aren't solution walkthroughs —
+// Captioned image for case-study artifacts that aren't solution walkthroughs, 
 // research diagrams, survey slides, process shots, hero beauty shots. Uses
 // object-contain so diagrams and full screens are never cropped. For solution
 // screens that pair an image with an insight→decision rationale, use <Screen>.

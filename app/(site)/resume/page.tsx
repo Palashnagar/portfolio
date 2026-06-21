@@ -3,9 +3,9 @@ import styles from "./resume.module.css";
 import { DownloadButton } from "./DownloadButton";
 
 export const metadata: Metadata = {
-  title: "Palash Nagar — UX/Product Designer · Résumé",
+  title: "Palash Nagar, UX/Product Designer · Résumé",
   description:
-    "Résumé of Palash Nagar — UX/Product designer and HCI graduate student with 2+ years shipping research-backed digital products.",
+    "Résumé of Palash Nagar, UX/Product designer and HCI graduate student with 2+ years shipping research-backed digital products.",
 };
 
 // Single source of truth for the résumé's website link (masthead + footer).
@@ -45,7 +45,7 @@ export default function ResumePage() {
             </p>
             <p className={styles.summary}>
               UX/Product designer and HCI graduate student with 2+ years shipping research-backed
-              digital products. Comfortable across the full arc — user interviews, information
+              digital products. Comfortable across the full arc: user interviews, information
               architecture, high-fidelity UI, and <em>interaction motion</em>.
             </p>
           </div>
@@ -71,7 +71,7 @@ export default function ResumePage() {
 
         {/* ============ BODY ============ */}
         <div className={styles.bodyGrid}>
-          {/* LEFT COLUMN — Skills + Education */}
+          {/* LEFT COLUMN, Skills + Education */}
           <div>
             <section className={styles.block} aria-labelledby="resume-skills">
               <h2 className={styles.secLabel} id="resume-skills">
@@ -121,7 +121,7 @@ export default function ResumePage() {
                   <h3 className={styles.deg}>MS Human-Computer Interaction</h3>
                   <div className={styles.school}>Rochester Institute of Technology</div>
                   <div className={styles.eduMeta}>
-                    <span>2024 — Present</span>
+                    <span>2024–Present</span>
                     <span>Rochester, NY</span>
                   </div>
                 </li>
@@ -129,7 +129,7 @@ export default function ResumePage() {
                   <h3 className={styles.deg}>BS Information Technology</h3>
                   <div className={styles.school}>Bharati Vidyapeeth Deemed University</div>
                   <div className={styles.eduMeta}>
-                    <span>2019 — 2023</span>
+                    <span>2019–2023</span>
                     <span>Navi Mumbai, India</span>
                   </div>
                 </li>
@@ -137,7 +137,7 @@ export default function ResumePage() {
             </section>
           </div>
 
-          {/* RIGHT COLUMN — Experience + Selected Projects */}
+          {/* RIGHT COLUMN, Experience + Selected Projects */}
           <div>
             <section className={styles.block} aria-labelledby="resume-experience">
               <h2 className={styles.secLabel} id="resume-experience">
@@ -147,7 +147,7 @@ export default function ResumePage() {
                 <li className={styles.job}>
                   <div className={styles.jobHead}>
                     <h3 className={styles.jobCo}>Netlink Pvt. Ltd</h3>
-                    <span className={styles.jobYears}>2023 — 2024</span>
+                    <span className={styles.jobYears}>2023–2024</span>
                   </div>
                   <p className={styles.jobRole}>
                     UX Designer <span className={styles.kind}>Full-time</span>

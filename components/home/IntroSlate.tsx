@@ -1,6 +1,6 @@
 // Calm full-viewport slate between the kinetic hero and the horizontal work
 // section. Gives the eye a beat before scroll-jacking begins (spec §5). Pure
-// presentational server component — the scroll-hint bounce is CSS-only and is
+// presentational server component, the scroll-hint bounce is CSS-only and is
 // neutralized by the global prefers-reduced-motion block in globals.css.
 
 import { RidgeSilhouette } from "@/components/home/RidgeSilhouette";
@@ -11,7 +11,7 @@ export default function IntroSlate() {
       className="relative flex min-h-[72vh] flex-col justify-center overflow-hidden"
       style={{ padding: "0 6vw", isolation: "isolate" }}
     >
-      {/* Faint ridge echo — quiet visual anchor for the transitional beat. */}
+      {/* Faint ridge echo, quiet visual anchor for the transitional beat. */}
       <RidgeSilhouette className="h-[26%]" opacity={0.5} />
 
       <h2

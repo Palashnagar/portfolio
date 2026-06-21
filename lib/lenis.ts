@@ -10,7 +10,7 @@ export function setLenis(l: Lenis | null) {
 }
 
 /** Smoothly scroll to the top of the page. Drives Lenis when it's active;
- *  falls back to an instant jump otherwise — which is also the correct behavior
+ *  falls back to an instant jump otherwise, which is also the correct behavior
  *  under prefers-reduced-motion, where Lenis is never created. */
 export function scrollToTop() {
   if (instance) {

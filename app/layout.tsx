@@ -32,12 +32,12 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Palash Nagar — UX Designer & HCI Researcher",
+  title: "Palash Nagar, UX Designer & HCI Researcher",
   description:
     "UX designer and HCI researcher at RIT. Designing interfaces that feel inevitable, from thermal-illusion wearables to software people actually want to use.",
   metadataBase: new URL("https://palash.design"),
   openGraph: {
-    title: "Palash Nagar — UX Designer & HCI Researcher",
+    title: "Palash Nagar, UX Designer & HCI Researcher",
     description:
       "Designing interfaces that feel inevitable, from thermal-illusion wearables to software people actually want to use.",
     type: "website",

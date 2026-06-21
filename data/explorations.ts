@@ -1,4 +1,4 @@
-// Explorations — the "in between" work that doesn't fit a case study. Powers
+// Explorations, the "in between" work that doesn't fit a case study. Powers
 // /explorations (components/explorations/ExplorationsGrid.tsx).
 //
 // These are real side projects, each linking to its full write-up on the older
@@ -16,7 +16,7 @@ export type ExplorationType =
 export interface Exploration {
   id: string;
   type: ExplorationType;
-  feature?: boolean; // at most one — gets the largest editorial slot
+  feature?: boolean; // at most one, gets the largest editorial slot
   title: string; // may include <em> for the italic-orange accent
   description: string;
   date: string; // e.g. "May 2026"
@@ -33,7 +33,7 @@ export const explorations: Exploration[] = [
     type: "research",
     title: "Children &amp; <em>educational AR</em>",
     description:
-      "A qualitative study of how children aged 5–10 experience educational AR — observations and interviews toward more inclusive, child-centered design.",
+      "A qualitative study of how children aged 5–10 experience educational AR, observations and interviews toward more inclusive, child-centered design.",
     date: "May 2025",
     badge: "Research · paper",
     href: "https://acrobat.adobe.com/id/urn:aaid:sc:AP:d2f36c35-bfc6-4de8-99af-d72549e72fdb",
@@ -44,7 +44,7 @@ export const explorations: Exploration[] = [
     type: "animation",
     title: "UI <em>motion design</em>",
     description:
-      "A user-centered UI animation concept — transitions and micro-interactions built with Figma's smart-animate to bring an interface to life.",
+      "A user-centered UI animation concept, transitions and micro-interactions built with Figma's smart-animate to bring an interface to life.",
     date: "2024",
     meta: "Figma prototype",
     href: "https://www.figma.com/proto/2sgtcAwrMHdhWIOz55CFsG/Untitled?page-id=0%3A1&node-id=11-689&viewport=-854%2C681%2C0.11&t=Y7kJqt4tI4ekkdZ9-1&scaling=scale-down&content-scaling=fixed",
@@ -55,7 +55,7 @@ export const explorations: Exploration[] = [
     type: "research",
     title: "Heuristic eval of <em>Hinge</em>",
     description:
-      "A heuristic evaluation of the Hinge dating app against Nielsen's 10 usability heuristics — interface strengths, usability issues, and recommendations.",
+      "A heuristic evaluation of the Hinge dating app against Nielsen's 10 usability heuristics, interface strengths, usability issues, and recommendations.",
     date: "May 2023",
     badge: "Research · evaluation",
     href: "https://medium.com/@nagar.palash683/heuristic-evaluation-of-hinge-afe52dbd3b75",
@@ -66,7 +66,7 @@ export const explorations: Exploration[] = [
     type: "mockup",
     title: "Nike Jordan <em>mockups</em>",
     description:
-      "A self-initiated Nike Jordan UI concept — a bold, immersive way to showcase sneakers across mobile and web.",
+      "A self-initiated Nike Jordan UI concept, a bold, immersive way to showcase sneakers across mobile and web.",
     date: "2023",
     badge: "Mockup · concept",
     href: "https://www.figma.com/proto/fdOnDExp2waKee7gJoqJMr/Jordon-first-UI-design-palash?page-id=0%3A1&node-id=408-120&viewport=-349%2C221%2C0.15&t=QUabrgj6d7M93lTL-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=408%3A120",

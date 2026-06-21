@@ -20,7 +20,7 @@ export function ThermalMode() {
     try {
       if (sessionStorage.getItem(STORAGE_KEY) === "on") setOn(true);
     } catch {
-      /* sessionStorage unavailable — ignore */
+      /* sessionStorage unavailable, ignore */
     }
   }, []);
 

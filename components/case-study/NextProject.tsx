@@ -1,4 +1,4 @@
-// Case-study spine section 7 — Next project link (bottom of every study).
+// Case-study spine section 7, Next project link (bottom of every study).
 // Pulls the next project from data/projects.ts, wrapping around to the first.
 
 import Link from "next/link";

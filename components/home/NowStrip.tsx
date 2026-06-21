@@ -1,4 +1,4 @@
-// "Now" strip (spec §8) — thin three-column info rail, Bricolage uppercase,
+// "Now" strip (spec §8), thin three-column info rail, Bricolage uppercase,
 // hairline separators only, NO card backgrounds. Replaces the Ship-1 "Now" card
 // and the StatusMarquee ticker. Pure presentational server component.
 

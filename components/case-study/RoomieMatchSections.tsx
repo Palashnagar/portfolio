@@ -1,7 +1,7 @@
 // RoomieMatch case-study layout kit. Presentational sections matching
 // design-reference/roomiematch-casestudy.html, built from the site's tokens/fonts
 // (no HTML typefaces/weights/colors). Used only by content/case-studies/roomiematch.mdx.
-// Self-contained — does not import the MyCourses kit, so that case study is untouched.
+// Self-contained, does not import the MyCourses kit, so that case study is untouched.
 // Server components throughout (no client JS here; the traveling prototype button is
 // its own client component).
 

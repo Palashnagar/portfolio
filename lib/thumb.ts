@@ -3,7 +3,7 @@
 //
 // The cards render their title-card as inline SVG (so they pick up the page's
 // Instrument Serif). A background-image can't reference the page's web fonts, so
-// the loupe's magnified copy falls back to a system serif — exactly as in the
+// the loupe's magnified copy falls back to a system serif, exactly as in the
 // reference mockup (design-reference/case-study-combined.html). When real
 // photographic thumbnails exist, pass that image URL to <LoupeThumb> instead and
 // the loupe will magnify the real photo.

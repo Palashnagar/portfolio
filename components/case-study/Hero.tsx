@@ -21,7 +21,7 @@ export function Hero({
   team: string;
   outcome?: ReactNode;
   children?: ReactNode;
-  // Optional hero media — when present the hero becomes a two-column split
+  // Optional hero media, when present the hero becomes a two-column split
   // (text left, media right) and the title scales down to fit the column.
   media?: ReactNode;
 }) {

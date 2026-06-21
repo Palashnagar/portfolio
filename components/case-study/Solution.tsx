@@ -1,4 +1,4 @@
-// Case-study spine section 5 — The solution: walk through key screens/flows,
+// Case-study spine section 5, The solution: walk through key screens/flows,
 // showing how each insight mapped to a design decision. Wraps <Screen> items.
 
 import type { ReactNode } from "react";

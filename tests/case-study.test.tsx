@@ -18,7 +18,7 @@ describe("Todo marker (missing-data convention)", () => {
     const note = screen.getByRole("note");
     expect(note).toBeInTheDocument();
     expect(note).toHaveTextContent(
-      /TODO: needs data from Palash — sample size/i,
+      /TODO: needs data from Palash, sample size/i,
     );
   });
 

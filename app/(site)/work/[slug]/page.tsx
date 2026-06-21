@@ -102,7 +102,7 @@ export async function generateMetadata({
   const cs = await loadCaseStudy(slug);
   if (!cs) return {};
   return {
-    title: `${cs.frontmatter.title} — Palash Nagar`,
+    title: `${cs.frontmatter.title} · Palash Nagar`,
     description: cs.frontmatter.tagline,
     openGraph: {
       title: cs.frontmatter.title,
@@ -268,7 +268,7 @@ export default async function CaseStudyPage({
   const isRitEats = slug === "rit-eats";
 
   const heroMedia = isMyCourses ? (
-    // Self-contained mockup (tablet + brand gradient) — shown whole at its natural
+    // Self-contained mockup (tablet + brand gradient), shown whole at its natural
     // aspect, no extra frame. next/image optimizes the heavy source PNG.
     <Image
       src="/case-studies/mycourses/hero-tablet.png"
@@ -284,7 +284,7 @@ export default async function CaseStudyPage({
     // only inside the app screens; the page chrome stays cream/ink/orange.
     <Image
       src="/case-studies/roomiematch/hero.png"
-      alt="RoomieMatch shown on three phones — the lifestyle onboarding step, a swipe-to-match card, and the community listings."
+      alt="RoomieMatch shown on three phones, the lifestyle onboarding step, a swipe-to-match card, and the community listings."
       width={1600}
       height={1095}
       sizes="(max-width: 768px) 92vw, 46vw"
@@ -293,10 +293,10 @@ export default async function CaseStudyPage({
     />
   ) : isRitAthletics ? (
     // Live-game scoreboard phones on cream (the gray studio backdrop was
-    // flood-filled to the page cream) — not the old gray pedestal hero.
+    // flood-filled to the page cream), not the old gray pedestal hero.
     <Image
       src="/case-studies/rit-athletics/hero.png"
-      alt="The redesigned RIT Athletics live-game view on two phones — a roster with RIT Tigers leading Boston University 3–2, and a live play-by-play commentary feed."
+      alt="The redesigned RIT Athletics live-game view on two phones, a roster with RIT Tigers leading Boston University 3–2, and a live play-by-play commentary feed."
       width={1500}
       height={1077}
       sizes="(max-width: 768px) 92vw, 46vw"
@@ -304,11 +304,11 @@ export default async function CaseStudyPage({
       style={{ width: "100%", height: "auto", borderRadius: 12 }}
     />
   ) : isRitEats ? (
-    // The existing RITEATS title slide — a dark branded asset framed on cream like
+    // The existing RITEATS title slide, a dark branded asset framed on cream like
     // a poster (not a full-bleed band). next/image optimizes the heavy source.
     <Image
       src="/case-studies/rit-eats/hero.png"
-      alt="The RITEATS title slide — the RITEATS wordmark, a repeated 'Tigers gotta eat' motif, and a phone showing the burger-forward ordering app, credited to Team Athens, 2024."
+      alt="The RITEATS title slide, the RITEATS wordmark, a repeated 'Tigers gotta eat' motif, and a phone showing the burger-forward ordering app, credited to Team Athens, 2024."
       width={1800}
       height={1018}
       sizes="(max-width: 768px) 92vw, 46vw"

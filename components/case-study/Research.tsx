@@ -1,4 +1,4 @@
-// Case-study spine section 3 — Research: methods + sample size (rendered as
+// Case-study spine section 3, Research: methods + sample size (rendered as
 // small-caps chips), then 3–5 <Insight> children (max), each pairing a
 // statement with <Evidence>.
 

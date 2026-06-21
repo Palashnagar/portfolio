@@ -1,7 +1,7 @@
 // Shared layout for the numbered spine sections (Problem, Research, Constraints,
 // Solution, Outcome). Anatomy ported from the reference case-study wireframe:
 // left rail = serif-italic accent number + uppercase small-caps label; right
-// column = serif section title + body. Server component — no interactivity.
+// column = serif section title + body. Server component, no interactivity.
 
 import type { ReactNode } from "react";
 

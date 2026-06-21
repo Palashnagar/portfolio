@@ -1,4 +1,4 @@
-// Case-study spine section 6 — Outcome / what I'd do next: measurable result if
+// Case-study spine section 6, Outcome / what I'd do next: measurable result if
 // available (big serif accent metrics) + reflection on what to improve. Omit the
 // metrics prop (or wrap values in <Todo> in prose) when numbers aren't real.
 

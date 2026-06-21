@@ -6,7 +6,7 @@ import clsx from "clsx";
 
 type State = "idle" | "submitting" | "success" | "error";
 
-// Web3Forms access key — PUBLIC by design (it lives in client markup) and bound to
+// Web3Forms access key, PUBLIC by design (it lives in client markup) and bound to
 // deliver only to the address it was created for, so it is safe in the bundle.
 // Web3Forms blocks server-side calls and sits behind a browser bot-check, so the
 // form posts here directly from the browser. Delivers to nagar.palash683@gmail.com.
@@ -64,7 +64,7 @@ export function ContactForm() {
     }
   }
 
-  // Typographic success — no mascot. Mirrors the v2 closer voice.
+  // Typographic success, no mascot. Mirrors the v2 closer voice.
   if (state === "success") {
     return (
       <section
@@ -82,7 +82,7 @@ export function ContactForm() {
             letterSpacing: "-0.02em",
           }}
         >
-          Thanks — <em style={{ fontStyle: "italic", color: "var(--accent)" }}>talk soon.</em>
+          Thanks, <em style={{ fontStyle: "italic", color: "var(--accent)" }}>talk soon.</em>
         </h1>
         <p className="mt-7 max-w-[42ch] text-[16px] leading-[1.6] text-muted">
           I read every message and usually reply within a day.
@@ -112,7 +112,7 @@ export function ContactForm() {
 
       <section style={{ padding: "0 6vw 120px" }}>
         <form onSubmit={handleSubmit} className="mx-auto max-w-reading space-y-9">
-          {/* Honeypot — hidden from people; bots that tick it are rejected. */}
+          {/* Honeypot, hidden from people; bots that tick it are rejected. */}
           <input
             type="checkbox"
             name="botcheck"

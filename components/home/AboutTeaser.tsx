@@ -12,7 +12,7 @@ export default function AboutTeaser() {
   return (
     <section className="px-[6vw] py-32">
       <div className="mx-auto grid max-w-content grid-cols-1 items-center gap-[6vw] md:grid-cols-2">
-        {/* Portrait — Palash at SUMMIT One Vanderbilt. The framing labels stay
+        {/* Portrait, Palash at SUMMIT One Vanderbilt. The framing labels stay
             as cream overlays (over subtle scrims) for editorial continuity. */}
         <div className="relative aspect-[4/5] max-h-[60vh] overflow-hidden rounded-2xl border border-line">
           <Image
@@ -61,7 +61,7 @@ export default function AboutTeaser() {
             }}
           >
             A UX designer driven by curiosity and a pull toward real problems
-            for real people — turning complex challenges into intuitive, minimal
+            for real people, turning complex challenges into intuitive, minimal
             experiences that{" "}
             <em style={{ fontStyle: "italic", color: "var(--accent)" }}>
               make life easier.

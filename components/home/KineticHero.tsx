@@ -155,7 +155,7 @@ export default function KineticHero() {
         style={{
           fontFamily: "var(--font-display)",
           fontWeight: 400,
-          fontSize: "clamp(64px, 13vw, 200px)",
+          fontSize: "clamp(44px, 13vw, 200px)",
           lineHeight: 0.92,
           letterSpacing: "-0.03em",
           userSelect: "none",

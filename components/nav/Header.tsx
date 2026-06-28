@@ -10,7 +10,7 @@ const navLinks = [
 
 export function Header() {
   return (
-    <header className="fixed top-8 left-8 right-8 z-50 flex justify-end items-start text-[11px] uppercase tracking-[0.08em]">
+    <header className="fixed top-8 left-8 right-8 z-50 hidden md:flex justify-end items-start text-[11px] uppercase tracking-[0.08em]">
       {/* Identity now lives in <SiteLogo /> (parked top-left, on every page). */}
 
       {/* Right: nav links */}

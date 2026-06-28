@@ -109,3 +109,16 @@
     transform: scaleY(0.4);
   }
 }
+
+/* Mobile: freeze the continuous decorative animations (drifting clouds, swaying
+   trees, breathing sun) so the main thread stays free for smooth bird motion.
+   The grain overlay and Lenis are also disabled on mobile (see Grain /
+   SmoothScroll). The birds keep flying via their RAF. */
+@media (max-width: 720px) {
+  .cloud,
+  .cloudB,
+  .loneTree,
+  .sunGroup {
+    animation: none;
+  }
+}

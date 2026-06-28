@@ -2,7 +2,7 @@ export function Grain() {
   return (
     <div
       aria-hidden="true"
-      className="fixed inset-0 pointer-events-none z-[100]"
+      className="fixed inset-0 pointer-events-none z-[100] hidden md:block"
       style={{
         opacity: 0.18,
         mixBlendMode: "multiply",

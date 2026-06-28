@@ -31,10 +31,24 @@ const BIRDS = [
 export default function AmbientScene() {
   const ambientRef = useRef<HTMLDivElement>(null);
   const birdEls = useRef<Array<HTMLDivElement | null>>([]);
+  const svgRef = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
     const ambientEl = ambientRef.current;
     if (!ambientEl) return;
+
+    // Keep the sun in frame on phones. The SVG is `slice`-scaled, which on a tall,
+    // narrow viewport covers by height and center-crops the sides, slicing off the
+    // right-anchored sun + aura. Anchor right (xMax) on mobile so they stay visible.
+    const svg = svgRef.current;
+    const applyAspect = () => {
+      svg?.setAttribute(
+        "preserveAspectRatio",
+        window.innerWidth < 720 ? "xMaxYMid slice" : "xMidYMid slice"
+      );
+    };
+    applyAspect();
+    window.addEventListener("resize", applyAspect);
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const fine = window.matchMedia("(pointer: fine)").matches; // false on touch
@@ -54,7 +68,7 @@ export default function AmbientScene() {
           el.style.display = "none";
         }
       });
-      return;
+      return () => window.removeEventListener("resize", applyAspect);
     }
 
     // ── Animated scene ──────────────────────────────────────────────────────
@@ -139,6 +153,7 @@ export default function AmbientScene() {
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("mouseleave", onLeave);
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("resize", applyAspect);
       document.removeEventListener("visibilitychange", onVisibility);
       allBirds.forEach((el) => {
         el.style.display = "";
@@ -152,7 +167,7 @@ export default function AmbientScene() {
     <>
       {/* ── Ambient SVG (z-0) ── */}
       <div ref={ambientRef} className={styles.ambient} aria-hidden="true">
-        <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <svg ref={svgRef} viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
           <defs>
             {/* Right-side dissolve mask: white = visible, black = hidden */}
             <linearGradient id="haRightFadeGrad" x1="0" y1="0" x2="1" y2="0">

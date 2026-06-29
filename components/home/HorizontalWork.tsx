@@ -18,7 +18,13 @@ import { activePanelIndex } from "@/lib/horizontal";
 
 function Thumb({ p }: { p: Project }) {
   return (
-    <LoupeThumb className="h-full w-full rounded-2xl" loupeImage={thumbDataUri(p, 400, 500)}>
+    <Link
+      href={`/work/${p.slug}`}
+      data-cursor="card"
+      aria-label={`Open the ${p.title} ${p.accent} case study`}
+      style={{ display: "block", width: "100%", height: "100%" }}
+    >
+      <LoupeThumb className="h-full w-full rounded-2xl" loupeImage={thumbDataUri(p, 400, 500)}>
       <svg
         viewBox="0 0 400 500"
         preserveAspectRatio="xMidYMid slice"
@@ -49,7 +55,8 @@ function Thumb({ p }: { p: Project }) {
           {p.accent.toUpperCase()}
         </text>
       </svg>
-    </LoupeThumb>
+      </LoupeThumb>
+    </Link>
   );
 }
 

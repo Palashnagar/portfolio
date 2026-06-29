@@ -181,7 +181,17 @@ export default function KineticHero() {
                     transition: "color 0.2s ease",
                     willChange: "transform",
                     ...(accent
-                      ? { fontStyle: "italic", color: "var(--accent)" }
+                      ? {
+                          fontStyle: "italic",
+                          color: "var(--accent)",
+                          // Italic glyphs overhang their box. Pad the paint area
+                          // (compensated by an equal negative margin, so letter
+                          // spacing and the kinetic center math are unchanged) so
+                          // the slant isn't clipped by the will-change layer —
+                          // mobile Safari otherwise cuts the "F" of FEELS.
+                          paddingInline: "0.18em",
+                          marginInline: "-0.18em",
+                        }
                       : {}),
                   }}
                 >

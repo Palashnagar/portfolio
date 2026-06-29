@@ -93,7 +93,7 @@ export function ContactForm() {
 
   return (
     <>
-      <header style={{ padding: "140px 6vw 40px" }}>
+      <header style={{ padding: "clamp(96px, 22vw, 140px) 6vw 40px" }}>
         <div className="mx-auto max-w-content">
           <div className="mb-6 text-[11px] uppercase tracking-[0.2em] text-accent-text">Contact</div>
           <h1
@@ -138,7 +138,7 @@ export function ContactForm() {
                 <label
                   key={o.v}
                   data-cursor="link"
-                  className="cursor-none rounded-full border border-line px-4 py-2 text-[13px] uppercase tracking-[0.06em] text-ink transition-colors has-checked:border-ink has-checked:bg-ink has-checked:text-bg"
+                  className="inline-flex items-center min-h-[44px] cursor-none rounded-full border border-line px-5 py-2.5 text-[13px] uppercase tracking-[0.06em] text-ink transition-colors has-checked:border-ink has-checked:bg-ink has-checked:text-bg"
                 >
                   <input
                     type="radio"

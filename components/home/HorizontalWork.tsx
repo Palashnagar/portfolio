@@ -77,7 +77,7 @@ function PanelInfo({ p }: { p: Project }) {
       <h3
         style={{
           fontFamily: "var(--font-display)",
-          fontSize: "clamp(48px, 7vw, 110px)",
+          fontSize: "clamp(34px, 7vw, 110px)",
           lineHeight: 0.95,
           letterSpacing: "-0.02em",
           marginBottom: "24px",

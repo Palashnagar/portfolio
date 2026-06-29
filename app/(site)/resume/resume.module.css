@@ -215,6 +215,8 @@
 }
 .jobHead {
   display: flex;
+  flex-wrap: wrap;
+  gap: 2px 12px;
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 3px;
@@ -284,6 +286,7 @@
 }
 .projHead {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
   margin-bottom: 5px;
@@ -352,6 +355,7 @@
   z-index: 60;
   display: inline-flex;
   align-items: center;
+  min-height: 44px;
   gap: 7px;
   padding: 10px 18px;
   border: 0;

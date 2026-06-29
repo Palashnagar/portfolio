@@ -16,7 +16,7 @@ const siteLinks = [
 
 export function Footer() {
   return (
-    <footer className="mt-32 border-t border-[var(--line)]">
+    <footer className="mt-20 md:mt-32 border-t border-[var(--line)]">
       <div className="max-w-content mx-auto px-6 md:px-10 py-12 grid gap-8 md:grid-cols-3">
         <div>
           <div className="font-[family-name:var(--font-display)] text-2xl">
@@ -68,7 +68,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="max-w-content mx-auto px-6 md:px-10 py-6 border-t border-[var(--line)] flex justify-between text-xs text-[var(--muted)]">
+      <div className="max-w-content mx-auto px-6 md:px-10 py-6 border-t border-[var(--line)] flex flex-col gap-2 sm:flex-row sm:justify-between text-xs text-[var(--muted)]">
         <span>© {new Date().getFullYear()} Palash Nagar</span>
         <span>Designed & built in Rochester</span>
       </div>

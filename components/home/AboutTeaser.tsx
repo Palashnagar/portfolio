@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export default function AboutTeaser() {
   return (
-    <section className="px-[6vw] py-32">
+    <section className="px-[6vw] py-20 md:py-32">
       <div className="mx-auto grid max-w-content grid-cols-1 items-center gap-[6vw] md:grid-cols-2">
         {/* Portrait, Palash at SUMMIT One Vanderbilt. The framing labels stay
             as cream overlays (over subtle scrims) for editorial continuity. */}

@@ -39,7 +39,7 @@ export default function AboutPage() {
   return (
     <>
       {/* 01, Hero: text-first, researcher-meets-designer */}
-      <header style={{ padding: "140px 6vw 56px" }}>
+      <header style={{ padding: "clamp(96px, 22vw, 140px) 6vw 56px" }}>
         <div className="mx-auto max-w-[1100px]">
           <div className="mb-6 text-[11px] uppercase tracking-[0.2em] text-accent-text">About</div>
           <h1
@@ -58,7 +58,7 @@ export default function AboutPage() {
       </header>
 
       {/* 02, Who: typographic portrait block + bio prose + belief pull-quote */}
-      <section className="border-t border-line" style={{ padding: "80px 6vw" }}>
+      <section className="border-t border-line" style={{ padding: "clamp(48px, 11vw, 80px) 6vw" }}>
         <div className="mx-auto grid max-w-[1100px] grid-cols-1 gap-10 md:grid-cols-[1fr_1.5fr] md:gap-16">
           {/* Portrait, Palash in his graduation suit, via next/image in a
               bordered, slightly rounded 4/5 frame. "UX · HCI" / "Just Graduated!"
@@ -143,7 +143,7 @@ export default function AboutPage() {
       <ImageWall />
 
       {/* 03, What I research: thermal illusions → wearables */}
-      <section className="border-t border-line" style={{ padding: "80px 6vw" }}>
+      <section className="border-t border-line" style={{ padding: "clamp(48px, 11vw, 80px) 6vw" }}>
         <div className="mx-auto max-w-[1100px]">
           <SectionHead eyebrow="What I research">
             Turning <em style={{ fontStyle: "italic", color: "var(--accent)" }}>thermal illusions</em>{" "}
@@ -166,7 +166,7 @@ export default function AboutPage() {
       </section>
 
       {/* 04, How I work */}
-      <section className="border-t border-line" style={{ padding: "80px 6vw" }}>
+      <section className="border-t border-line" style={{ padding: "clamp(48px, 11vw, 80px) 6vw" }}>
         <div className="mx-auto max-w-[1100px]">
           <SectionHead eyebrow="How I work">
             Research first, then <em style={{ fontStyle: "italic", color: "var(--accent)" }}>subtract.</em>
@@ -192,7 +192,7 @@ export default function AboutPage() {
       </div>
 
       {/* 06, Experience */}
-      <section className="border-t border-line" style={{ padding: "80px 6vw" }}>
+      <section className="border-t border-line" style={{ padding: "clamp(48px, 11vw, 80px) 6vw" }}>
         <div className="mx-auto max-w-[1100px]">
           <SectionHead eyebrow="Experience">
             A short <em style={{ fontStyle: "italic", color: "var(--accent)" }}>résumé.</em>
@@ -216,7 +216,7 @@ export default function AboutPage() {
       </section>
 
       {/* 07, Toolkit */}
-      <section className="border-t border-line" style={{ padding: "80px 6vw" }}>
+      <section className="border-t border-line" style={{ padding: "clamp(48px, 11vw, 80px) 6vw" }}>
         <div className="mx-auto max-w-[1100px]">
           <SectionHead eyebrow="Toolkit">
             What I design &amp; <em style={{ fontStyle: "italic", color: "var(--accent)" }}>build with.</em>
@@ -242,7 +242,7 @@ export default function AboutPage() {
       </section>
 
       {/* 08, Beliefs */}
-      <section className="border-t border-line" style={{ padding: "80px 6vw" }}>
+      <section className="border-t border-line" style={{ padding: "clamp(48px, 11vw, 80px) 6vw" }}>
         <div className="mx-auto max-w-[1100px]">
           <SectionHead eyebrow="Beliefs">
             What I <em style={{ fontStyle: "italic", color: "var(--accent)" }}>hold close.</em>
@@ -277,7 +277,7 @@ export default function AboutPage() {
       {/* 09, Closer */}
       <section
         className="flex flex-col items-center justify-center border-t border-line text-center"
-        style={{ padding: "120px 6vw" }}
+        style={{ padding: "clamp(72px, 16vw, 120px) 6vw" }}
       >
         <h2
           style={{

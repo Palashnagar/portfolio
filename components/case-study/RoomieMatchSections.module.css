@@ -416,4 +416,18 @@
     grid-template-columns: 44px 1fr;
     gap: 16px;
   }
+  /* 4-screen mockup rows are illegible squeezed into one phone width; let them
+     pan horizontally at a legible height instead (mirrors RIT EATS' wide flows). */
+  .gallery {
+    aspect-ratio: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    justify-content: flex-start;
+    -webkit-overflow-scrolling: touch;
+  }
+  .gallery img {
+    width: auto;
+    height: 260px;
+    max-width: none;
+  }
 }

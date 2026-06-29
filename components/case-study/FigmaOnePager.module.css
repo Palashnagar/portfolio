@@ -5,6 +5,7 @@
 .figmaBtn {
   display: inline-flex;
   align-items: center;
+  min-height: 44px;
   gap: 7px;
   padding: 10px 18px;
   border-radius: 100px;

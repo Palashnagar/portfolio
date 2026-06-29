@@ -359,4 +359,8 @@
     filter: brightness(1) saturate(1);
     transform: scale(1.04);
   }
+  /* Bump filter chips to a 44px tap target on touch (they're tighter on desktop). */
+  .chip {
+    min-height: 44px;
+  }
 }

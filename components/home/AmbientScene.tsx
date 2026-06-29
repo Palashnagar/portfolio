@@ -213,10 +213,14 @@ export default function AmbientScene() {
           {/* Warm sun aura (no mask, softly extends across, fades into cream) */}
           <rect width="1600" height="900" fill="url(#haSunAura)" />
 
-          {/* Sun glow + core (outside mask so they stay crisp on the right) */}
-          <circle cx="1280" cy="370" r="220" fill="url(#haSunGlow)" />
-          <g className={styles.sunGroup}>
-            <circle cx="1280" cy="370" r="68" fill="#E94E1B" opacity="0.96" />
+          {/* Sun glow + core (outside mask so they stay crisp on the right).
+              Wrapped so mobile can lift the whole sun into the top-right sky,
+              clear of the centered headline (see .sun in the module CSS). */}
+          <g className={styles.sun}>
+            <circle cx="1280" cy="370" r="220" fill="url(#haSunGlow)" />
+            <g className={styles.sunGroup}>
+              <circle cx="1280" cy="370" r="68" fill="#E94E1B" opacity="0.96" />
+            </g>
           </g>
 
           {/* Everything below dissolves from right to left */}

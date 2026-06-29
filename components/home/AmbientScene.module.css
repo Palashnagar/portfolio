@@ -121,4 +121,10 @@
   .sunGroup {
     animation: none;
   }
+  /* Lift the sun into the top-right sky so it clears the vertically-centered
+     headline — otherwise the orange accent word ("feels") sits on the orange
+     sun disc and disappears. (SVG transform units == viewBox user units.) */
+  .sun {
+    transform: translate(190px, -210px);
+  }
 }

@@ -12,7 +12,7 @@ export function ThumbPhones({ screens }: { screens: string[] }) {
         position: "absolute",
         inset: 0,
         background:
-          "radial-gradient(52% 56% at 50% 50%, rgba(233,78,27,0.14), rgba(233,78,27,0) 72%), #f2e9dc",
+          "radial-gradient(52% 56% at 50% 50%, rgba(233,78,27,0.14), rgba(233,78,27,0) 72%), #f5f1ea",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

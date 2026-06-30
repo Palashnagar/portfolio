@@ -34,7 +34,7 @@ function Thumb({ p }: { p: Project }) {
             alt={`${p.title} ${p.accent}`}
             fill
             sizes="(max-width: 768px) 85vw, 40vw"
-            style={{ objectFit: "cover", objectPosition: p.thumbFocus }}
+            style={{ objectFit: "contain", objectPosition: p.thumbFocus }}
           />
         )}
       </LoupeThumb>

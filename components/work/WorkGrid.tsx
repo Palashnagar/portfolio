@@ -29,7 +29,7 @@ export function WorkGrid() {
                 alt={`${p.title} ${p.accent}`}
                 fill
                 sizes="(max-width: 768px) 92vw, 46vw"
-                style={{ objectFit: "cover", objectPosition: p.thumbFocus }}
+                style={{ objectFit: "contain", objectPosition: p.thumbFocus }}
               />
             )}
           </LoupeThumb>

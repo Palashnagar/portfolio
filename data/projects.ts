@@ -1,14 +1,11 @@
 // Home + /work project list. Order is intentional, the signature horizontal
 // section walks through these 01 → 04.
 //
-// THUMBNAILS: rendered as branded color title-cards (project `color` +
-// `textColor`), matching the approved design references (03-horizontal-scroll
-// and 04-hover-distortion both render thumbnails this way, it is the intended
-// aesthetic, not a placeholder). Real photographic thumbnails could replace
-// these later: drop a curated image under public/case-studies/<slug>/ and render
-// it via next/image inside <DistortThumb>. No curated thumbnail exists today, 
-// the public/case-studies/* folders hold only uncurated scraped images, so do
-// NOT guess at one.
+// THUMBNAILS: each project renders its curated case-study hero (`thumb`)
+// full-bleed inside <LoupeThumb> (color-awaken + cursor loupe). `thumbFocus` sets
+// the object-position for the cover-crop so the key part of the shot is framed
+// (the heroes are landscape; the home slot is 4:5, the /work slot is 4:3). The
+// loupe magnifies the same image so visitors can inspect the real UI.
 //
 // STATS: the problem one-liners are copied verbatim from the approved design
 // reference (03-horizontal-scroll.html), authored by Palash. Some contain
@@ -28,8 +25,11 @@ export interface Project {
   meta: string[]; // [year, context, "CASE STUDY"]
   desc: string; // one-line tagline for the /work grid card (04 anatomy)
   problem: ProblemSegment[];
-  color: string; // brand color, title-card background
+  color: string; // brand color (kept for reference / future use)
   textColor: string; // readable text color on `color`
+  thumb: string; // curated case-study hero, rendered full-bleed in the thumbnail
+  thumbFocus: string; // object-position for the cover-crop (frames the key part)
+  thumbScreens?: string[]; // optional: compose these phone screens on cream instead of one full-bleed hero (RIT EATS, whose real screens are individual phones)
 }
 
 export const projects: Project[] = [
@@ -49,6 +49,8 @@ export const projects: Project[] = [
     ],
     color: "#E94E1B",
     textColor: "#FFF8F0",
+    thumb: "/case-studies/mycourses/hero-tablet.png",
+    thumbFocus: "center",
   },
   {
     slug: "roomiematch",
@@ -68,6 +70,8 @@ export const projects: Project[] = [
     ],
     color: "#1E3A5F",
     textColor: "#F5F1EA",
+    thumb: "/case-studies/roomiematch/hero.png",
+    thumbFocus: "center",
   },
   {
     slug: "rit-athletics",
@@ -85,6 +89,8 @@ export const projects: Project[] = [
     ],
     color: "#F5A623",
     textColor: "#1A1407",
+    thumb: "/case-studies/rit-athletics/hero.png",
+    thumbFocus: "25% 50%",
   },
   {
     slug: "rit-eats",
@@ -96,7 +102,7 @@ export const projects: Project[] = [
     // real year. TODO: confirm year with Palash.
     meta: ["2024", "F&B", "CASE STUDY"],
     desc: "Campus food ordering, redesigned.",
-    // TODO: confirm "lines peaked at 22 minutes ... under six" with Palash, 
+    // TODO: confirm "lines peaked at 22 minutes ... under six" with Palash,
     // figures sourced from the design-reference mockup, not yet verified.
     problem: [
       {
@@ -107,5 +113,11 @@ export const projects: Project[] = [
     ],
     color: "#2D5F3F",
     textColor: "#F5F1EA",
+    thumb: "/case-studies/rit-eats/screen-home.png",
+    thumbFocus: "50% 15%",
+    thumbScreens: [
+      "/case-studies/rit-eats/screen-home.png",
+      "/case-studies/rit-eats/screen-dish.png",
+    ],
   },
 ];

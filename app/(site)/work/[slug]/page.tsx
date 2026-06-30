@@ -85,6 +85,8 @@ import {
   Pillar as EatsPillar,
   ImageFrame as EatsImageFrame,
   IdSplit as EatsIdSplit,
+  PhoneScreens,
+  PhoneHero,
   Takeaway as EatsTakeaway,
 } from "@/components/case-study/RitEatsSections";
 
@@ -232,6 +234,7 @@ const ritEatsComponents = {
   Pillar: EatsPillar,
   ImageFrame: EatsImageFrame,
   IdSplit: EatsIdSplit,
+  PhoneScreens,
   Takeaway: EatsTakeaway,
 };
 
@@ -304,16 +307,14 @@ export default async function CaseStudyPage({
       style={{ width: "100%", height: "auto", borderRadius: 12 }}
     />
   ) : isRitEats ? (
-    // The existing RITEATS title slide, a dark branded asset framed on cream like
-    // a poster (not a full-bleed band). next/image optimizes the heavy source.
-    <Image
-      src="/case-studies/rit-eats/hero.png"
-      alt="The RITEATS title slide, the RITEATS wordmark, a repeated 'Tigers gotta eat' motif, and a phone showing the burger-forward ordering app, credited to Team Athens, 2024."
-      width={1800}
-      height={1018}
-      sizes="(max-width: 768px) 92vw, 46vw"
-      priority
-      style={{ width: "100%", height: "auto", borderRadius: 12 }}
+    // Real RIT EATS screens composed on warm cream, matching the other case-study
+    // heroes (phones on cream) — replaces the old dark, fabricated title slide.
+    <PhoneHero
+      screens={[
+        { src: "screen-dish.png", label: "RIT EATS dish detail with the sandwich and customization options" },
+        { src: "screen-home.png", label: "RIT EATS home screen with campus restaurants and dishes" },
+        { src: "screen-tracking.png", label: "RIT EATS live order tracking with the delivery person" },
+      ]}
     />
   ) : undefined;
 

@@ -284,3 +284,42 @@ export function Takeaway({
     </div>
   );
 }
+
+// ── 04 Real app screens: responsive phone gallery (real RIT EATS screenshots) ──
+export function PhoneScreens({
+  items,
+  caption,
+}: {
+  items: { src: string; label: string }[];
+  caption?: ReactNode;
+}) {
+  return (
+    <div className={styles.screensBlock}>
+      <div className={styles.screens}>
+        {items.map((s) => (
+          <figure className={styles.screen} key={s.src}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={IMG_BASE + s.src} alt={s.label} loading="lazy" decoding="async" />
+            <figcaption>{s.label}</figcaption>
+          </figure>
+        ))}
+      </div>
+      {caption && <div className={styles.caption}>{caption}</div>}
+    </div>
+  );
+}
+
+// ── Hero media: the real screens as framed phones over a soft glow (no solid card,
+// seamless on the page cream), matching the RoomieMatch / Athletics heroes. ──
+export function PhoneHero({ screens }: { screens: { src: string; label?: string }[] }) {
+  return (
+    <div className={styles.phoneHero}>
+      {screens.map((s) => (
+        <div key={s.src} className={styles.phoneFrame}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={IMG_BASE + s.src} alt={s.label ?? ""} loading="eager" decoding="async" />
+        </div>
+      ))}
+    </div>
+  );
+}

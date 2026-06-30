@@ -11,7 +11,8 @@ import {
 import Link from "next/link";
 import { projects, type Project } from "@/data/projects";
 import { LoupeThumb } from "@/components/work/LoupeThumb";
-import { thumbDataUri } from "@/lib/thumb";
+import { ThumbPhones } from "@/components/work/ThumbPhones";
+import Image from "next/image";
 import { activePanelIndex } from "@/lib/horizontal";
 
 // ─── Sub-components ────────────────────────────────────────────────────────────
@@ -24,37 +25,18 @@ function Thumb({ p }: { p: Project }) {
       aria-label={`Open the ${p.title} ${p.accent} case study`}
       style={{ display: "block", width: "100%", height: "100%" }}
     >
-      <LoupeThumb className="h-full w-full rounded-2xl" loupeImage={thumbDataUri(p, 400, 500)}>
-      <svg
-        viewBox="0 0 400 500"
-        preserveAspectRatio="xMidYMid slice"
-        style={{ display: "block", width: "100%", height: "100%" }}
-      >
-        <rect width="400" height="500" fill={p.color} />
-        <text
-          x="200"
-          y="250"
-          textAnchor="middle"
-          fill={p.textColor}
-          fontFamily="var(--font-display)"
-          fontSize="40"
-          fontStyle="italic"
-        >
-          {p.title} {p.accent}
-        </text>
-        <text
-          x="200"
-          y="288"
-          textAnchor="middle"
-          fill={p.textColor}
-          opacity="0.55"
-          fontFamily="var(--font-body)"
-          fontSize="11"
-          letterSpacing="3"
-        >
-          {p.accent.toUpperCase()}
-        </text>
-      </svg>
+      <LoupeThumb className="h-full w-full rounded-2xl" loupeImage={p.thumb}>
+        {p.thumbScreens ? (
+          <ThumbPhones screens={p.thumbScreens} />
+        ) : (
+          <Image
+            src={p.thumb}
+            alt={`${p.title} ${p.accent}`}
+            fill
+            sizes="(max-width: 768px) 85vw, 40vw"
+            style={{ objectFit: "cover", objectPosition: p.thumbFocus }}
+          />
+        )}
       </LoupeThumb>
     </Link>
   );

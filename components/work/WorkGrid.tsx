@@ -6,7 +6,8 @@
 import Link from "next/link";
 import { projects } from "@/data/projects";
 import { LoupeThumb } from "@/components/work/LoupeThumb";
-import { thumbDataUri } from "@/lib/thumb";
+import { ThumbPhones } from "@/components/work/ThumbPhones";
+import Image from "next/image";
 
 export function WorkGrid() {
   return (
@@ -19,40 +20,18 @@ export function WorkGrid() {
           className="group block no-underline"
         >
           {/* Thumbnail (branded color title-card, 4:3) */}
-          <LoupeThumb
-            className="aspect-[4/3] w-full rounded-2xl"
-            loupeImage={thumbDataUri(p, 400, 300)}
-          >
-            <svg
-              viewBox="0 0 400 300"
-              preserveAspectRatio="xMidYMid slice"
-              style={{ display: "block", width: "100%", height: "100%" }}
-            >
-              <rect width="400" height="300" fill={p.color} />
-              <text
-                x="200"
-                y="150"
-                textAnchor="middle"
-                fill={p.textColor}
-                fontFamily="var(--font-display)"
-                fontSize="40"
-                fontStyle="italic"
-              >
-                {p.title} {p.accent}
-              </text>
-              <text
-                x="200"
-                y="186"
-                textAnchor="middle"
-                fill={p.textColor}
-                opacity="0.55"
-                fontFamily="var(--font-body)"
-                fontSize="11"
-                letterSpacing="3"
-              >
-                {p.accent.toUpperCase()}
-              </text>
-            </svg>
+          <LoupeThumb className="aspect-[4/3] w-full rounded-2xl" loupeImage={p.thumb}>
+            {p.thumbScreens ? (
+              <ThumbPhones screens={p.thumbScreens} />
+            ) : (
+              <Image
+                src={p.thumb}
+                alt={`${p.title} ${p.accent}`}
+                fill
+                sizes="(max-width: 768px) 92vw, 46vw"
+                style={{ objectFit: "cover", objectPosition: p.thumbFocus }}
+              />
+            )}
           </LoupeThumb>
 
           {/* Meta row */}

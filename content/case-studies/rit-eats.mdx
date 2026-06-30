@@ -97,6 +97,26 @@ The prototype is a two-sided product: the same app serves the student placing an
 />
 </Pillars>
 
+Here's the user side, screen by screen, from the first tap to a delivery you can watch arrive.
+
+<PhoneScreens
+  caption="Ordering, browse campus spots, open a restaurant, customize a dish (with allergen notes), and check out."
+  items={[
+    { src: "screen-home.png", label: "Home" },
+    { src: "screen-restaurant.png", label: "Restaurant" },
+    { src: "screen-dish.png", label: "Dish + allergens" },
+    { src: "screen-cart.png", label: "Cart" },
+  ]}
+/>
+
+<PhoneScreens
+  caption="Tracking, live order status with the delivery person's name and contact, plus full order history."
+  items={[
+    { src: "screen-tracking.png", label: "Live tracking" },
+    { src: "screen-orders.png", label: "Past orders" },
+  ]}
+/>
+
 <ImageFrame
   webp="riteats-user-flow.webp"
   src="riteats-user-flow.png"
@@ -119,7 +139,19 @@ A delivery service only works if the person delivering has tools too. Design jus
   caption="The delivery-personnel side, assigned orders, start-delivery with map guidance, shift, and order history."
 />
 
-On the visual side, going from lo-fi to hi-fi meant making the product feel unmistakably RIT: the official palette applied across buttons, backgrounds, and accents, a clear icon set, accessible type and contrast, and depth through shadows and layering to guide focus. The result is the branded, cart-driven interface the title slide previews.
+Beyond ordering, the app carries the rest of campus life: a wallet with campus payment methods, support, and a dedicated accessibility suite (font size, themes, contrast, and language) so it works for everyone.
+
+<PhoneScreens
+  caption="Account and inclusive design, wallet and transactions, support chat, and a full accessibility suite."
+  items={[
+    { src: "screen-profile.png", label: "Profile" },
+    { src: "screen-wallet.png", label: "Wallet" },
+    { src: "screen-support.png", label: "Support" },
+    { src: "screen-accessibility.png", label: "Accessibility" },
+  ]}
+/>
+
+On the visual side, going from lo-fi to hi-fi meant making the product feel unmistakably RIT: the official palette applied across buttons, backgrounds, and accents, a clear icon set, accessible type and contrast, and depth through shadows and layering to guide focus. The result is the branded, cart-driven interface shown in the screens above.
 
 </CsSection>
 

@@ -1,19 +1,17 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useReducedMotion,
-  useMotionValueEvent,
-} from "framer-motion";
+// Landing work section — the four case studies as a vertical stack of large
+// panels (index + thumbnail + title + one-line problem + case-study link) that
+// scroll straight down. Each panel does a subtle fade-and-rise as it enters the
+// viewport (once, strong ease-out), honoring prefers-reduced-motion. Replaced an
+// earlier horizontal scroll-jack; filename kept to avoid churning the import.
+
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { projects, type Project } from "@/data/projects";
 import { LoupeThumb } from "@/components/work/LoupeThumb";
 import { ThumbPhones } from "@/components/work/ThumbPhones";
 import Image from "next/image";
-import { activePanelIndex } from "@/lib/horizontal";
 
 // ─── Sub-components ────────────────────────────────────────────────────────────
 
@@ -127,236 +125,65 @@ function PanelInfo({ p }: { p: Project }) {
 // ─── Main component ────────────────────────────────────────────────────────────
 
 export default function HorizontalWork() {
-  // ── All hooks called unconditionally at top ──────────────────────────────
-
-  const wrapperRef = useRef<HTMLDivElement>(null);
   const prefersReduced = useReducedMotion();
-  const [mode, setMode] = useState<"stack" | "carousel" | "jack">("stack");
-  const [activeIdx, setActiveIdx] = useState(0);
 
-  const { scrollYProgress } = useScroll({
-    target: wrapperRef,
-    offset: ["start start", "end end"],
-  });
+  // Entrance: fade + a small rise as each panel scrolls into view. Fires once,
+  // strong ease-out so it feels responsive rather than floaty. Reduced-motion
+  // drops the movement entirely (renders in place, no animation props).
+  const reveal = prefersReduced
+    ? {}
+    : {
+        initial: { opacity: 0, y: 28 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true, margin: "-80px" },
+        transition: { duration: 0.55, ease: [0.23, 1, 0.32, 1] },
+      };
 
-  const x = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["0vw", `-${(projects.length - 1) * 100}vw`]
-  );
-
-  const railWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-
-  useMotionValueEvent(scrollYProgress, "change", (p) => {
-    // Only the jack layout renders the progress label; in stack/carousel modes
-    // wrapperRef is unattached and scrollYProgress tracks the window, so skip the
-    // state churn (and re-renders) entirely.
-    if (mode !== "jack") return;
-    setActiveIdx(activePanelIndex(p, projects.length));
-  });
-
-  useEffect(() => {
-    if (prefersReduced) {
-      setMode("stack");
-    } else if (!window.matchMedia("(pointer: fine)").matches) {
-      setMode("carousel");
-    } else {
-      setMode("jack");
-    }
-  }, [prefersReduced]);
-
-  // ── Layout: jack (desktop + motion) ─────────────────────────────────────
-  if (mode === "jack") {
-    return (
-      <section
-        ref={wrapperRef}
-        style={{ position: "relative", height: "500vh" }}
-      >
-        <div
-          style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden" }}
+  return (
+    <section style={{ padding: "80px 6vw" }}>
+      {projects.map((p) => (
+        <motion.div
+          key={p.slug}
+          className="group"
+          {...reveal}
+          style={{ marginBottom: 120 }}
         >
-          {/* Horizontal track */}
-          <motion.div
+          {/* Index */}
+          <div
             style={{
-              x,
-              display: "flex",
-              height: "100%",
-              willChange: "transform",
-            }}
-          >
-            {projects.map((p) => (
-              <div
-                key={p.slug}
-                className="group"
-                style={{
-                  flex: "0 0 100vw",
-                  height: "100%",
-                  padding: "100px 6vw 80px",
-                  display: "flex",
-                  gap: "6vw",
-                  alignItems: "center",
-                  position: "relative",
-                }}
-              >
-                {/* Panel number */}
-                <div
-                  style={{
-                    position: "absolute",
-                    top: 100,
-                    left: "6vw",
-                    fontSize: 11,
-                    letterSpacing: "0.2em",
-                    color: "var(--muted)",
-                  }}
-                >
-                  {p.num} / 04
-                </div>
-
-                {/* Thumb */}
-                <div
-                  style={{
-                    flex: "1 1 50%",
-                    aspectRatio: "4/5",
-                    maxHeight: "70vh",
-                  }}
-                >
-                  <Thumb p={p} />
-                </div>
-
-                {/* Info */}
-                <div style={{ flex: "1 1 50%" }}>
-                  <PanelInfo p={p} />
-                </div>
-              </div>
-            ))}
-          </motion.div>
-
-          {/* Progress label, inside sticky, scoped to section */}
-          <motion.div
-            style={{
-              position: "absolute",
-              bottom: 50,
-              left: "50%",
-              transform: "translateX(-50%)",
-              fontSize: 10,
+              fontSize: 11,
               letterSpacing: "0.2em",
-              textTransform: "uppercase",
               color: "var(--muted)",
-              whiteSpace: "nowrap",
+              marginBottom: 20,
             }}
           >
-            {projects[activeIdx].num} / 04 · {projects[activeIdx].title}{" "}
-            {projects[activeIdx].accent}
-          </motion.div>
-
-          {/* Progress rail, inside sticky, scoped to section */}
-          <div
-            style={{
-              position: "absolute",
-              bottom: 32,
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: 280,
-              height: 1,
-              background: "rgba(10,10,10,0.15)",
-            }}
-          >
-            <motion.div
-              style={{
-                height: "100%",
-                background: "var(--accent)",
-                width: railWidth,
-              }}
-            />
+            {p.num} / 04
           </div>
-        </div>
-      </section>
-    );
-  }
 
-  // ── Layout: carousel (touch) ─────────────────────────────────────────────
-  if (mode === "carousel") {
-    return (
-      <section
-        style={{
-          display: "flex",
-          overflowX: "auto",
-          scrollSnapType: "x mandatory",
-          WebkitOverflowScrolling: "touch",
-        }}
-      >
-        {projects.map((p) => (
+          {/* Thumb + info row (wraps to stacked on narrow screens) */}
           <div
-            key={p.slug}
-            className="group"
             style={{
-              flex: "0 0 85vw",
-              scrollSnapAlign: "start",
-              padding: "80px 6vw",
+              display: "flex",
+              gap: "6vw",
+              alignItems: "center",
+              flexWrap: "wrap",
             }}
           >
-            {/* Panel number */}
             <div
               style={{
-                fontSize: 11,
-                letterSpacing: "0.2em",
-                color: "var(--muted)",
-                marginBottom: "16px",
-              }}
-            >
-              {p.num} / 04
-            </div>
-
-            {/* Thumb */}
-            <div
-              style={{
+                flex: "1 1 320px",
                 aspectRatio: "4/5",
-                marginBottom: 24,
-                maxHeight: "50vh",
+                maxHeight: "70vh",
               }}
             >
               <Thumb p={p} />
             </div>
 
-            {/* Info */}
-            <PanelInfo p={p} />
+            <div style={{ flex: "1 1 360px" }}>
+              <PanelInfo p={p} />
+            </div>
           </div>
-        ))}
-      </section>
-    );
-  }
-
-  // ── Layout: stack (reduced-motion + SSR default) ─────────────────────────
-  return (
-    <section style={{ padding: "80px 6vw" }}>
-      {projects.map((p) => (
-        <div
-          key={p.slug}
-          className="group"
-          style={{
-            marginBottom: 120,
-            display: "flex",
-            gap: "6vw",
-            alignItems: "center",
-            flexWrap: "wrap",
-          }}
-        >
-          {/* Thumb */}
-          <div
-            style={{
-              flex: "1 1 320px",
-              aspectRatio: "4/5",
-              maxHeight: "70vh",
-            }}
-          >
-            <Thumb p={p} />
-          </div>
-
-          {/* Info */}
-          <div style={{ flex: "1 1 360px" }}>
-            <PanelInfo p={p} />
-          </div>
-        </div>
+        </motion.div>
       ))}
     </section>
   );

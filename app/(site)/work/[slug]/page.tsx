@@ -363,15 +363,16 @@ export default async function CaseStudyPage({
       ]}
     />
   ) : isAsnd ? (
-    // The real v2 landing hero, captured from the running prototype at :5199.
+    // The real v2 landing, cropped clean and floated on a blue glow over cream (a
+    // baked composition, mirroring the MyCourses tablet-on-glow hero).
     <Image
-      src="/case-studies/asnd/landing.png"
+      src="/case-studies/asnd/hero.png"
       alt="The ASND landing: find the right creative for the right campaign, beside a live panel of vetted creatives searchable by craft, not clout."
-      width={1600}
-      height={1039}
-      sizes="(max-width: 768px) 92vw, 46vw"
+      width={1740}
+      height={1142}
+      sizes="(max-width: 768px) 96vw, 52vw"
       priority
-      style={{ width: "100%", height: "auto", borderRadius: 12, border: "1px solid var(--line)" }}
+      style={{ width: "100%", height: "auto" }}
     />
   ) : undefined;
 

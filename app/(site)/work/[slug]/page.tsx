@@ -368,8 +368,8 @@ export default async function CaseStudyPage({
     <Image
       src="/case-studies/asnd/hero.png"
       alt="The ASND landing: find the right creative for the right campaign, beside a live panel of vetted creatives searchable by craft, not clout."
-      width={1826}
-      height={1204}
+      width={1898}
+      height={1208}
       sizes="(max-width: 768px) 96vw, 52vw"
       priority
       style={{ width: "100%", height: "auto" }}
@@ -386,6 +386,7 @@ export default async function CaseStudyPage({
         team={fm.team}
         outcome={fm.tagline}
         media={heroMedia}
+        wideMedia={isAsnd}
       >
         {isMyCourses && <FigmaHeroButton />}
         {isRoomieMatch && (

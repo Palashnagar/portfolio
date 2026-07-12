@@ -13,6 +13,7 @@ export function Hero({
   outcome,
   children,
   media,
+  wideMedia = false,
 }: {
   title: ReactNode;
   role: string;
@@ -24,6 +25,8 @@ export function Hero({
   // Optional hero media, when present the hero becomes a two-column split
   // (text left, media right) and the title scales down to fit the column.
   media?: ReactNode;
+  // Give the media column extra width (for a wide landing screenshot).
+  wideMedia?: boolean;
 }) {
   const meta = [role, year, duration, team].filter(Boolean);
 
@@ -71,7 +74,7 @@ export function Hero({
     <header style={{ padding: "140px 6vw 56px" }}>
       <div className="mx-auto max-w-[1100px]">
         {media ? (
-          <div className="grid grid-cols-1 items-center gap-10 md:grid-cols-[1fr_1.05fr] md:gap-14">
+          <div className={`grid grid-cols-1 items-center gap-10 md:gap-14 ${wideMedia ? "md:grid-cols-[0.82fr_1.35fr]" : "md:grid-cols-[1fr_1.05fr]"}`}>
             <div>{textBlock}</div>
             <div>{media}</div>
           </div>

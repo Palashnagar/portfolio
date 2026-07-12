@@ -50,7 +50,7 @@ export const projects: Project[] = [
     ],
     color: "#16294A",
     textColor: "#F5F1EA",
-    thumb: "/case-studies/asnd/cover.png",
+    thumb: "/case-studies/asnd/hero.png",
     thumbFocus: "center",
   },
   {

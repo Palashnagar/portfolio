@@ -14,6 +14,7 @@ import { useEffect, useRef } from "react";
 import styles from "./LoupeThumb.module.css";
 
 const HALF = 60; // half the 120px loupe, to center it on the cursor
+const ZOOM = 2; // loupe magnifies the image to 2x the thumbnail (magnify, never shrink)
 
 export function LoupeThumb({
   loupeImage,
@@ -49,6 +50,9 @@ export function LoupeThumb({
 
     function place(w: number, h: number) {
       loupe!.style.transform = `translate3d(${px - HALF}px, ${py - HALF}px, 0)`;
+      // Magnify: size the image to ZOOM x the thumbnail width (height auto keeps
+      // the image's aspect, so it never squishes), then pan by the cursor.
+      visual!.style.backgroundSize = `${w * ZOOM}px auto`;
       visual!.style.backgroundPosition = `${(px / w) * 100}% ${(py / h) * 100}%`;
     }
 

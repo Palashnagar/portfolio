@@ -8,7 +8,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
-import { projects, type Project } from "@/data/projects";
+import { featuredProjects, type Project } from "@/data/projects";
 import { LoupeThumb } from "@/components/work/LoupeThumb";
 import { ThumbPhones } from "@/components/work/ThumbPhones";
 import Image from "next/image";
@@ -141,7 +141,7 @@ export default function HorizontalWork() {
 
   return (
     <section style={{ padding: "80px 6vw" }}>
-      {projects.map((p) => (
+      {featuredProjects.map((p) => (
         <motion.div
           key={p.slug}
           className="group"
@@ -157,7 +157,7 @@ export default function HorizontalWork() {
               marginBottom: 20,
             }}
           >
-            {p.num} / {String(projects.length).padStart(2, "0")}
+            {p.num} / {String(featuredProjects.length).padStart(2, "0")}
           </div>
 
           {/* Thumb + info row (wraps to stacked on narrow screens) */}

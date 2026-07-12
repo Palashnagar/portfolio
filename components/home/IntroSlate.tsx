@@ -4,6 +4,7 @@
 // neutralized by the global prefers-reduced-motion block in globals.css.
 
 import { RidgeSilhouette } from "@/components/home/RidgeSilhouette";
+import { featuredProjects } from "@/data/projects";
 
 export default function IntroSlate() {
   return (
@@ -26,7 +27,7 @@ export default function IntroSlate() {
         Selected work{" "}
         <span style={{ color: "var(--muted)" }}>·</span>{" "}
         <em style={{ fontStyle: "italic", color: "var(--accent)" }}>
-          04 projects
+          {String(featuredProjects.length).padStart(2, "0")} projects
         </em>
       </h2>
 

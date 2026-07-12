@@ -30,6 +30,7 @@ export interface Project {
   thumb: string; // curated case-study hero, rendered full-bleed in the thumbnail
   thumbFocus: string; // object-position for the cover-crop (frames the key part)
   thumbScreens?: string[]; // optional: compose these phone screens on cream instead of one full-bleed hero (RIT EATS, whose real screens are individual phones)
+  featured?: boolean; // shown on the home landing "selected work"; defaults to true. Set false to keep a project in the /work archive only.
 }
 
 export const projects: Project[] = [
@@ -114,6 +115,8 @@ export const projects: Project[] = [
   {
     slug: "rit-eats",
     num: "05",
+    featured: false, // lives in the /work archive, not featured on the home landing
+
     title: "RIT",
     accent: "EATS",
     // NOTE: design-reference mockup labelled this "2025", but existing project
@@ -140,3 +143,6 @@ export const projects: Project[] = [
     ],
   },
 ];
+
+// The home landing features a curated subset; /work shows the full archive.
+export const featuredProjects = projects.filter((p) => p.featured !== false);

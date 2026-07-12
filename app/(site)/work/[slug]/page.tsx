@@ -367,9 +367,9 @@ export default async function CaseStudyPage({
     // baked composition, mirroring the MyCourses tablet-on-glow hero).
     <Image
       src="/case-studies/asnd/hero.png"
-      alt="The ASND landing: find the right creative for the right campaign, beside a live panel of vetted creatives searchable by craft, not clout."
-      width={1898}
-      height={1139}
+      alt="The ASND web app on desktop: the landing page in a browser window, with the searchable directory of vetted creatives shown behind it."
+      width={1900}
+      height={1140}
       sizes="(max-width: 768px) 96vw, 52vw"
       priority
       style={{ width: "100%", height: "auto" }}

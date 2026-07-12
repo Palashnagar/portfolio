@@ -143,6 +143,14 @@
 .imgframe {
   margin: 34px 0 6px;
 }
+.img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  box-shadow: 0 22px 48px -28px rgba(10, 10, 10, 0.22);
+}
 .slot {
   display: flex;
   flex-direction: column;

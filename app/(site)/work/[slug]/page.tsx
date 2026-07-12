@@ -363,16 +363,15 @@ export default async function CaseStudyPage({
       ]}
     />
   ) : isAsnd ? (
-    // Interim: the ASND brand card on cream. Real prototype screens (a Discover /
-    // directory composition) replace this once captured.
+    // The real v2 landing hero, captured from the running prototype at :5199.
     <Image
-      src="/case-studies/asnd/cover.png"
-      alt="ASND, the trusted discovery layer for creative collaboration."
+      src="/case-studies/asnd/landing.png"
+      alt="The ASND landing: find the right creative for the right campaign, beside a live panel of vetted creatives searchable by craft, not clout."
       width={1600}
-      height={1000}
+      height={1039}
       sizes="(max-width: 768px) 92vw, 46vw"
       priority
-      style={{ width: "100%", height: "auto", borderRadius: 12 }}
+      style={{ width: "100%", height: "auto", borderRadius: 12, border: "1px solid var(--line)" }}
     />
   ) : undefined;
 

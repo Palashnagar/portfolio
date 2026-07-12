@@ -95,30 +95,13 @@ export function Rubric({
   );
 }
 
-export function ImageFrame({
-  src,
-  alt,
-  caption,
-  width,
-  height,
-}: {
-  src: string;
-  alt: string;
-  caption?: string;
-  width?: number;
-  height?: number;
-}) {
+const IMG_BASE = "/case-studies/asnd/";
+
+export function ImageFrame({ src, alt, caption }: { src: string; alt: string; caption?: string }) {
   return (
     <figure className={styles.imgframe}>
-      <div
-        className={styles.slot}
-        role="img"
-        aria-label={alt}
-        style={width && height ? { aspectRatio: `${width} / ${height}` } : undefined}
-      >
-        <span className={styles.slotFile}>screen · {src}</span>
-        <span className={styles.slotAlt}>{alt}</span>
-      </div>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={IMG_BASE + src} alt={alt} loading="lazy" decoding="async" className={styles.img} />
       {caption ? <figcaption className={styles.caption}>{caption}</figcaption> : null}
     </figure>
   );

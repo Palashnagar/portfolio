@@ -38,7 +38,7 @@ export const projects: Project[] = [
     num: "01",
     title: "ASND",
     accent: "",
-    meta: ["2025", "FOUNDER · MUMBAI", "CASE STUDY"],
+    meta: ["2026", "FOUNDER · MUMBAI", "CASE STUDY"],
     desc: "A curated network where brands find creatives by craft, not follower count.",
     problem: [
       {

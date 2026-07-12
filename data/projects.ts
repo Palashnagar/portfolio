@@ -34,8 +34,27 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    slug: "mycourses",
+    slug: "asnd",
     num: "01",
+    title: "ASND",
+    accent: "",
+    meta: ["2025", "FOUNDER · MUMBAI", "CASE STUDY"],
+    desc: "A curated network where brands find creatives by craft, not follower count.",
+    problem: [
+      {
+        text: 'Hiring a creative still starts with "who do you know?" I\'m building the curated discovery layer that fixes it, ',
+      },
+      { text: "vetted by people, not algorithms", em: true },
+      { text: "." },
+    ],
+    color: "#16294A",
+    textColor: "#F5F1EA",
+    thumb: "/case-studies/asnd/cover.png",
+    thumbFocus: "center",
+  },
+  {
+    slug: "mycourses",
+    num: "02",
     title: "MyCourses",
     accent: "2.0",
     meta: ["2025", "RIT · 19K USERS", "CASE STUDY"],
@@ -54,7 +73,7 @@ export const projects: Project[] = [
   },
   {
     slug: "roomiematch",
-    num: "02",
+    num: "03",
     title: "Roomie",
     accent: "Match",
     meta: ["2025", "MOBILE", "CASE STUDY"],
@@ -75,7 +94,7 @@ export const projects: Project[] = [
   },
   {
     slug: "rit-athletics",
-    num: "03",
+    num: "04",
     title: "RIT",
     accent: "Athletics",
     meta: ["2025", "SPORTS", "CASE STUDY"],
@@ -94,7 +113,7 @@ export const projects: Project[] = [
   },
   {
     slug: "rit-eats",
-    num: "04",
+    num: "05",
     title: "RIT",
     accent: "EATS",
     // NOTE: design-reference mockup labelled this "2025", but existing project

@@ -39,7 +39,7 @@ export function WorkGrid() {
             <span>
               {p.meta[0]} · {p.meta[p.meta.length - 1]}
             </span>
-            <span>{p.num} / 04</span>
+            <span>{p.num} / {String(projects.length).padStart(2, "0")}</span>
           </div>
 
           {/* Title */}

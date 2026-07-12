@@ -1,0 +1,192 @@
+---
+title: ASND
+tagline: the trusted discovery layer for creative collaboration.
+role: Co-founder · Product & Trust UX
+year: "2025"
+duration: ongoing
+team: 3 co-founders
+tools:
+  - Claude Code
+  - React
+  - TypeScript
+  - motion/react
+cover: /case-studies/asnd/cover.png
+metrics:
+  - label: founder-led interviews
+    value: "90+"
+  - label: founding members
+    value: "230"
+  - label: agencies closed
+    value: "2"
+---
+
+{/* HONESTY + ATTRIBUTION (per Palash's handoff, do not fudge):
+  - Team of 3 co-founders. Aryan Irani (CEO, strategy/GTM, led the research). Anurag (CTO,
+    backend + the curation/matching engine). Palash (CDO, product & trust UX, the design
+    system, IA, and the front-end he designed and built). Never claim the backend/matching
+    as Palash's engineering; never write "I interviewed 87." Aryan led research; Palash
+    synthesized it into personas + IA.
+  - Numbers verified from the RIT Student Accelerator Demo Day deck (Aug 2026): 87 founder-led
+    interviews, 230 founding members, 2 agencies closed by hand, first brief posted + filled,
+    market (100M+ creators, $2.5B creator economy). Interviews are ongoing and growing, so the
+    count is written as "90+ and counting", not a fixed number. Demo day is the RIT Student
+    Accelerator demo day (the same Aug 5, 2026 event Palash called "Kozel demo night").
+  - Shipped design system = blue + Cormorant Garamond. Gold/Playfair start + Bricolage/coral
+    spec are documented evolution.
+  - The deck badges the app "working prototype" twice. Framed here as a real product/venture
+    (230 founding members, beta next) whose built artifact is a working prototype in code
+    over seed data while the backend comes online.
+  - Voice: lowercase editorial, declarative, no hype, no exclamation marks. NO em-dashes. */}
+
+<CsSection num="01" label="Context" title={<>hiring a creative still starts with <em>"who do you know?"</em></>}>
+
+a referral, a dm, a favor. it works, right up until you don't already know the right person.
+
+asnd (say it "ascend") is an invite-only, vetted network where brands and agencies find creative collaborators by craft, not follower count. it is India-first, starting in Mumbai, and it is deliberately not a marketplace, an agency, or a social feed. it is the curated discovery layer that sits under how good creative work actually gets made: vetted by people, not algorithms.
+
+the market is there. India has 100M+ creators, growing 20%+ a year, inside a creator economy already worth about $2.5B.
+
+<Caption>source: KPMG · Redseer; Kofluence / IBEF, 2025.</Caption>
+
+but for anyone trying to hire, discovery is broken in four familiar ways:
+
+<ProblemGrid>
+<ProblemCard title="slow">post a brief, dm dozens, chase replies, and maybe find a fit three to four weeks later.</ProblemCard>
+<ProblemCard title="noise">search "video editor, Mumbai" and get 12,840 results with no filters, no ranking, no vetting, all looking the same.</ProblemCard>
+<ProblemCard title="no trust">followers, reach, and engagement don't tell you the things that matter: will they reply, hit the deadline, or be good to work with.</ProblemCard>
+<ProblemCard title="gatekept">the paid work sits behind invite-only rooms. talented people who are skilled, ready, and unseen have no referral, so no way in.</ProblemCard>
+</ProblemGrid>
+
+<InsightBand kicker="the insight">the pattern underneath all four: discovery is a <em>trust</em> problem, not a search problem. the shape is trust to work to more work, never platform to discovery to work. curation creates value, not volume.</InsightBand>
+
+</CsSection>
+
+<CsSection num="02" label="Research & Synthesis" title={<>what the <em>interviews</em> revealed.</>}>
+
+<Chips items={["90+ interviews, and counting", "creators · brands · agencies", "6 personas", "opportunity map"]} />
+
+our team has run **more than 90 founder-led interviews** across creators, brands, and agencies, and we're still going, driven by my co-founder Aryan. my job was synthesis: i clustered them into six personas, an opportunity map, and the information architecture the whole product is built on. three findings did the most to shape the design.
+
+<Quote cite="Priyanshu · content creator + director">i interviewed around 20 to 25 people just to find the one. it was a very difficult task.</Quote>
+
+<Quote cite="Shruti · brand-side">i don't need the biggest name. i need someone i know will deliver.</Quote>
+
+<Quote cite="Komal · musician">the talent's out there, you just can't find it. a 2 to 5% cut? gladly, if you do the finding for me.</Quote>
+
+those three lines are the product in miniature: discovery is the bottleneck, trust beats reach, and people will pay to skip the search. the synthesis also found the sharpest wedge. money flows brands to agencies to creators, and the agencies in the middle feel the pain daily while holding the budget. so we built for them first.
+
+<Split
+  aLabel="the money and the pain"
+  a={<>brands <em>fund</em> the work. creators <em>deliver</em> it. agencies sit in the middle, deciding, and feel the discovery pain every day.</>}
+  bLabel="the wedge"
+  b={<>design for agencies first: brief once, cast several roles at once, with availability and fit surfaced before anyone sends a single dm.</>}
+/>
+
+</CsSection>
+
+<CsSection num="03" label="Positioning & Principles" title={<>craft over <em>follower count</em>.</>}>
+
+the positioning fell out of the research, not a whiteboard. for brands, agencies, and creators who need the right fit, asnd is a curated, trust-based discovery network that surfaces relevant, vetted people ready to start work, unlike Instagram, referrals, cold dms, and open marketplaces. it is a discovery layer, not a marketplace, an agency, or a feed. you don't need more people. you need the right one, and a reason to believe them.
+
+to hold that promise honest in the interface, i wrote six operating principles the whole product obeys:
+
+<ProblemGrid>
+<ProblemCard title="squint test">the point of a section lands in one glance, even blurred.</ProblemCard>
+<ProblemCard title="no suspense">value reads immediately, never slow-revealed behind a scroll.</ProblemCard>
+<ProblemCard title="show, don't tell">don't assert a problem, show it with the real quote, number, or screen.</ProblemCard>
+<ProblemCard title="signal over vanity">craft, fit, reliability, vouches, past brands. never follower counts. this is the whole product in one line.</ProblemCard>
+<ProblemCard title="motion serves the story">static by default, animate only to advance a point, and honor reduced-motion always.</ProblemCard>
+<ProblemCard title="low cognitive load">the fewest words that deliver the message. cut the second sentence if the first one lands.</ProblemCard>
+</ProblemGrid>
+
+</CsSection>
+
+<CsSection num="04" label="The Design" title={<>from a 2026 cliché to a <em>committed</em> system.</>}>
+
+the first pass looked fine and said nothing: warm beige, a gold accent, playfair, a little lavender. calm, safe, and the most saturated brand cliché of the year. the pivot came from a blunt co-founder note, "the storytelling keeps getting lost in the execution," so i rebuilt the identity around one rule, design serves the story, and picked a system decisive enough to enforce it.
+
+<Directions>
+<Direction n="01" title="the calm-and-gold start">warm beige, gold, playfair, pastels. later flagged as the rejected ai-slop look. pretty, and forgettable.</Direction>
+<Direction n="02" title="an electric alternate">a bricolage grotesque and electric-coral branding spec, explored and documented as a target identity, ink-led and decisive.</Direction>
+<Direction n="03" title="the committed system" chosen>blue + cormorant garamond. one ink, one accent, cool paper, warm cream reserved for evidence only. editorial, not corporate.</Direction>
+</Directions>
+
+what shipped is a small, strict system: a single ink (`#16294A`) and a single accent (`#4E73B0`) on cool paper, warm cream held back for stat and evidence sections only, Cormorant Garamond for display against Hanken Grotesk for everything functional, a 1240 grid on an 8-point scale, transform-only motion, and a quiet engraved-contour texture instead of 3d clip-art. one accent, one voice, nothing competing for attention. i built it as tokens in code, not a swatch page.
+
+<ImageFrame src="system.png" width={1600} height={900} alt="The ASND design system: the blue ink and accent, Cormorant Garamond and Hanken Grotesk type scale, and the engraved-contour texture." caption="the shipped system: one ink, one accent, cool paper, warm cream for evidence only." />
+
+</CsSection>
+
+<CsSection num="05" label="Systems Design" title={<>designing <em>trust</em> into the product.</>}>
+
+the hard part of asnd is not the screens, it is the trust mechanics underneath. the matching engine and backend are my co-founder Anurag's systems work. mine was the ux around them, so complex trust rules feel simple. the promise, in one comparison:
+
+<Split
+  aLabel="today"
+  a={<>need a creator, search and dm dozens, chase replies, settle. <em>two to four weeks.</em></>}
+  bLabel="with asnd"
+  b={<>describe the brief, get a ranked shortlist that fits, connect. <em>two to four hours.</em></>}
+/>
+
+three decisions carried the most weight.
+
+**the wedge is a multi-role brief.** post one opportunity with several roles, each its own sub-brief and shortlist. briefs fail closed if a role has no references, which raises quality by design. one brief, several roles cast in an afternoon.
+
+**the research is encoded as ranking weights.** "fit, not followers" isn't a slogan, it is the rubric. i turned the interviews into the numbers the system ranks on:
+
+<Rubric
+  items={[
+    { k: "niche / audience fit", v: 0.25 },
+    { k: "engagement quality", v: 0.20 },
+    { k: "brand / aesthetic vibe", v: 0.20 },
+    { k: "location", v: 0.15 },
+    { k: "availability", v: 0.10 },
+    { k: "experience", v: 0.07 },
+    { k: "follower count", v: 0.03, locked: true }
+  ]}
+/>
+
+**trust, not ai, is the headline.** the matching model exists, but it is demoted to a quiet "ask" verb, never an "ai-powered" banner, because in a synthetic-influencer climate an ai headline reduces trust with the exact buyers we want. connection requests are rate-limited with no bulk send, and an agency that is both buyer and supplier never sees a competitor's confidential brief. the rules are enforced by the system, not by good behavior.
+
+</CsSection>
+
+<CsSection num="06" label="The Build" title={<>designed <em>and built</em>, in code.</>}>
+
+i didn't stop at screens. asnd is a real product, and what i designed and built is its working prototype: the whole role-aware app in react and typescript, every flow running live over seed data while Anurag brings the backend online for beta. building in the real medium let me pressure-test flows end to end instead of faking them in a static file.
+
+i built it with ai (Claude Code) as a design-engineering partner: describing intent, reviewing the built result in a live browser, refining, and committing incrementally, roughly 60 commits of traceable history. this is the thing i want to be known for, the overlap of research, design intuition, and ai collaboration, shipped as a running product rather than a mockup. the app carries three pillars:
+
+<Pillars>
+<Pillar side="discovery + curation" title="find by craft, not clout" items={["describe a brief, get a shortlist of vetted people who actually fit", "result cards lead with the reason: booked again by 9 brands, on time every project, vouched for by 4 members", "a directory with one vetted bar, by discipline, that never shows a follower count"]} />
+<Pillar side="connections" title="from brief to booking" items={["nda-gated brief detail with fee, deliverables, and schedule up front", "express interest, shortlist, and book, with the loops wired together", "notifications and pipeline cascade so it feels like a product, not a demo"]} />
+</Pillars>
+
+<ImageFrame src="discover.png" width={1600} height={1000} alt="The ASND Discover surface at asnd.app: vetted creatives filtered by craft, city, and availability, each card leading with the reason it matched." caption="discover: every result leads with the reason for the match, never a follower count." />
+
+<ImageFrame src="curation.png" width={1600} height={1000} alt="The ASND directory: creative profiles by discipline showing brands worked with, vouches, and reliability instead of follower counts." caption="the directory: one vetted bar, by discipline. who they've worked with, who vouches, whether they deliver." />
+
+<Todo>[YOU SUPPLY] the polished screens/GIFs for these frames (Discover, the directory, a brief in Connections, the pipeline). I can capture them from the running prototype at localhost:5199, or drop in your own.</Todo>
+
+</CsSection>
+
+<CsSection num="07" label="Outcome & Next" title={<>real, and <em>moving</em>.</>}>
+
+asnd is not a slide. it is a working product with a founding cohort and its first closed work, days from beta.
+
+<StatBand>
+<Stat big="90+" src="founder-led interviews">and still counting, across creators, brands, and agencies, synthesized into the personas and IA.</Stat>
+<Stat big="230" src="founding members">onboarded by hand through a vouched referral loop, the way a curated network is meant to grow.</Stat>
+<Stat big="2" src="agencies, closed by hand">with the first brief posted and filled. one closed brief does more than any pitch.</Stat>
+</StatBand>
+
+next, we go to beta to answer the questions a prototype can't: willingness to pay (price tests), the best entry point (agency versus creator pilots, which i own), whether vetting quality holds as volume grows, and what brings a brand back for a second brief. in early August 2026 i present the work at the RIT Student Accelerator demo day.
+
+<Todo>[YOU SUPPLY] live results after the August 5 demo day (partner reactions, new signups, briefs) to fold in here.</Todo>
+
+what i can stand behind today, before more metrics land: a complete, working, role-aware product for a genuinely novel trust model, a design system committed enough to resist the ai-era cliché, and a systems-thinking approach that turned siloed features into one connected product, all designed and built in the real medium.
+
+<RoleNote>a founding team of three. <strong>Aryan Irani</strong> (CEO) leads strategy, go-to-market, and the discovery research. <strong>Anurag</strong> (CTO) owns engineering, the backend, and the curation and matching system. i am <strong>CDO</strong>, and i own <strong>product and interaction design, the design system, the information architecture, and the front-end product</strong>: i synthesized the research into personas and IA, set the visual direction, and designed and built the working app, with ai as a design-engineering partner.</RoleNote>
+
+<Takeaway title="what building it taught me">designing in code, with ai as a pair, let me catch what a static prototype hides: that trust is a sequence of small moments, and a product is only as good as the way those moments connect.</Takeaway>
+
+</CsSection>

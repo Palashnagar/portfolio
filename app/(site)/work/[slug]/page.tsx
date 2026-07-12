@@ -89,6 +89,26 @@ import {
   PhoneHero,
   Takeaway as EatsTakeaway,
 } from "@/components/case-study/RitEatsSections";
+import {
+  CsSection as AsndCsSection,
+  Caption as AsndCaption,
+  ProblemGrid as AsndProblemGrid,
+  ProblemCard as AsndProblemCard,
+  StatBand as AsndStatBand,
+  Stat as AsndStat,
+  Chips as AsndChips,
+  InsightBand as AsndInsightBand,
+  Directions as AsndDirections,
+  Direction as AsndDirection,
+  Pillars as AsndPillars,
+  Pillar as AsndPillar,
+  RoleNote as AsndRoleNote,
+  Takeaway as AsndTakeaway,
+  Quote,
+  Split,
+  Rubric,
+  ImageFrame as AsndImageFrame,
+} from "@/components/case-study/AsndSections";
 
 export async function generateStaticParams() {
   const slugs = await listCaseStudySlugs();
@@ -238,6 +258,31 @@ const ritEatsComponents = {
   Takeaway: EatsTakeaway,
 };
 
+// ASND uses its own kit: the RIT EATS section anatomy (re-exported) plus ASND-specific
+// exhibits (attributed Quote, ranking Rubric, ImageFrame). Its own map keeps the
+// overlapping names (CsSection, ProblemGrid, ...) pointed at the ASND kit.
+const asndComponents = {
+  CsSection: AsndCsSection,
+  Caption: AsndCaption,
+  ProblemGrid: AsndProblemGrid,
+  ProblemCard: AsndProblemCard,
+  StatBand: AsndStatBand,
+  Stat: AsndStat,
+  Chips: AsndChips,
+  InsightBand: AsndInsightBand,
+  Directions: AsndDirections,
+  Direction: AsndDirection,
+  Pillars: AsndPillars,
+  Pillar: AsndPillar,
+  RoleNote: AsndRoleNote,
+  Takeaway: AsndTakeaway,
+  Quote,
+  Split,
+  Rubric,
+  ImageFrame: AsndImageFrame,
+  Todo,
+};
+
 // RIT EATS links to the Team Athens Figma prototype. Same traveling-button
 // behavior; lands in the closing CTA, Next Project (MyCourses 2.0) stays below.
 const RIT_EATS_PROTO = {
@@ -269,6 +314,7 @@ export default async function CaseStudyPage({
   const isRoomieMatch = slug === "roomiematch";
   const isRitAthletics = slug === "rit-athletics";
   const isRitEats = slug === "rit-eats";
+  const isAsnd = slug === "asnd";
 
   const heroMedia = isMyCourses ? (
     // Self-contained mockup (tablet + brand gradient), shown whole at its natural
@@ -351,7 +397,9 @@ export default async function CaseStudyPage({
                 ? ritComponents
                 : isRitEats
                   ? ritEatsComponents
-                  : mdxComponents
+                  : isAsnd
+                    ? asndComponents
+                    : mdxComponents
           }
           options={{ blockJS: false }}
         />

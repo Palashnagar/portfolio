@@ -1,0 +1,174 @@
+/* ASND-specific exhibits: attributed quote, ranking-weight rubric, image frame.
+   Portfolio tokens only (cream / ink / orange / Instrument Serif / JetBrains Mono) so
+   ASND matches the other case studies. The shared section anatomy lives in
+   RitEatsSections.module.css. */
+
+/* attributed interview quote */
+.quote {
+  margin: 34px 0;
+  padding: 2px 0 2px 26px;
+  border-left: 2px solid var(--accent);
+}
+.quote blockquote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(24px, 3.4vw, 38px);
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  max-width: 28ch;
+}
+.quote figcaption {
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.quote figcaption::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+/* two-column labelled split (before/after, insight/decision) */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 30px 0;
+}
+.splitCol {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 24px 26px;
+  background: var(--bg);
+}
+.splitCol p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.splitCol p em {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--accent);
+}
+.splitK {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin-bottom: 12px;
+}
+
+/* ranking rubric — the research encoded as weights */
+.rubric {
+  margin: 30px 0;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 22px 24px;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.row {
+  display: grid;
+  grid-template-columns: 15ch 1fr 3.5ch;
+  align-items: center;
+  gap: 16px;
+}
+.rk {
+  font-size: 13.5px;
+  color: var(--ink);
+}
+.track {
+  position: relative;
+  height: 8px;
+  border-radius: 100px;
+  background: rgba(10, 10, 10, 0.06);
+  overflow: hidden;
+}
+.bar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 100px;
+  background: var(--accent);
+}
+.rv {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.locked .rk,
+.locked .rv {
+  color: var(--muted);
+}
+.locked .bar {
+  background: var(--muted);
+}
+
+/* image frame — placeholder slot until the real prototype screen is dropped in */
+.imgframe {
+  margin: 34px 0 6px;
+}
+.slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  padding: 40px 28px;
+  border: 1px dashed var(--border-strong, var(--line));
+  border-radius: 10px;
+  background: rgba(10, 10, 10, 0.02);
+  min-height: 220px;
+}
+.slotFile {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+}
+.slotAlt {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 44ch;
+}
+.caption {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--muted);
+  margin-top: 12px;
+}
+
+@media (max-width: 640px) {
+  .split {
+    grid-template-columns: 1fr;
+  }
+  .row {
+    grid-template-columns: 12ch 1fr 3.5ch;
+    gap: 10px;
+  }
+  .rk {
+    font-size: 12px;
+  }
+}

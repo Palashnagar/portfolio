@@ -157,7 +157,7 @@ export default function HorizontalWork() {
               marginBottom: 20,
             }}
           >
-            {p.num} / 04
+            {p.num} / {String(projects.length).padStart(2, "0")}
           </div>
 
           {/* Thumb + info row (wraps to stacked on narrow screens) */}

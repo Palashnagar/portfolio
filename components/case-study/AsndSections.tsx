@@ -7,13 +7,12 @@
 // screens are captured into /public/case-studies/asnd/; swap the slot for the real
 // <img> once those files exist.
 
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import styles from "./AsndSections.module.css";
 
 export {
   CsSection,
   Caption,
-  ProblemGrid,
   ProblemCard,
   StatBand,
   Stat,
@@ -26,6 +25,17 @@ export {
   RoleNote,
   Takeaway,
 } from "./RitEatsSections";
+
+// ASND problem/principle grid. Same hairline-divider styling as the RIT EATS grid, but
+// the column count is explicit (`cols`) so the four problems sit 2x2 and the six
+// principles sit 3x2, with no orphaned empty cells.
+export function ProblemGrid({ cols = 3, children }: { cols?: number; children: ReactNode }) {
+  return (
+    <div className={styles.pgrid} style={{ "--pcols": cols } as CSSProperties}>
+      {children}
+    </div>
+  );
+}
 
 export function Quote({ cite, children }: { cite: string; children: ReactNode }) {
   return (

@@ -362,6 +362,18 @@ export default async function CaseStudyPage({
         { src: "screen-tracking.png", label: "RIT EATS live order tracking with the delivery person" },
       ]}
     />
+  ) : isAsnd ? (
+    // Interim: the ASND brand card on cream. Real prototype screens (a Discover /
+    // directory composition) replace this once captured.
+    <Image
+      src="/case-studies/asnd/cover.png"
+      alt="ASND, the trusted discovery layer for creative collaboration."
+      width={1600}
+      height={1000}
+      sizes="(max-width: 768px) 92vw, 46vw"
+      priority
+      style={{ width: "100%", height: "auto", borderRadius: 12 }}
+    />
   ) : undefined;
 
   return (

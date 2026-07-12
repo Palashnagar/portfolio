@@ -3,6 +3,23 @@
    ASND matches the other case studies. The shared section anatomy lives in
    RitEatsSections.module.css. */
 
+/* problem / principle grid — explicit column count, hairline dividers */
+.pgrid {
+  display: grid;
+  grid-template-columns: repeat(var(--pcols, 3), 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 34px;
+}
+@media (max-width: 760px) {
+  .pgrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* attributed interview quote */
 .quote {
   margin: 34px 0;

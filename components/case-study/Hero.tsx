@@ -74,7 +74,7 @@ export function Hero({
     <header style={{ padding: "140px 6vw 56px" }}>
       <div className="mx-auto max-w-[1100px]">
         {media ? (
-          <div className={`grid grid-cols-1 items-center gap-10 md:gap-14 ${wideMedia ? "md:grid-cols-[0.82fr_1.35fr]" : "md:grid-cols-[1fr_1.05fr]"}`}>
+          <div className={`grid grid-cols-1 items-center gap-10 md:gap-14 ${wideMedia ? "md:grid-cols-[0.95fr_1.2fr]" : "md:grid-cols-[1fr_1.05fr]"}`}>
             <div>{textBlock}</div>
             <div>{media}</div>
           </div>

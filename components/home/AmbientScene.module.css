@@ -124,7 +124,37 @@
   /* Lift the sun into the top-right sky so it clears the vertically-centered
      headline — otherwise the orange accent word ("feels") sits on the orange
      sun disc and disappears. (SVG transform units == viewBox user units.) */
-  .sun {
+  .sun,
+  .moon {
     transform: translate(190px, -210px);
   }
+}
+
+/* ── Day / night (driven by data-theme on <html>; see components/theme/ThemeToggle).
+   Sun + warm sky fade out; moon, stars, and the night wash fade in. All kept inside
+   this CSS module so nothing leaks into the global token system. ── */
+.daySky { opacity: 1; transition: opacity 0.9s var(--ease-out-soft); }
+.nightSky { opacity: 0; transition: opacity 0.9s var(--ease-out-soft); }
+.sun { transition: opacity 0.85s var(--ease-out-soft); }
+.moon { opacity: 0; transition: opacity 0.85s var(--ease-out-soft); }
+.stars { opacity: 0; transition: opacity 1s var(--ease-out-soft) 0.12s; }
+.nightTint { opacity: 0; transition: opacity 0.9s var(--ease-out-soft) 0.05s; }
+
+:global(:root[data-theme="dark"]) .daySky { opacity: 0; }
+:global(:root[data-theme="dark"]) .nightSky { opacity: 1; }
+:global(:root[data-theme="dark"]) .sun { opacity: 0; }
+:global(:root[data-theme="dark"]) .moon { opacity: 1; }
+:global(:root[data-theme="dark"]) .stars { opacity: 1; }
+:global(:root[data-theme="dark"]) .nightTint { opacity: 0.52; }
+
+/* Birds recolor with the theme — the CSS stroke wins over the inline SVG attribute. */
+.birds { --bird-stroke: #0a0a0a; }
+:global(:root[data-theme="dark"]) .birds { --bird-stroke: #c7cbda; }
+.birds svg path { stroke: var(--bird-stroke); transition: stroke 0.6s var(--ease-out-soft); }
+
+/* Star twinkle (frozen by the global reduced-motion rule). */
+.star { animation: twinkle 3.8s ease-in-out infinite; }
+@keyframes twinkle {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
 }

@@ -25,6 +25,23 @@
   --bg: #F5F1EA; --ink: #0A0A0A; --accent: #E94E1B; --accent-text: #C23E13; --muted: #6B6862; --line: rgba(10,10,10,0.14);
 }
 
+/* ── Dark theme (manual sun/moon toggle; default stays light). Overrides both the
+   runtime vars used in inline styles / CSS modules AND Tailwind's --color-* utility
+   tokens, so `var(--ink)` and `text-ink` both flip. ── */
+:root[data-theme="dark"] {
+  --color-bg: #0B0F1E; --color-ink: #EFEAE0; --color-accent: #F2632B; --color-accent-text: #F49A6A; --color-muted: #9CA0B0; --color-line: rgba(239, 234, 224, 0.16);
+  --bg: #0B0F1E; --ink: #EFEAE0; --accent: #F2632B; --accent-text: #F49A6A; --muted: #9CA0B0; --line: rgba(239, 234, 224, 0.16);
+}
+
+/* Smooth cross-fade, applied ONLY during an explicit toggle: ThemeToggle stamps
+   [data-theme-anim] on <html> for the length of the switch, then removes it, so the
+   transition never taxes normal interaction. */
+html[data-theme-anim] body,
+html[data-theme-anim] body * {
+  transition: background-color 0.6s var(--ease-out-soft), color 0.5s var(--ease-out-soft),
+    border-color 0.6s var(--ease-out-soft), fill 0.6s var(--ease-out-soft), stroke 0.6s var(--ease-out-soft) !important;
+}
+
 html { scroll-behavior: smooth; background: var(--bg); }
 body { background: var(--bg); color: var(--ink); font-family: var(--font-body); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 

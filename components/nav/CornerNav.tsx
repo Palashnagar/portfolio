@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useIntro } from "./intro-context";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 const navLinks = [
   { href: "/work", label: "Work" },
@@ -45,6 +46,7 @@ export function CornerNav() {
             {link.label}
           </Link>
         ))}
+        <ThemeToggle />
       </nav>
 
       {/* Bottom-left: location + availability */}

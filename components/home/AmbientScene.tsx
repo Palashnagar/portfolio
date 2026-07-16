@@ -28,6 +28,18 @@ const BIRDS = [
   { w: 24, h: 14, sw: 1.5, op: 0.65, d: "M -10 0 q 5 -5 10 0 q 5 -5 10 0", dur: "0.45s", delay: "0.4s" },
 ];
 
+// Deterministic star field (identical on server + client so it never triggers a
+// hydration mismatch), scattered across the upper sky in viewBox units. Hidden in
+// day, cross-fades in on dark. Twinkle is frozen by the global reduced-motion rule.
+const STARS = Array.from({ length: 34 }, (_, i) => {
+  const frac = (n: number) => n - Math.floor(n);
+  return {
+    x: Math.round(frac(Math.sin(i * 12.9898) * 43758.5453) * 1600),
+    y: Math.round(frac(Math.sin(i * 78.233) * 43758.5453) * 468),
+    r: +(frac(Math.sin(i * 39.425) * 43758.5453) * 1.3 + 0.6).toFixed(2),
+  };
+});
+
 export default function AmbientScene() {
   const ambientRef = useRef<HTMLDivElement>(null);
   const birdEls = useRef<Array<HTMLDivElement | null>>([]);
@@ -208,10 +220,50 @@ export default function AmbientScene() {
               <stop offset="0%" stopColor="#2A2722" stopOpacity="1" />
               <stop offset="100%" stopColor="#0A0A0A" stopOpacity="1" />
             </linearGradient>
+
+            {/* Night: indigo sky + a moon crafted to match the sun (pale core, cool
+                aura + glow, soft gibbous shade). Fade between them is CSS on data-theme. */}
+            <linearGradient id="haNightSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#070A15" />
+              <stop offset="62%" stopColor="#0E1426" />
+              <stop offset="100%" stopColor="#141C34" />
+            </linearGradient>
+            <radialGradient id="haMoonAura" cx="0.82" cy="0.32" r="0.55">
+              <stop offset="0%" stopColor="#AEB8D8" stopOpacity="0.42" />
+              <stop offset="42%" stopColor="#8290B8" stopOpacity="0.18" />
+              <stop offset="100%" stopColor="#0B0F1E" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id="haMoonGlow" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0%" stopColor="#DCE2F2" stopOpacity="0.5" />
+              <stop offset="55%" stopColor="#AEB8D8" stopOpacity="0.16" />
+              <stop offset="100%" stopColor="#AEB8D8" stopOpacity="0" />
+            </radialGradient>
+            <radialGradient id="haMoonShade" cx="0.34" cy="0.64" r="0.8">
+              <stop offset="0%" stopColor="#0B0F1E" stopOpacity="0.5" />
+              <stop offset="58%" stopColor="#0B0F1E" stopOpacity="0.12" />
+              <stop offset="100%" stopColor="#0B0F1E" stopOpacity="0" />
+            </radialGradient>
           </defs>
 
+          {/* Night sky, behind the warm aura; cross-fades in on dark */}
+          <rect className={styles.nightSky} width="1600" height="900" fill="url(#haNightSky)" />
           {/* Warm sun aura (no mask, softly extends across, fades into cream) */}
-          <rect width="1600" height="900" fill="url(#haSunAura)" />
+          <rect className={styles.daySky} width="1600" height="900" fill="url(#haSunAura)" />
+
+          {/* Stars, in the sky behind the sun/moon; fade in on dark */}
+          <g className={styles.stars}>
+            {STARS.map((s, i) => (
+              <circle
+                key={i}
+                className={styles.star}
+                cx={s.x}
+                cy={s.y}
+                r={s.r}
+                fill="#F3F0E6"
+                style={{ animationDelay: `${(i % 8) * 0.4}s` }}
+              />
+            ))}
+          </g>
 
           {/* Sun glow + core (outside mask so they stay crisp on the right).
               Wrapped so mobile can lift the whole sun into the top-right sky,
@@ -221,6 +273,14 @@ export default function AmbientScene() {
             <g className={styles.sunGroup}>
               <circle cx="1280" cy="370" r="68" fill="#E94E1B" opacity="0.96" />
             </g>
+          </g>
+
+          {/* Moon: same anchor as the sun, crafted to match its minimal orb. */}
+          <g className={styles.moon}>
+            <circle cx="1280" cy="370" r="230" fill="url(#haMoonAura)" />
+            <circle cx="1280" cy="370" r="150" fill="url(#haMoonGlow)" />
+            <circle cx="1280" cy="370" r="66" fill="#E9E6DC" />
+            <circle cx="1280" cy="370" r="66" fill="url(#haMoonShade)" />
           </g>
 
           {/* Everything below dissolves from right to left */}
@@ -280,6 +340,10 @@ export default function AmbientScene() {
                 <path d="M 0 -10 L -5 4 L 5 4 Z" fill="#0A0A0A" />
               </g>
             </g>
+
+            {/* Night wash over the ridges (inside the mask, so it dissolves right
+                too): cools the warm-grey ridges toward the indigo night. */}
+            <rect className={styles.nightTint} width="1600" height="900" fill="#0A0E1C" />
           </g>
         </svg>
       </div>

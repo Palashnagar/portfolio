@@ -55,6 +55,14 @@ export default function RootLayout({
       className={`${instrument.variable} ${bricolage.variable} ${jetbrains.variable}`}
     >
       <body>
+        {/* Apply the saved theme before first paint so a dark-mode visitor never
+            sees a flash of light. Default (no stored choice) stays light. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var t=localStorage.getItem('theme');if(t==='dark')document.documentElement.dataset.theme='dark';}catch(e){}})();",
+          }}
+        />
         {/* No-JS / crawler fallback: the homepage hero + corner nav start at
             opacity:0 and are revealed by the intro JS. Force them visible when
             JS is unavailable so the page is never blank without scripts. */}

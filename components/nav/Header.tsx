@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 const navLinks = [
   { href: "/work", label: "Work", accent: false },
@@ -29,6 +30,7 @@ export function Header() {
             {link.label}
           </Link>
         ))}
+        <ThemeToggle />
       </nav>
     </header>
   );

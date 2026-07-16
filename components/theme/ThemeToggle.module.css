@@ -1,0 +1,47 @@
+/* Small icon button that sits at the end of the header nav row. Sun and moon are
+   stacked and cross-faded (with a slight counter-rotation) so the switch reads as
+   one object changing state, matching the hero's sun becoming a moon. */
+
+.toggle {
+  margin-left: 20px;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  vertical-align: middle;
+  transition: color 0.2s var(--ease-out-soft, ease);
+}
+.toggle:hover {
+  color: var(--accent);
+}
+.toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+.icons {
+  position: absolute;
+  inset: 0;
+}
+.icons svg {
+  position: absolute;
+  inset: 0;
+  width: 20px;
+  height: 20px;
+  transition: opacity 0.45s var(--ease-out-soft, ease), transform 0.45s var(--ease-out-soft, ease);
+}
+/* Day: sun shown, moon tucked away rotated. */
+.sun { opacity: 1; transform: rotate(0deg); }
+.moon { opacity: 0; transform: rotate(90deg); }
+/* Night. */
+.icons[data-dark="true"] .sun { opacity: 0; transform: rotate(-90deg); }
+.icons[data-dark="true"] .moon { opacity: 1; transform: rotate(0deg); }
+
+@media (prefers-reduced-motion: reduce) {
+  .icons svg { transition: opacity 0.01ms; }
+}

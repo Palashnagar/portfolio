@@ -53,6 +53,9 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${instrument.variable} ${bricolage.variable} ${jetbrains.variable}`}
+      // The pre-paint theme script below stamps data-theme on <html> before React
+      // hydrates; suppress the expected attribute-mismatch warning for this element.
+      suppressHydrationWarning
     >
       <body>
         {/* Apply the saved theme before first paint so a dark-mode visitor never

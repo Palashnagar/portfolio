@@ -22,6 +22,16 @@
   line-height: 1.5;
 }
 
+/* Dark: the desk drops below the sheet's navy (mirroring how the light desk sits
+   below the cream sheet) and the local hairline/chip/meta tints flip to the
+   off-white family so they stay visible on the dark sheet. Print is untouched. */
+:global(:root[data-theme="dark"]) .page {
+  --hair: rgba(239, 234, 224, 0.16);
+  --soft: rgba(239, 234, 224, 0.06);
+  --rmeta: #9ca0b0;
+  background: #070a15;
+}
+
 /* The sheet — A4-ish proportion, centered */
 .sheet {
   width: 100%;

@@ -66,11 +66,13 @@
 /* Clouds drift across the right half */
 .cloud {
   animation: drift 80s linear infinite;
+  transition: opacity 0.9s var(--ease-out-soft);
 }
 .cloudB {
   animation: drift 110s linear infinite;
   animation-delay: -40s;
   opacity: 0.55;
+  transition: opacity 0.9s var(--ease-out-soft);
 }
 @keyframes drift {
   from {
@@ -142,6 +144,9 @@
 
 :global(:root[data-theme="dark"]) .daySky { opacity: 0; }
 :global(:root[data-theme="dark"]) .nightSky { opacity: 1; }
+/* Cream cloud wisps read as grey streaks on the night sky — all but hide them. */
+:global(:root[data-theme="dark"]) .cloud { opacity: 0.08; }
+:global(:root[data-theme="dark"]) .cloudB { opacity: 0.06; }
 :global(:root[data-theme="dark"]) .sun { opacity: 0; }
 :global(:root[data-theme="dark"]) .moon { opacity: 1; }
 :global(:root[data-theme="dark"]) .stars { opacity: 1; }

@@ -228,10 +228,13 @@ export default function AmbientScene() {
               <stop offset="62%" stopColor="#0E1426" />
               <stop offset="100%" stopColor="#141C34" />
             </linearGradient>
-            <radialGradient id="haMoonAura" cx="0.82" cy="0.32" r="0.55">
-              <stop offset="0%" stopColor="#AEB8D8" stopOpacity="0.42" />
-              <stop offset="42%" stopColor="#8290B8" stopOpacity="0.18" />
-              <stop offset="100%" stopColor="#0B0F1E" stopOpacity="0" />
+            {/* Centered like haSunGlow so the fade reaches zero exactly at the
+                circle's edge — an off-center gradient gets clipped by the circle
+                and leaves a visible rim against the night sky. */}
+            <radialGradient id="haMoonAura" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0%" stopColor="#AEB8D8" stopOpacity="0.30" />
+              <stop offset="50%" stopColor="#8290B8" stopOpacity="0.10" />
+              <stop offset="100%" stopColor="#8290B8" stopOpacity="0" />
             </radialGradient>
             <radialGradient id="haMoonGlow" cx="0.5" cy="0.5" r="0.5">
               <stop offset="0%" stopColor="#DCE2F2" stopOpacity="0.5" />

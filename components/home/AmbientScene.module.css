@@ -139,8 +139,26 @@
 .nightSky { opacity: 0; transition: opacity 0.9s var(--ease-out-soft); }
 .sun { transition: opacity 0.85s var(--ease-out-soft); }
 .moon { opacity: 0; transition: opacity 0.85s var(--ease-out-soft); }
-.stars { opacity: 0; transition: opacity 1s var(--ease-out-soft) 0.12s; }
 .nightTint { opacity: 0; transition: opacity 0.9s var(--ease-out-soft) 0.05s; }
+
+/* Star layer: HTML spans (not SVG circles) so each twinkle is a tiny compositor
+   animation instead of a full ambient-SVG repaint per frame. Sits with the scene
+   (z -2, after .ambient so it paints above the sky), under the birds (z -1). */
+.starLayer {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 1s var(--ease-out-soft) 0.12s;
+}
+.starEl {
+  position: absolute;
+  border-radius: 50%;
+  background: #f3f0e6;
+  animation: twinkle 3.8s ease-in-out infinite;
+}
 
 :global(:root[data-theme="dark"]) .daySky { opacity: 0; }
 :global(:root[data-theme="dark"]) .nightSky { opacity: 1; }
@@ -149,7 +167,7 @@
 :global(:root[data-theme="dark"]) .cloudB { opacity: 0.06; }
 :global(:root[data-theme="dark"]) .sun { opacity: 0; }
 :global(:root[data-theme="dark"]) .moon { opacity: 1; }
-:global(:root[data-theme="dark"]) .stars { opacity: 1; }
+:global(:root[data-theme="dark"]) .starLayer { opacity: 1; }
 :global(:root[data-theme="dark"]) .nightTint { opacity: 0.52; }
 
 /* Birds recolor with the theme — the CSS stroke wins over the inline SVG attribute. */
@@ -158,7 +176,6 @@
 .birds svg path { stroke: var(--bird-stroke); transition: stroke 0.6s var(--ease-out-soft); }
 
 /* Star twinkle (frozen by the global reduced-motion rule). */
-.star { animation: twinkle 3.8s ease-in-out infinite; }
 @keyframes twinkle {
   0%, 100% { opacity: 0.4; }
   50% { opacity: 1; }

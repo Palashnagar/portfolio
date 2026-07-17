@@ -57,6 +57,12 @@ export function LoupeThumb({
     }
 
     function onEnter(e: MouseEvent) {
+      // Lazy-load the loupe image on first hover: these are the full-res source
+      // PNGs (up to ~1MB each), and eager background-image loads were costing the
+      // home page ~2MB for a layer most visitors never open. Touch never loads it.
+      if (!visual!.style.backgroundImage) {
+        visual!.style.backgroundImage = `url("${loupeImage}")`;
+      }
       const r = thumb!.getBoundingClientRect();
       px = e.clientX - r.left;
       py = e.clientY - r.top;
@@ -100,18 +106,15 @@ export function LoupeThumb({
       // If we unmount mid-hover, make sure the global cursor comes back.
       if (active) window.dispatchEvent(new Event("customCursor:show"));
     };
-  }, []);
+  }, [loupeImage]);
 
   return (
     <div ref={thumbRef} className={`${styles.thumb} ${className ?? ""}`}>
       <div className={styles.bg}>{children}</div>
       <span className={styles.sweep} aria-hidden="true" />
       <div ref={loupeRef} className={styles.loupe} aria-hidden="true">
-        <div
-          ref={visualRef}
-          className={styles.loupeVisual}
-          style={{ backgroundImage: `url("${loupeImage}")` }}
-        >
+        {/* backgroundImage is set lazily on first hover (see onEnter) */}
+        <div ref={visualRef} className={styles.loupeVisual}>
           <span className={styles.loupeLabel}>{label}</span>
         </div>
       </div>

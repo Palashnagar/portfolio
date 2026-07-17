@@ -253,20 +253,9 @@ export default function AmbientScene() {
           {/* Warm sun aura (no mask, softly extends across, fades into cream) */}
           <rect className={styles.daySky} width="1600" height="900" fill="url(#haSunAura)" />
 
-          {/* Stars, in the sky behind the sun/moon; fade in on dark */}
-          <g className={styles.stars}>
-            {STARS.map((s, i) => (
-              <circle
-                key={i}
-                className={styles.star}
-                cx={s.x}
-                cy={s.y}
-                r={s.r}
-                fill="#F3F0E6"
-                style={{ animationDelay: `${(i % 8) * 0.4}s` }}
-              />
-            ))}
-          </g>
+          {/* (Stars render as an HTML layer outside this SVG — see .starLayer below —
+              so their twinkle runs on the compositor instead of repainting the
+              whole ambient raster every frame.) */}
 
           {/* Sun glow + core (outside mask so they stay crisp on the right).
               Wrapped so mobile can lift the whole sun into the top-right sky,
@@ -349,6 +338,23 @@ export default function AmbientScene() {
             <rect className={styles.nightTint} width="1600" height="900" fill="#0A0E1C" />
           </g>
         </svg>
+      </div>
+
+      {/* ── Stars (own layer so twinkle composites on the GPU; fades in on dark) ── */}
+      <div className={styles.starLayer} aria-hidden="true">
+        {STARS.map((s, i) => (
+          <span
+            key={i}
+            className={styles.starEl}
+            style={{
+              left: `${((s.x / 1600) * 100).toFixed(2)}%`,
+              top: `${((s.y / 900) * 100).toFixed(2)}%`,
+              width: `${s.r * 2}px`,
+              height: `${s.r * 2}px`,
+              animationDelay: `${(i % 8) * 0.4}s`,
+            }}
+          />
+        ))}
       </div>
 
       {/* ── Birds (z-2) ── */}

@@ -33,13 +33,21 @@
   --bg: #0B0F1E; --ink: #EFEAE0; --accent: #F2632B; --accent-text: #F49A6A; --muted: #9CA0B0; --line: rgba(239, 234, 224, 0.16);
 }
 
+/* Dark: dim raster imagery slightly so baked-light screenshots and photos read as
+   framed artifacts on the dark page rather than lightboxes (standard dark-mode
+   practice). SVG chrome (logos, icons) is untouched. */
+:root[data-theme="dark"] img {
+  filter: brightness(0.86) saturate(0.95);
+}
+
 /* Smooth cross-fade, applied ONLY during an explicit toggle: ThemeToggle stamps
    [data-theme-anim] on <html> for the length of the switch, then removes it, so the
    transition never taxes normal interaction. */
 html[data-theme-anim] body,
 html[data-theme-anim] body * {
   transition: background-color 0.6s var(--ease-out-soft), color 0.5s var(--ease-out-soft),
-    border-color 0.6s var(--ease-out-soft), fill 0.6s var(--ease-out-soft), stroke 0.6s var(--ease-out-soft) !important;
+    border-color 0.6s var(--ease-out-soft), fill 0.6s var(--ease-out-soft), stroke 0.6s var(--ease-out-soft),
+    filter 0.6s var(--ease-out-soft) !important;
 }
 
 html { scroll-behavior: smooth; background: var(--bg); }

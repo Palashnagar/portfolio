@@ -12,6 +12,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useIntro } from "./intro-context";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 const links = [
   { href: "/work", label: "Work" },
@@ -177,6 +178,7 @@ export function MobileNav() {
                 <div>Rochester, NY</div>
                 <div className="mt-1">Available Dec 2026</div>
               </div>
+              <ThemeToggle />
               <Link
                 href="/contact"
                 onClick={() => setOpen(false)}

@@ -11,8 +11,9 @@ export function ThumbPhones({ screens }: { screens: string[] }) {
       style={{
         position: "absolute",
         inset: 0,
+        // theme bg under the ember glow, so the tile flips with dark mode
         background:
-          "radial-gradient(52% 56% at 50% 50%, rgba(233,78,27,0.14), rgba(233,78,27,0) 72%), #f5f1ea",
+          "radial-gradient(52% 56% at 50% 50%, rgba(233,78,27,0.14), rgba(233,78,27,0) 72%) var(--bg)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",

@@ -45,3 +45,15 @@
 @media (prefers-reduced-motion: reduce) {
   .icons svg { transition: opacity 0.01ms; }
 }
+
+/* Touch: grow the hit area to the 44px minimum; the icon stays 20px, centered. */
+@media (pointer: coarse) {
+  .toggle {
+    width: 44px;
+    height: 44px;
+    margin-left: 8px;
+  }
+  .icons {
+    inset: 12px;
+  }
+}

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { projects } from "@/data/projects";
 import { LoupeThumb } from "@/components/work/LoupeThumb";
 import { ThumbPhones } from "@/components/work/ThumbPhones";
+import { ThemedImage } from "@/components/theme/ThemedImage";
 import Image from "next/image";
 
 export function WorkGrid() {
@@ -23,6 +24,15 @@ export function WorkGrid() {
           <LoupeThumb className="aspect-[4/3] w-full rounded-2xl" loupeImage={p.thumb}>
             {p.thumbScreens ? (
               <ThumbPhones screens={p.thumbScreens} />
+            ) : p.thumbDark ? (
+              <ThemedImage
+                srcLight={p.thumb}
+                srcDark={p.thumbDark}
+                alt={`${p.title} ${p.accent}`}
+                fill
+                sizes="(max-width: 768px) 92vw, 46vw"
+                style={{ objectFit: "contain", objectPosition: p.thumbFocus }}
+              />
             ) : (
               <Image
                 src={p.thumb}

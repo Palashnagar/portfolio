@@ -11,6 +11,7 @@ import Link from "next/link";
 import { featuredProjects, type Project } from "@/data/projects";
 import { LoupeThumb } from "@/components/work/LoupeThumb";
 import { ThumbPhones } from "@/components/work/ThumbPhones";
+import { ThemedImage } from "@/components/theme/ThemedImage";
 import Image from "next/image";
 
 // ─── Sub-components ────────────────────────────────────────────────────────────
@@ -26,6 +27,17 @@ function Thumb({ p }: { p: Project }) {
       <LoupeThumb className="h-full w-full rounded-2xl" loupeImage={p.thumb}>
         {p.thumbScreens ? (
           <ThumbPhones screens={p.thumbScreens} />
+        ) : p.thumbDark ? (
+          // night variant swaps in with the theme; the loupe stays on the lit
+          // light hero on purpose ("look closer" reveals the artifact lit up)
+          <ThemedImage
+            srcLight={p.thumb}
+            srcDark={p.thumbDark}
+            alt={`${p.title} ${p.accent}`}
+            fill
+            sizes="(max-width: 768px) 85vw, 40vw"
+            style={{ objectFit: "contain", objectPosition: p.thumbFocus }}
+          />
         ) : (
           <Image
             src={p.thumb}

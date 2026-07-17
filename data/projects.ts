@@ -28,6 +28,7 @@ export interface Project {
   color: string; // brand color (kept for reference / future use)
   textColor: string; // readable text color on `color`
   thumb: string; // curated case-study hero, rendered full-bleed in the thumbnail
+  thumbDark?: string; // night variant of the hero (ThemedImage swaps on data-theme)
   thumbFocus: string; // object-position for the cover-crop (frames the key part)
   thumbScreens?: string[]; // optional: compose these phone screens on cream instead of one full-bleed hero (RIT EATS, whose real screens are individual phones)
   featured?: boolean; // shown on the home landing "selected work"; defaults to true. Set false to keep a project in the /work archive only.
@@ -51,6 +52,7 @@ export const projects: Project[] = [
     color: "#16294A",
     textColor: "#F5F1EA",
     thumb: "/case-studies/asnd/hero-card.png",
+    thumbDark: "/case-studies/asnd/hero-card-dark.png",
     thumbFocus: "center",
   },
   {
@@ -70,6 +72,7 @@ export const projects: Project[] = [
     color: "#E94E1B",
     textColor: "#FFF8F0",
     thumb: "/case-studies/mycourses/hero-tablet.png",
+    thumbDark: "/case-studies/mycourses/hero-tablet-dark.png",
     thumbFocus: "center",
   },
   {
@@ -91,6 +94,7 @@ export const projects: Project[] = [
     color: "#1E3A5F",
     textColor: "#F5F1EA",
     thumb: "/case-studies/roomiematch/hero.png",
+    thumbDark: "/case-studies/roomiematch/hero-dark.png",
     thumbFocus: "center",
   },
   {
@@ -110,6 +114,7 @@ export const projects: Project[] = [
     color: "#F5A623",
     textColor: "#1A1407",
     thumb: "/case-studies/rit-athletics/hero.png",
+    thumbDark: "/case-studies/rit-athletics/hero-dark.png",
     thumbFocus: "25% 50%",
   },
   {

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { ThemedImage } from "@/components/theme/ThemedImage";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { loadCaseStudy, listCaseStudySlugs } from "@/lib/mdx";
@@ -319,8 +320,9 @@ export default async function CaseStudyPage({
   const heroMedia = isMyCourses ? (
     // Self-contained mockup (tablet + brand gradient), shown whole at its natural
     // aspect, no extra frame. next/image optimizes the heavy source PNG.
-    <Image
-      src="/case-studies/mycourses/hero-tablet.png"
+    <ThemedImage
+      srcLight="/case-studies/mycourses/hero-tablet.png"
+      srcDark="/case-studies/mycourses/hero-tablet-dark.png"
       alt="The redesigned MyCourses dashboard, shown on a tablet."
       width={1860}
       height={1520}
@@ -331,8 +333,9 @@ export default async function CaseStudyPage({
   ) : isRoomieMatch ? (
     // Phone mockups on cream (NOT the dark-purple full-bleed banner). Purple lives
     // only inside the app screens; the page chrome stays cream/ink/orange.
-    <Image
-      src="/case-studies/roomiematch/hero.png"
+    <ThemedImage
+      srcLight="/case-studies/roomiematch/hero.png"
+      srcDark="/case-studies/roomiematch/hero-dark.png"
       alt="RoomieMatch shown on three phones, the lifestyle onboarding step, a swipe-to-match card, and the community listings."
       width={1600}
       height={1095}
@@ -343,8 +346,9 @@ export default async function CaseStudyPage({
   ) : isRitAthletics ? (
     // Live-game scoreboard phones on cream (the gray studio backdrop was
     // flood-filled to the page cream), not the old gray pedestal hero.
-    <Image
-      src="/case-studies/rit-athletics/hero.png"
+    <ThemedImage
+      srcLight="/case-studies/rit-athletics/hero.png"
+      srcDark="/case-studies/rit-athletics/hero-dark.png"
       alt="The redesigned RIT Athletics live-game view on two phones, a roster with RIT Tigers leading Boston University 3–2, and a live play-by-play commentary feed."
       width={1500}
       height={1077}
@@ -365,8 +369,9 @@ export default async function CaseStudyPage({
   ) : isAsnd ? (
     // The real v2 landing, cropped clean and floated on a blue glow over cream (a
     // baked composition, mirroring the MyCourses tablet-on-glow hero).
-    <Image
-      src="/case-studies/asnd/hero.png"
+    <ThemedImage
+      srcLight="/case-studies/asnd/hero.png"
+      srcDark="/case-studies/asnd/hero-dark.png"
       alt="The ASND web app on desktop: the landing page in a browser window, with the searchable directory of vetted creatives shown behind it."
       width={1900}
       height={1140}

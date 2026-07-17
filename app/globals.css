@@ -39,6 +39,10 @@
 :root[data-theme="dark"] img {
   filter: brightness(0.86) saturate(0.95);
 }
+/* Dark-native sources (ThemedImage) are built for the night — no dim. */
+:root[data-theme="dark"] img[data-dark-native="true"] {
+  filter: none;
+}
 
 /* Smooth cross-fade, applied ONLY during an explicit toggle: ThemeToggle stamps
    [data-theme-anim] on <html> for the length of the switch, then removes it, so the

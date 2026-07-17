@@ -1,59 +1,88 @@
-/* Small icon button that sits at the end of the header nav row. Sun and moon are
-   stacked and cross-faded (with a slight counter-rotation) so the switch reads as
-   one object changing state, matching the hero's sun becoming a moon. */
+/* Sun · moon pill toggle. Both states stay visible; an ink thumb slides over the
+   active side (same language as the explorations active chip: ink fill, bg-colored
+   glyph). Hairline track so it sits quietly with the 11px nav links. */
 
 .toggle {
-  margin-left: 20px;
-  width: 20px;
-  height: 20px;
+  --cell: 24px; /* icon cell square; the thumb matches it */
   position: relative;
-  color: var(--muted);
-  background: none;
-  border: 0;
-  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 20px;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  background: transparent;
   cursor: pointer;
   vertical-align: middle;
-  transition: color 0.2s var(--ease-out-soft, ease);
+  transition: border-color 0.2s var(--ease-out-soft, ease);
 }
 .toggle:hover {
-  color: var(--accent);
+  border-color: var(--muted);
 }
 .toggle:focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 4px;
-  border-radius: 3px;
+  outline-offset: 3px;
 }
 
-.icons {
+/* sliding ink disc under the active icon */
+.thumb {
   position: absolute;
-  inset: 0;
+  top: 2px;
+  left: 2px;
+  width: var(--cell);
+  height: var(--cell);
+  border-radius: 50%;
+  background: var(--ink);
+  transition: transform 0.35s var(--ease-out-soft, ease);
 }
-.icons svg {
-  position: absolute;
-  inset: 0;
-  width: 20px;
-  height: 20px;
-  transition: opacity 0.45s var(--ease-out-soft, ease), transform 0.45s var(--ease-out-soft, ease);
+.toggle[data-dark="true"] .thumb {
+  transform: translateX(var(--cell));
 }
-/* Day: sun shown, moon tucked away rotated. */
-.sun { opacity: 1; transform: rotate(0deg); }
-.moon { opacity: 0; transform: rotate(90deg); }
-/* Night. */
-.icons[data-dark="true"] .sun { opacity: 0; transform: rotate(-90deg); }
-.icons[data-dark="true"] .moon { opacity: 1; transform: rotate(0deg); }
+
+.cell {
+  position: relative;
+  z-index: 1;
+  width: var(--cell);
+  height: var(--cell);
+  display: grid;
+  place-items: center;
+  transition: color 0.35s var(--ease-out-soft, ease);
+}
+.cell svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* inactive glyph muted; the one under the thumb inverts to the page bg */
+.sunCell { color: var(--bg); }
+.moonCell { color: var(--muted); }
+.toggle[data-dark="true"] .sunCell { color: var(--muted); }
+.toggle[data-dark="true"] .moonCell { color: var(--bg); }
 
 @media (prefers-reduced-motion: reduce) {
-  .icons svg { transition: opacity 0.01ms; }
+  .thumb,
+  .cell {
+    transition: none;
+  }
 }
 
-/* Touch: grow the hit area to the 44px minimum; the icon stays 20px, centered. */
+/* Touch: keep the pill compact but guarantee a 44px hit area via padding-box. */
 @media (pointer: coarse) {
   .toggle {
-    width: 44px;
-    height: 44px;
+    --cell: 28px;
+    padding: 3px;
     margin-left: 8px;
   }
-  .icons {
-    inset: 12px;
+  .toggle::after {
+    content: "";
+    position: absolute;
+    inset: -6px;
+  }
+  .cell svg {
+    width: 15px;
+    height: 15px;
+  }
+  .toggle[data-dark="true"] .thumb {
+    transform: translateX(var(--cell));
   }
 }

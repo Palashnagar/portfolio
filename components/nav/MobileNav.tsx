@@ -86,6 +86,16 @@ export function MobileNav() {
 
   return (
     <div className="md:hidden">
+      {/* Theme pill lives in the top bar beside the menu trigger so it's always
+          visible (z-125: above the open menu overlay, below the trigger). It fades
+          in with the chrome during the homepage intro, same as the trigger. */}
+      <span
+        className="fixed right-[72px] top-4 z-[125] flex h-11 items-center [&>button]:ml-0"
+        style={triggerStyle}
+      >
+        <ThemeToggle />
+      </span>
+
       <button
         ref={buttonRef}
         type="button"
@@ -178,7 +188,6 @@ export function MobileNav() {
                 <div>Rochester, NY</div>
                 <div className="mt-1">Available Dec 2026</div>
               </div>
-              <ThemeToggle />
               <Link
                 href="/contact"
                 onClick={() => setOpen(false)}

@@ -93,7 +93,8 @@
   font-size: 9px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(10, 10, 10, 0.7);
+  /* token, not hardcoded ink: the pill bg is var(--bg), which flips in dark */
+  color: var(--muted);
   white-space: nowrap;
   background: var(--bg);
   padding: 4px 10px;

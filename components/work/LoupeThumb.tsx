@@ -47,13 +47,41 @@ export function LoupeThumb({
     let px = 0;
     let py = 0;
     let active = false;
+    // Natural size of the loupe image, probed on first hover. The thumbs render
+    // `contain`-fit (letterboxed), so the loupe must map the cursor to the actual
+    // rendered image band, not the whole thumb box — otherwise hovering the
+    // letterbox shows content from the wrong spot.
+    let natW = 0;
+    let natH = 0;
+    let probed = false;
 
     function place(w: number, h: number) {
       loupe!.style.transform = `translate3d(${px - HALF}px, ${py - HALF}px, 0)`;
-      // Magnify: size the image to ZOOM x the thumbnail width (height auto keeps
-      // the image's aspect, so it never squishes), then pan by the cursor.
-      visual!.style.backgroundSize = `${w * ZOOM}px auto`;
-      visual!.style.backgroundPosition = `${(px / w) * 100}% ${(py / h) * 100}%`;
+      // Map the cursor into the contain-fitted (centered) image rect; until the
+      // natural size arrives, fall back to whole-box mapping for a frame or two.
+      let relX = px / w;
+      let relY = py / h;
+      let bgW = w * ZOOM;
+      if (natW && natH) {
+        const imgAspect = natW / natH;
+        const boxAspect = w / h;
+        let rw = w;
+        let rh = h;
+        let ox = 0;
+        let oy = 0;
+        if (imgAspect > boxAspect) {
+          rh = w / imgAspect;
+          oy = (h - rh) / 2;
+        } else {
+          rw = h * imgAspect;
+          ox = (w - rw) / 2;
+        }
+        relX = Math.min(1, Math.max(0, (px - ox) / rw));
+        relY = Math.min(1, Math.max(0, (py - oy) / rh));
+        bgW = rw * ZOOM; // magnify 2x what is actually displayed
+      }
+      visual!.style.backgroundSize = `${bgW}px auto`;
+      visual!.style.backgroundPosition = `${relX * 100}% ${relY * 100}%`;
     }
 
     function onEnter(e: MouseEvent) {
@@ -62,6 +90,15 @@ export function LoupeThumb({
       // home page ~2MB for a layer most visitors never open. Touch never loads it.
       if (!visual!.style.backgroundImage) {
         visual!.style.backgroundImage = `url("${loupeImage}")`;
+      }
+      if (!probed) {
+        probed = true;
+        const probe = new window.Image();
+        probe.onload = () => {
+          natW = probe.naturalWidth;
+          natH = probe.naturalHeight;
+        };
+        probe.src = loupeImage;
       }
       const r = thumb!.getBoundingClientRect();
       px = e.clientX - r.left;
